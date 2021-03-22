@@ -17,8 +17,18 @@ $(document).ready(function () {
 
 
   	// Update session call based on user interaction
-	window.addEventListener('click', function() {
+	window.addEventListener('click', function(event) {
 		doUpdateSession = true;
+
+		// Get the element event and send to logEvent
+		console.log('DATASET: ', event.target.dataset);
+		if (event.target && event.target.dataset) {
+			if (event.target.dataset.eventCategory && event.target.eventAction) {
+				logEvent(event.target.dataset.eventCategory, event.target.eventAction);
+			}
+			// event.target.dataset
+		}
+
 	}, true);
 
 	setInterval( function() {

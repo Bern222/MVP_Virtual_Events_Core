@@ -1,9 +1,10 @@
 <?php
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
     header('Cache-Control: no-cache, no-store, must-revalidate');
     header('Pragma: no-cache');
     header('Expires: 0');
-
-    // require_once("../core/common.php");
+    // require_once($root . '/core/common.php');
 
     // REFACTOR: Need to find a new location for this check
 
@@ -66,11 +67,7 @@
     <!-- LOCAL CONFIG IMPORTS ------------------------------------------------------------------ -->
     <script src="config/configMainMenu.js?<?php echo rand();?>"></script>  
     <script src="config/configRoutes.js?<?php echo rand();?>"></script> 
-
-
-
-    <!-- CORE GLOBAL VARIABLES ------------------------------------------------------------------ -->
-    <script src="../core/js/globalVariables.js?<?php echo rand();?>"></script>
+    <script src="config/configGlobalVariables.js?<?php echo rand();?>"></script>
     
     <script>
         <?php if ($_SESSION['userid'] && $_SESSION['userdata']) { ?>
@@ -93,26 +90,20 @@
     
     <!-- CORE COMPONENT IMPORTS ------------------------------------------------------------- -->
     
-    <!-- Notifications -->
     <script src="../core/components/notification/notification.js?<?php echo rand();?>"></script>
     <link href="../core/components/notification/notification.css?<?php echo rand();?>"" rel="stylesheet">
 
-    <!-- Session -->
     <script src="../core/components/session/session.js?<?php echo rand();?>"></script>
     
-    <!-- Session Search -->
     <script src="../core/components/session-search/sessionSearch.js?<?php echo rand();?>"></script>
     <link href="../core/components/session-search/sessionSearch.css?<?php echo rand();?>"" rel="stylesheet">
 
-    <!-- Bookmark -->
     <script src="../core/components/bookmark/bookmark.js?<?php echo rand();?>"></script>
     <link href="../core/components/bookmark/bookmark.css?<?php echo rand();?>" rel="stylesheet">
 
-    <!-- Dynamic Agenda -->
     <script src="../core/components/agenda/agenda.js?<?php echo rand();?>"></script>
     <link href="../core/components/agenda/agenda.css?<?php echo rand();?>" rel="stylesheet">
 
-    <!-- Loading -->
     <script src="../core/components/loading/loading.js?<?php echo rand();?>"></script>
     <link href="../core/components/loading/loading.css?<?php echo rand();?>" rel="stylesheet">
 
@@ -120,6 +111,7 @@
     <!-- LOCAL METHOD IMPORTS ------------------------------------------------------------------ -->
     <script src="js/methodsLocalRouting.js?<?php echo rand();?>"></script>
 
+    
     <!-- LOCAL INIT ------------------------------------------------------------------ -->
     <script src="js/init.js?<?php echo rand();?>"></script>
 
@@ -149,157 +141,13 @@
         </div>
     </div>
     
+    <div id="routeContainer" class="default-container">
+            Dy
 
-<!-- Main Rooms ----------------------------------------------------------- -->
-    <div id="exterior" class="page-landscape-fullscreen exterior">
-        <div class="relative-container">
-            <!-- <div id="exteriorVideoContainer" class="exterior-video-container">
-                <div class="exterior-fly-in-video-player-container" onclick="flyIntoLobby();" style="position: absolute;width: 100%;top:0px;max-height: 100%;background-position: top;background-repeat: no-repeat; background-size: contain;">
-                    <div id="videoBkgFlyToContainer" class="full-background" >
-                        <video id="exteriorFlyInVideoPlayer" class="full-background" playsinline>
-                            <source src="https://d1vxcp6kmz704x.cloudfront.net/beyadigital/backgrounds-video/fly-in-v2.mp4" type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                </div>
-                <div class="full-background" onclick="flyIntoLobby();">
-                    <video id="exteriorVideoPlayer" class="full-background" loop playsinline>
-                        <source src="https://d1vxcp6kmz704x.cloudfront.net/beyadigital/backgrounds-video/exterior-v2.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-                <div class="welcome-overlay" onclick="startExteriorVideo()">
-                    <div>
-                        <div class="welcome-text">Welcome</div><br>
-                        <div class="welcome-click-text">Click to Enter</div>
-                    </div>
-                </div>
-            </div> -->
-        
-            <img id="exteriorImageBackground" class="full-background"/>
-        </div>
-    </div>
 
-    <div id="lobby" class="page-landscape-fullscreen lobby">
-		<div class="relative-container">
-			<!-- <div class="full-background">
-				<video id="lobbyVideoBackground" class="full-background" autoplay loop muted playsinline>
-				  <source src="https://d1vxcp6kmz704x.cloudfront.net/beyadigital/backgrounds-video/lobby_v4.mp4" type="video/mp4" />
-				  Your browser does not support the video tag.
-				</video>
-            </div> -->
-            <img id="lobbyImageBackground" class="full-background"/>
-        </div>
-    </div>
-
-    <div id="auditorium" class="page-landscape-fullscreen">
-        <div class="relative-container">
-            <img id="auditoriumImageBackground" class="full-background"/>
-            <!-- TODO: Need to make dynamic -->
-            <div class="black-button back-button" onclick="changeRoute('lobby');">Back</div>
-        </div>
-    </div>
-
-    <div id="exhibitHall" class="page-landscape-fullscreen">
-        <div class="relative-container">
-            <img id="exhibitHallImageBackground" class="full-background"/>
-            <!-- TODO: create container for multiple buttons -->
-            <div class="black-button back-button" onclick="changeRoute('lobby');">Back</div>
-        </div>
-    </div>
-
-    <div id="seminarRooms" class="page-landscape-fullscreen">
-        <div class="relative-container">
-            <img id="seminarRoomsImageBackground" class="full-background"/>
-            <!-- TODO: create container for multiple buttons -->
-            <div class="black-button back-button" onclick="changeRoute('lobby');">Back</div>
-            <div class="black-button first-under-back-button" onclick="openModalInline('seminarsModal', 1000)">Event Menu</div>
-        </div>
     </div>
 
 
-    <div id="networkingLounge" class="page-landscape-fullscreen">
-        <div class="relative-container">
-            <img id="seminarRoomsImageBackground" class="full-background"/>
-            <div class="black-button back-button" onclick="changeRoute('lobby');">Back</div>
-            <div class="black-button first-under-back-button" onclick="openSelectionModal('networkingLoungeModal');">Lounges</div>
-        </div>
-    </div>
-
-    <div id="informationDesk" class="page-landscape-fullscreen">
-        <div class="relative-container">
-            <img id="informationDeskImageBackground" class="full-background"/>
-            <div class="black-button back-button" onclick="changeRoute('lobby');">Back</div>
-		</div> 
-    </div>
-
-<!-- Exhibit Hall Booths ----------------------------------------------------------- -->
-
-    <div id="exhibit1" class="page-landscape-fullscreen exhibit1">
-        <div class="relative-container">
-            <img class="full-background" src="../core/images/backgrounds/exhibit-1.jpg"/>
-            <div class="black-button back-button" onclick="changeRoute('exhibit1');">Back</div>
-        </div>
-    </div>
-
-    <div id="exhibit2" class="page-landscape-fullscreen exhibit2">
-        <div class="relative-container">
-            <img class="full-background" src="../core/images/backgrounds/exhibit-2.jpg"/>
-            <div class="black-button back-button" onclick="changeRoute('exhibit2');">Back</div>
-        </div>
-    </div>
-
-    <div id="exhibit3" class="page-landscape-fullscreen exhibit3">
-        <div class="relative-container">
-            <img class="full-background" src="../core/images/backgrounds/exhibit-3.jpg"/>
-            <div class="black-button back-button" onclick="changeRoute('exhibit3');">Back</div>
-        </div>
-    </div>
-
-<!-- Seminar Rooms ----------------------------------------------------------- -->
-
-    <div id="seminar1" class="page-landscape-fullscreen seminar1">
-        <div class="relative-container">
-            <img class="full-background" src="../core/images/backgrounds/seminar-1.jpg"/>
-            <div class="black-button back-button" onclick="changeRoute('seminarRooms');">Back</div>
-        </div>
-    </div>
-
-    <div id="seminar2" class="page-landscape-fullscreen seminar2">
-        <div class="relative-container">
-            <img class="full-background" src="../core/images/backgrounds/seminar-2.jpg"/>
-            <div class="black-button back-button" onclick="changeRoute('seminarRooms');">Back</div>
-        </div>
-    </div>
-
-    <div id="seminar3" class="page-landscape-fullscreen seminar3">
-        <div class="relative-container">
-            <img class="full-background" src="../core/images/backgrounds/seminar-3.jpg"/>
-            <div class="black-button back-button" onclick="changeRoute('seminarRooms');">Back</div>
-        </div>
-    </div>
-
-<!-- Networking Lounges ----------------------------------------------------------- -->
-    <div id="networkingLounge1" class="page-landscape-fullscreen booze-allen-networking-lounge">
-        <div class="relative-container">
-            <div class="black-button back-button" onclick="changeRoute('networkingLounge');">Back</div>
-            <div class="black-button first-under-back-button" onclick="openChatRoom('networkingLounge1')">Chat Room</div>
-        </div>
-    </div>
-
-    <div id="networkingLounge1" class="page-landscape-fullscreen booze-allen-networking-lounge">
-        <div class="relative-container">
-            <div class="black-button back-button" onclick="changeRoute('networkingLounge');">Back</div>
-            <div class="black-button first-under-back-button" onclick="openChatRoom('networkingLounge2')">Chat Room</div>
-        </div>
-    </div>
-
-    <div id="networkingLounge1" class="page-landscape-fullscreen booze-allen-networking-lounge">
-        <div class="relative-container">
-            <div class="black-button back-button" onclick="changeRoute('networkingLounge');">Back</div>
-            <div class="black-button first-under-back-button" onclick="openChatRoom('networkingLounge3')">Chat Room</div>
-        </div>
-    </div>
 
 <!-- Modals ----------------------------------------------------------- -->
     <div id="auditoriumModal" class="modal-scroll modal-shadow modal-start-hidden modal-wide see-through-text-modal">
@@ -322,23 +170,23 @@
         </div>    
     </div>
 
-    <div id="seminarsModal" class="modal-shadow modal-start-hidden modal-menu-modal see-through-text-modal">
+    <div id="seminarRoomsModal" class="modal-shadow modal-start-hidden modal-menu-modal see-through-text-modal">
         <div class="modal-buttons">
-            <div class="modal-button" style="padding-bottom: 20px;" onclick="changeRoute('seminar1');">
+            <div class="modal-button" style="padding-bottom: 20px;" onclick="changeRoute('seminarRoom1');">
                 <img class="modal-list-thumb" src="../core/images/icons/icon-breakout.png"/>
                 <div>
                     <div class="modal-menu-title">Seminar Room 1</div>
                     <div class="modal-menu-description"></div>
                 </div>
             </div>
-            <div class="modal-button" style="padding-bottom: 20px;" onclick="changeRoute('seminar2');">
+            <div class="modal-button" style="padding-bottom: 20px;" onclick="changeRoute('seminarRoom2');">
                 <img class="modal-list-thumb" src="../core/images/icons/icon-breakout.png"/>
                 <div>
                     <div class="modal-menu-title">Seminar Room 2</div>
                     <div class="modal-menu-description"></div>
                 </div>
             </div>
-            <div class="modal-button" style="padding-bottom: 20px;" onclick="changeRoute('seminar3');">
+            <div class="modal-button" style="padding-bottom: 20px;" onclick="changeRoute('seminarRoom3');">
                 <img class="modal-list-thumb" src="../core/images/icons/icon-breakout.png"/>
                 <div>
                     <div class="modal-menu-title">Seminar Room 3</div>
@@ -405,9 +253,11 @@
         </div>
     </div>
 
-
     <div id="informationDeskModal" class="agenda-menu-modal" style="display: none; max-width: 800px;">
-        
+        <div>
+            <h4>Add Content Here</h4>
+        </div>
+        <div class="exhibit-block-button" onclick="$.fancybox.close();">Close</div>
     </div>
 
     <div id="profanityModal" class="not-availalbe-modal see-through-text-modal" style = "display: none; width: 400px;">

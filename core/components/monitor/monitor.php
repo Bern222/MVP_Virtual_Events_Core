@@ -1,4 +1,7 @@
 <?php
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
+
 header('Cache-Control: no-cache, no-store, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
@@ -7,7 +10,7 @@ function isMobile () {
   return is_numeric(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "mobile"));
 }
 
-require_once("common.php");
+require_once($root . "/core/common.php");
 
 if(validSession($_SESSION['userid'], $_SESSION['session_id']))
 {

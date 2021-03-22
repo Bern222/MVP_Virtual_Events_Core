@@ -1,4 +1,7 @@
 <?php
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
+
 
 //  Provide data for content sessions/videos for the Auditorium and Breakouts
 
@@ -7,7 +10,7 @@
 // error_reporting(E_ALL);
 
 
-require_once("../../common.php");
+require_once($root . "/core/common.php");
 
 $method = $_POST['method'];
 

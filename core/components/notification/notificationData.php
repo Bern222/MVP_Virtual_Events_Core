@@ -2,7 +2,7 @@
 
 //  Provide data for notifications
 
-// require_once("../../common.php");
+// require_once($root . "/core/common.php");
 
 $method = $_POST['method'];
 

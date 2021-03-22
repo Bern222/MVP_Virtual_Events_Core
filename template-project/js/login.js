@@ -66,7 +66,7 @@ function openLoginModal() {
 			src  : '#loginModal',
 			type : 'inline',
 			animationEffect: "zoom",
-			animationDuration: modalFadeTime,
+			animationDuration: 100,
        buttons: "",
 			opts : {
          smallBtn:false,
@@ -95,7 +95,7 @@ function doLogin()
     return false;
   }
 
-  request = $.post("modules/loginproc.php", { method: "processLogin", username: username, password: password});
+  request = $.post("../core/modules/loginproc.php", { method: "processLogin", username: username, password: password});
 
   request.done(function (response, textStatus, jqXHR) {
 
@@ -105,7 +105,7 @@ function doLogin()
     if(response == "Success!")
     {
 		responseText = '';
-		request = $.post("modules/loginproc.php", { method: "getAllSales"});
+		request = $.post("../core/modules/loginproc.php", { method: "getAllSales"});
   		request.done(function (responseAllSales, textStatusAllSales, jqXHRAllSales) {
 			var allSales = JSON.parse(responseAllSales);
 			
@@ -119,7 +119,7 @@ function doLogin()
 					found = true;
 					responseText = '';
 					document.getElementById('errordetail').style = "display: none;";
-					logit = $.post("modules/loginproc.php", { method: "logAccess", unique_code: password});
+					logit = $.post("../core/modules/loginproc.php", { method: "logAccess", unique_code: password});
 					logit.done(function (responseByDay, textStatusByDay, jqXHRByDay) {
 						window.location.replace('main.php');
 					});
@@ -127,7 +127,7 @@ function doLogin()
 				}
 
 				for (var i=0;i<allSales.length;i++) {
-					request = $.post("modules/loginproc.php", { method: "getAccessByDay", salesId: allSales[i].GUID});
+					request = $.post("../core/modules/loginproc.php", { method: "getAccessByDay", salesId: allSales[i].GUID});
 					request.done(function (responseByDay, textStatusByDay, jqXHRByDay) {
 						var access = JSON.parse(responseByDay);
 
@@ -140,7 +140,7 @@ function doLogin()
 									found = true;
 									responseText = '';
 									document.getElementById('errordetail').style = "display: none;";
-									logit = $.post("modules/loginproc.php", { method: "logAccess", uniqueCode: password});
+									logit = $.post("../core/modules/loginproc.php", { method: "logAccess", uniqueCode: password});
 									logit.done(function (responseByDay, textStatusByDay, jqXHRByDay) {
 										window.location.replace('main.php');
 									});

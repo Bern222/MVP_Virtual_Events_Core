@@ -1,6 +1,6 @@
 <?php
 class Chat{
-	// require_once("common.php");
+	// require_once($root . "/core/common.php");
 	// private $host = '127.0.0.1';
 	// private $user = 'mvpvirtualevents_dbuser';
 	// private $password = 'f1uOgykR$8#Z';

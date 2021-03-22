@@ -1,6 +1,6 @@
 const enumModals = {
     AUDITORIUM: 'auditoriumModal',
-    SEMINAR_ROOMS: 'seminarsModal',
+    SEMINAR_ROOMS: 'seminarRoomsModal',
     NETWORKING_LOUNGE: 'networkingLoungeModal',
     AGENDA: 'agendaModal',
     INFORMATION_DESK: 'informationDeskModal'

@@ -1,6 +1,4 @@
-function changeRoute(route) {
-    logEvent(route, enumButtonActions.OPEN_ROUTE);
-    
+function changeRoute(route) {    
     prepareRoute(route);
     localRouteMethods(route);
 

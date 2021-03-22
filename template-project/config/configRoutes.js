@@ -93,14 +93,49 @@ const configRoutes = [
         backgroundLandscape: '../core/images/backgrounds/auditorium.jpg',
         backgroundPortrait: '',
         backgroundVideoLandscape: '',
-        backgroundVideoPortrait: ''
+        backgroundVideoPortrait: '',
+        buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.LOBBY
+                }
+            ]
+        }
     },
     {
         id: enumRoutes.SEMINAR_ROOMS,
         backgroundLandscape: '../core/images/backgrounds/seminar-rooms.jpg',
         backgroundPortrait: '',
         backgroundVideoLandscape: '',
-        backgroundVideoPortrait: ''
+        backgroundVideoPortrait: '',
+        buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.LOBBY
+                },
+                {
+                    icon: '',
+                    buttonText: 'Event Menu',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_MODAL_INLINE,
+                    actionParams: enumModals.SEMINAR_ROOMS_MODAL
+                }
+            ]
+        }
     },
     {
         id: enumRoutes.SEMINAR_ROOM_1,
@@ -109,7 +144,18 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
-            landscape: [
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.SEMINAR_ROOMS
+                }
+            ],
+            landscape: [  
                 {
                     icon: '',
                     overrideCss: {
@@ -137,6 +183,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.SEMINAR_ROOMS
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -165,6 +222,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.SEMINAR_ROOMS
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -193,6 +261,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.LOBBY
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -240,6 +319,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.EXHIBIT_HALL
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -268,6 +358,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.EXHIBIT_HALL
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -296,6 +397,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.EXHIBIT_HALL
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -324,6 +436,26 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.EXHIBIT_HALL
+                },
+                {
+                    icon: '',
+                    buttonText: 'Lounges',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_MODAL_INLINE,
+                    actionParams: enumModals.NETWORKING_LOUNGE_MODAL
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -371,6 +503,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.NETWORKING_LOUNGE
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -400,6 +543,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.NETWORKING_LOUNGE
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -429,6 +583,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.NETWORKING_LOUNGE
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -457,6 +622,17 @@ const configRoutes = [
         backgroundVideoLandscape: '',
         backgroundVideoPortrait: '',
         buttons: {
+            pageButtons: [
+                {
+                    icon: '',
+                    buttonText: 'Back',
+                    classes: [
+                        'page-black-button'
+                    ],
+                    action: enumButtonActions.OPEN_ROUTE,
+                    actionParams: enumRoutes.LOBBY
+                }
+            ],
             landscape: [
                 {
                     icon: '',
@@ -478,7 +654,10 @@ const configRoutes = [
                         "height": "4%",
                     },
                     action: enumButtonActions.OPEN_EXTERNAL_LINK,
-                    actionParams: dataExternalLinks.INFORMATION_DESK_EXTERNAL_LINK
+                    actionParams: {
+                        url: '',
+                        name: '_blank' // name is defaulted to _blank if left empty
+                    }
                 },
                 {
                     icon: '',

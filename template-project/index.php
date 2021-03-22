@@ -1,4 +1,6 @@
 <?php
+$root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
 header('Cache-Control: no-cache, no-store, must-revalidate');
 header('Pragma: no-cache');
 header('Expires: 0');
@@ -6,8 +8,8 @@ header('Expires: 0');
 function isMobile () {
   return is_numeric(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "mobile"));
 }
-
-require_once("common.php");
+// echo $root . "/core/common.php";
+require_once($root . "/core/common.php");
 
 if($config['login_required'] == 0)
 {
@@ -82,7 +84,7 @@ if($function == "PWReset")
         crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>  
-  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="../core/css/main.css" />
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179015658-1"></script>
@@ -104,8 +106,8 @@ if($function == "PWReset")
   </script> -->
 
 
-  <script src="loginjs.php?<?php echo rand();?>"></script>
-  <!-- <script src="login.js?<?php echo rand();?>"></script> -->
+  <!-- <script src="loginjs.php?<?php echo rand();?>"></script> -->
+  <script src="js/login.js?<?php echo rand();?>"></script>
 
 
   <!-- <script src="js/ga.js"></script>   -->
@@ -153,7 +155,7 @@ $(document).ready(function () {
 <?php
 }
 ?>
-  fadeIn('<?php echo $firstpage; ?>');
+  // changeRoute('<?php echo $firstpage; ?>');
 }
 });
   </script>
@@ -185,7 +187,7 @@ $(document).ready(function () {
  <body>
   <div class="header">
    <div class="main-menu">
-    <div onclick="fadeIn('exterior')"><img class="menu-logo" src="images/logo.png"/></div>
+    <div><img class="menu-logo" src="../core/images/logos/logo.png"/></div>
    </div>
   </div>
 

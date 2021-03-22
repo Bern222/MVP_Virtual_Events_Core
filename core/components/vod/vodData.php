@@ -1,8 +1,10 @@
 <?php
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
 
 //  Provide data for content sessions/videos for the Auditorium and Breakouts
 
-require_once("common.php");
+require_once($root . "/core/common.php");
 
 echo json_encode(getVod());
 

@@ -2,9 +2,10 @@
    // ini_set('display_errors', 1);
    // ini_set('display_startup_errors', 1);
    // error_reporting(E_ALL);
+       $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
    
-   
-   require_once("common.php");
+   require_once($root . "/core/common.php");
 
    $method = $_POST['method'];
 

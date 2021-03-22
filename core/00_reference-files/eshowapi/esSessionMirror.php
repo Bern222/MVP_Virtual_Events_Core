@@ -1,6 +1,9 @@
 <?php
-require_once("../modules/dbaccess.php");
-require_once("../modules/config.php");
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
+
+require_once($root . "/core/modules/dbaccess.php");
+require_once($root . "/core/modules/config.php");
 
 // This script will download and mirror the session list from eShow
 

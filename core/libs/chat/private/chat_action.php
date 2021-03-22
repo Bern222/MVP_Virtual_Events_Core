@@ -1,4 +1,7 @@
 <?php
+    $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
+
 session_start();
 
 require_once("../profanity/config/profanities.php");

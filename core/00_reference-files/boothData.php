@@ -3,8 +3,10 @@
    // ini_set('display_startup_errors', 1);
    // error_reporting(E_ALL);
    
-   
-   require_once("common.php");
+       $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
+
+
+   require_once($root . "/core/common.php");
    // $dbhost = '127.0.0.1';
    // $dbuser = 'womenofcoloronln_dbuser';
    // $dbpass = 'S!1SL$O,We;p';

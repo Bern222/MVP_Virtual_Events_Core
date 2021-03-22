@@ -1,4 +1,6 @@
 const enumRoutes = {
+    MAIN_MENU: 'mainMenu',
+
     EXTERIOR: 'exterior',
     LOBBY: 'lobby',
     AUDITORIUM: 'auditorium',

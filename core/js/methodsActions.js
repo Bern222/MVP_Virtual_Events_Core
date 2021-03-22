@@ -1,18 +1,12 @@
-function openPDF(url, optionalRoute = '') {
-    logEvent(eventRoute, enumEvents.action.OPEN_PDF + ' - ' + url);
-
+function openPDF(url) {
     window.open(url);
 }
 
-function openExternalLink(url, optionalRoute = '') {
-    logEvent(determineCategory(optionalRoute), enumEvents.action.OPEN_EXTERNAL_URL + ' - ' + url);
-
+function openExternalLink(url) {
     window.open(url);
 }
 
-function openModalInline(modalId, customDelayTime = 0, optionalRoute = '') {
-    logEvent(determineCategory(optionalRoute), enumEvents.action.OPEN_MODAL + ' - ' + modalId);
-
+function openModalInline(modalId, customDelayTime = 0) {
     setTimeout(function() {
 		$.fancybox.open({
 			src  : '#' + modalId,
@@ -27,9 +21,7 @@ function openModalInline(modalId, customDelayTime = 0, optionalRoute = '') {
 	}, customDelayTime);
 }
 
-function openModalVideo(videoUrl, optionalRoute = '', onEndedCallback, beforeCloseCallback) {
-    logEvent(determineCategory(optionalRoute), enumEvents.action.OPEN_EXTERNAL_URL + ' - ' + videoUrl);
-
+function openModalVideo(videoUrl, onEndedCallback, beforeCloseCallback) {
     setTimeout(function() {
         $.fancybox.open({
             src  : videoUrl,
@@ -66,9 +58,7 @@ function openModalVideo(videoUrl, optionalRoute = '', onEndedCallback, beforeClo
     },100);
 }
 
-function openModalIframe(iframeUrl, optionalRoute = '') {
-    logEvent(determineCategory(optionalRoute), enumEvents.action.OPEN_IFRAME + ': ' + iframeUrl);
-
+function openModalIframe(iframeUrl) {
     var openAsNewTab = /MSIE|Trident|Edge|iPhone|iPad|iPod|Android/i.test(navigator.userAgent);  //  Note added IE to this as it doesn't open PDF's in iframe well in fancy box
     if(openAsNewTab) {
         // Open in new tab
