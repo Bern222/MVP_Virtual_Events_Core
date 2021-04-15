@@ -81,7 +81,6 @@ function prepareRoute(route) {
     $('#' + currentRoute).fadeTo(0, 0);
 	$('#' + currentRoute).hide();
     currentRoute = route;
-    console.log('PREPARE SHOW: ', route);
     $('#' + route).show();
 
     // TODO: Determine if this is CORE

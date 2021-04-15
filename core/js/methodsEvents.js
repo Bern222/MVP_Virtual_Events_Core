@@ -37,7 +37,6 @@ function getEventDataAttribute(routeId, buttonObj) {
 function initEventListeners() {
 	$('.event-tracked').on('click', function(event) {
 		// Get the element event and send to logEvent
-		console.log('DATASET INIT: ', event.currentTarget, event.target, event.currentTarget.dataset.eventCategory);
 		if (enableEventLogging && event.currentTarget && event.currentTarget.dataset) {
 			if (event.currentTarget.dataset.eventCategory && event.currentTarget.dataset.eventAction) {
 				logEvent(event.currentTarget.dataset.eventCategory, event.currentTarget.dataset.eventAction);
@@ -49,11 +48,13 @@ function initEventListeners() {
 
 function logEvent(category, action, value = currentUser.id) {
 	
+	var userId = value;
 	if (!value) {
+		userId = 1;
 		value = remoteIP + ' - ' + sessionUUID;
 	}
 
-	console.log('LOG EVENT: ', category, action, value);
+	// console.log('LOG EVENT: ', category, action, value);
 
 	gtag('event', category, { 'event_category': category, 'event_action': action, 'value': value});
 
@@ -61,9 +62,9 @@ function logEvent(category, action, value = currentUser.id) {
 	request = $.post("../core/eventLogger.php", {
 		method: "eventLogger", 
 		event_category: category,
-		currentUserId:  currentUser.id, 
+		currentUserId:  userId, 
 		event_action: action,
-		event_label: parseInt(currentUser.id)
+		event_label: value
 	});
 	request.done(function (response, textStatus, jqXHR) {
 	});

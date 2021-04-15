@@ -3,10 +3,7 @@
    // ini_set('display_startup_errors', 1);
    // error_reporting(E_ALL);
    
-       $root = $_SERVER['DOCUMENT_ROOT'] . '/core-sandbox';
-
-
-   require_once($root . "/core/common.php");
+   require_once("common.php");
 
 
    $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
