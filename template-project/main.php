@@ -5,6 +5,8 @@
     header('Pragma: no-cache');
     header('Expires: 0');
     // require_once($root . '/core/common.php');
+    require_once('../core/common.php');
+
 
     // REFACTOR: Need to find a new location for this check
 
@@ -45,11 +47,12 @@
     <script src="../core/libs/moment/moment.js"></script>  
     
 
-    <!-- TODO Check if needed -->
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <!-- Font Awesome (used for icons, may revisit) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 
 
+    <!-- PROJECT IMPORTS -------------------------------------------------------------------- -->
 
     <!-- CORE ENUM IMPORTS ------------------------------------------------------------------ -->
     <script src="../core/enums/enumButtonActions.js?<?php echo rand();?>"></script>
@@ -61,12 +64,12 @@
     <script src="enums/enumEvents.js?<?php echo rand();?>"></script>  
 
     <!-- LOCAL DATA IMPORTS ------------------------------------------------------------------ -->
-    <script src="data/dataExternalLinks.js?<?php echo rand();?>"></script>  
-    <script src="data/dataIframes.js?<?php echo rand();?>"></script> 
+    <script src="data/dataContent.js?<?php echo rand();?>"></script>  
 
     <!-- LOCAL CONFIG IMPORTS ------------------------------------------------------------------ -->
     <script src="config/configMainMenu.js?<?php echo rand();?>"></script>  
     <script src="config/configRoutes.js?<?php echo rand();?>"></script> 
+    <script src="config/configModals.js?<?php echo rand();?>"></script> 
     <script src="config/configGlobalVariables.js?<?php echo rand();?>"></script>
     
     <script>
@@ -85,11 +88,15 @@
     <script src="../core/js/methodsRouting.js?<?php echo rand();?>"></script>
     <script src="../core/js/methodsChat.js?<?php echo rand();?>"></script>
 
-    <link rel="stylesheet" href="../core/css/main.css?<?php echo rand();?>" />
+    <!-- CORE STYLE IMPORTS ------------------------------------------------------------------ -->
+    <link rel="stylesheet" href="../core/css/global.css?<?php echo rand();?>" />
+    <link rel="stylesheet" href="../core/css/header.css?<?php echo rand();?>" />
+    <link rel="stylesheet" href="../core/css/modal.css?<?php echo rand();?>" />
+    <link rel="stylesheet" href="../core/css/route.css?<?php echo rand();?>" />
 
-    
+
     <!-- CORE COMPONENT IMPORTS ------------------------------------------------------------- -->
-    
+    <!--     
     <script src="../core/components/notification/notification.js?<?php echo rand();?>"></script>
     <link href="../core/components/notification/notification.css?<?php echo rand();?>"" rel="stylesheet">
 
@@ -105,48 +112,24 @@
     <link href="../core/components/agenda/agenda.css?<?php echo rand();?>" rel="stylesheet">
 
     <script src="../core/components/loading/loading.js?<?php echo rand();?>"></script>
-    <link href="../core/components/loading/loading.css?<?php echo rand();?>" rel="stylesheet">
+    <link href="../core/components/loading/loading.css?<?php echo rand();?>" rel="stylesheet"> -->
 
 
     <!-- LOCAL METHOD IMPORTS ------------------------------------------------------------------ -->
     <script src="js/methodsLocalRouting.js?<?php echo rand();?>"></script>
-
+    
+    <!-- LOCAL STYLE IMPORTS ------------------------------------------------------------------ -->
+    <link rel="stylesheet" href="css/local.css?<?php echo rand();?>" />
     
     <!-- LOCAL INIT ------------------------------------------------------------------ -->
     <script src="js/init.js?<?php echo rand();?>"></script>
 
-
-
-
 </head>
   <body>
-    <div class="header">
-        <div id="mainMenuContainer" class="main-menu">
-            <!-- TODO Refactor -->
-            <div class="main-menu-routes"></div>
-            <div class='user-profile-container'>
-                <div class="user-profile">
-                    <div class="menu-item"><?php echo $_SESSION['chat_username']; ?></div>
-                    <div class="profile-container">
-                        <div class="subnav">
-                        <div class="arrow"></div>
-                        <ul>
-                            <li><div class="subnav-button" style="font-weight: bold;" onclick="openProfile()">Your Profile</div></li>
-                            <li><div class="subnav-button" onclick="logout()">Logout</div></li>
-                        </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="routeContainer" class="default-container">
-            Dy
-
-
-    </div>
-
+    <div class="header"></div>
+    <div id="routeContainer"></div>
+    <div id="modalContainer"></div>
+    <div class="notifications-container"></div>
 
 
 <!-- Modals ----------------------------------------------------------- -->
@@ -395,8 +378,6 @@
       <div class="loading-text"></div>
     </div>
 
-    <div class="notifications-container"> 
-         <!-- Dynamically Generated -->
-    </div>
+    <div id="portraitBlock"></div>
   </body>
 </html>

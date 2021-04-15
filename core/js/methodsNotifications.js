@@ -7,7 +7,6 @@ function toggleShowNotifications() {
 		showNotifications = true;
 	}
 
-	console.log('CURRENT USER:', currentUser);
 	if (currentUser) {
 		request = $.post("components/users/userData.php", {method: 'updateUserNotifications', userId: currentUser.id, showNotifications: showNotifications});
 		request.done(function (response, textStatus, jqXHR) {

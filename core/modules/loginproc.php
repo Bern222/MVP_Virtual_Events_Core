@@ -21,15 +21,15 @@ loadConfig();
 
 // Making these defines makes them global without having to declare them as globals in functions
 
-define("_eshowToken","0cb3dc2e22741e5fd4f2fbfbc1df9aeaa2e6831e584ccda4a13305c0cf4390071edf7f21165c734c79abc453b10d73da");
-define("_eshowEndpoint","https://s4.goeshow.com/webservices/eshow/Registration.cfc");
-define("_eshowIncludeSurvey",true);
-define("_eshowIncludeStatus",true);
-define("_eshowIncludeBooth",false);
-define("_eshowIncludePrimarySales",false); // Cannot be used with  _eshowIncludeAllSales
-define("_eshowIncludeAllSales",true);  //  Cannot be used with _eshowIncludePrimarySales
-define("_eshowDownloadResume",false); // Download resume if it exists
-define("_eshowSearchByEmail",true); // Search by Email address
+// define("_eshowToken","0cb3dc2e22741e5fd4f2fbfbc1df9aeaa2e6831e584ccda4a13305c0cf4390071edf7f21165c734c79abc453b10d73da");
+// define("_eshowEndpoint","https://s4.goeshow.com/webservices/eshow/Registration.cfc");
+// define("_eshowIncludeSurvey",true);
+// define("_eshowIncludeStatus",true);
+// define("_eshowIncludeBooth",false);
+// define("_eshowIncludePrimarySales",false); // Cannot be used with  _eshowIncludeAllSales
+// define("_eshowIncludeAllSales",true);  //  Cannot be used with _eshowIncludePrimarySales
+// define("_eshowDownloadResume",false); // Download resume if it exists
+// define("_eshowSearchByEmail",true); // Search by Email address
 //define("_eshowResumePath",$config['resume_path']);
 
 timeoutSessions();
@@ -67,16 +67,16 @@ function processLogin()
 
   $status = userVerify($username,$password);
 
-  if($status == _USER_UNKNOWN)
-  {
-    // We need to check with eShow
-    $userid = checkeShow($username,$password);
-    if($userid != 0)
-    {
-      // User found, call verify again
-      $status = userVerify($username,$password);
-    }
-  }
+  // if($status == _USER_UNKNOWN)
+  // {
+  //   // We need to check with eShow
+  //   $userid = checkeShow($username,$password);
+  //   if($userid != 0)
+  //   {
+  //     // User found, call verify again
+  //     $status = userVerify($username,$password);
+  //   }
+  // }
 
   if($status <= 0)
   {
@@ -126,288 +126,288 @@ function processLogin()
 }
 
 // This function will check for the individual and add them "on the fly" if needed
-function checkeShow($username,$password)
-{
-  global $db;
-  global $userdata;
-  global $config;
+// function checkeShow($username,$password)
+// {
+//   global $db;
+//   global $userdata;
+//   global $config;
 
-  $uid = 0; // user ID number
+//   $uid = 0; // user ID number
 
-  $elements = array();
+//   $elements = array();
 
-  $elements[] = "method=Registration_list";
-  $elements[] = "token="._eshowToken;
+//   $elements[] = "method=Registration_list";
+//   $elements[] = "token="._eshowToken;
 
-  if(_eshowIncludeSurvey) $elements[] = "IncludeSurvey=true";
-  if(_eshowIncludeStatus) $elements[] = "IncludeStatus=true";
-  if(_eshowIncludeBooth) $elements[] = "IncludeBooth=true";
-  if(_eshowIncludePrimarySales) $elements[] = "IncludePrimarySales=true";
-  if(_eshowIncludeAllSales) $elements[] = "IncludeAllSales=true";
-  $elements[] = "reducedSizePhoto=true";
+//   if(_eshowIncludeSurvey) $elements[] = "IncludeSurvey=true";
+//   if(_eshowIncludeStatus) $elements[] = "IncludeStatus=true";
+//   if(_eshowIncludeBooth) $elements[] = "IncludeBooth=true";
+//   if(_eshowIncludePrimarySales) $elements[] = "IncludePrimarySales=true";
+//   if(_eshowIncludeAllSales) $elements[] = "IncludeAllSales=true";
+//   $elements[] = "reducedSizePhoto=true";
 
-  if(_eshowSearchByEmail)
-  {
-    $elements[] = sprintf("searchByEmail=%s",$username);
-  }
-  else
-  {
-    $elements[] = sprintf("SearchByBadgeID=%s",$password);
-  }
+//   if(_eshowSearchByEmail)
+//   {
+//     $elements[] = sprintf("searchByEmail=%s",$username);
+//   }
+//   else
+//   {
+//     $elements[] = sprintf("SearchByBadgeID=%s",$password);
+//   }
 
-  if($page != 0) $elements[] = sprintf("Page=%d",($page+1));
+//   if($page != 0) $elements[] = sprintf("Page=%d",($page+1));
 
-  $url = _eshowEndpoint."?".implode("&",$elements);
+//   $url = _eshowEndpoint."?".implode("&",$elements);
 
-  $curl_handle = curl_init();
+//   $curl_handle = curl_init();
 
-  curl_setopt($curl_handle, CURLOPT_URL,$url); 
-  curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2); 
-  curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1); 
-  //curl_setopt($curl_handle, CURLOPT_USERAGENT, 'WomenOfColorOnline'); 
-  curl_setopt($curl_handle, CURLOPT_VERBOSE, true);
+//   curl_setopt($curl_handle, CURLOPT_URL,$url); 
+//   curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2); 
+//   curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1); 
+//   //curl_setopt($curl_handle, CURLOPT_USERAGENT, 'WomenOfColorOnline'); 
+//   curl_setopt($curl_handle, CURLOPT_VERBOSE, true);
 
-  $headers = array();
-  $headers[] = "Accept: application/json";
-  curl_setopt($curl_handle,  CURLOPT_HTTPHEADER, $headers );
+//   $headers = array();
+//   $headers[] = "Accept: application/json";
+//   curl_setopt($curl_handle,  CURLOPT_HTTPHEADER, $headers );
 
-  $response = curl_exec($curl_handle); 
-  curl_close($curl_handle); 
+//   $response = curl_exec($curl_handle); 
+//   curl_close($curl_handle); 
 
-  $list = json_decode($response,1);
+//   $list = json_decode($response,1);
 
-  if(isset($list['SUCCESS']))
-  {
-    if($list['SUCCESS'])
-    {
-      // We should have data, set the total number of pages for the loop (should always be 1 for this call)
-      $pagecount = intval($list['TOTAL_PAGES']);
+//   if(isset($list['SUCCESS']))
+//   {
+//     if($list['SUCCESS'])
+//     {
+//       // We should have data, set the total number of pages for the loop (should always be 1 for this call)
+//       $pagecount = intval($list['TOTAL_PAGES']);
 
-      // Loop through retrieved records...
-      for($i=0;$i<count($list['ATTENDEES']);$i++)
-      {
-        $resumeURL = "";
+//       // Loop through retrieved records...
+//       for($i=0;$i<count($list['ATTENDEES']);$i++)
+//       {
+//         $resumeURL = "";
 
-        $email = $list['ATTENDEES'][$i]['EMAIL'];
+//         $email = $list['ATTENDEES'][$i]['EMAIL'];
 
-        // Check to see if it already exists (if we got here, it should not!)
-        $ud = array("id"=>0);
-        $q = sprintf("SELECT * FROM users WHERE email='%s';",$db->real_escape_string($email));
-        if($r = $db->query($q))
-        {
-          if($r->num_rows > 0)
-          {
-            $ud = $r->fetch_assoc();
-          }
-          $r->close();
-        }
+//         // Check to see if it already exists (if we got here, it should not!)
+//         $ud = array("id"=>0);
+//         $q = sprintf("SELECT * FROM users WHERE email='%s';",$db->real_escape_string($email));
+//         if($r = $db->query($q))
+//         {
+//           if($r->num_rows > 0)
+//           {
+//             $ud = $r->fetch_assoc();
+//           }
+//           $r->close();
+//         }
 
-        if($ud['id'] != 0)
-        {
-          // User already exists, return the user ID (how did we get here?)
-          return($ud['id']);
-        }
+//         if($ud['id'] != 0)
+//         {
+//           // User already exists, return the user ID (how did we get here?)
+//           return($ud['id']);
+//         }
 
-        // New record, set all of the fields
-        $sets = array();
+//         // New record, set all of the fields
+//         $sets = array();
 
-        $sets[] = sprintf("email='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['EMAIL']));
+//         $sets[] = sprintf("email='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['EMAIL']));
 
-        $pw = $list['ATTENDEES'][$i]['BADGE_ID'];
-        if($config['login_encrypt_pw'] == 1)
-        {
-          $sets[] = sprintf("password='%s'",$db->real_escape_string(password_hash($pw,PASSWORD_DEFAULT)));
-          $sets[] = "password_encrypted=1";
-        }
-        else
-        {
-          $sets[] = sprintf("password='%s'",$db->real_escape_string($pw));
-          $sets[] = "password_encrypted=0";
-        }
-        $sets[] = sprintf("firstname='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['FIRST_NAME']));
-        $sets[] = sprintf("lastname='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['LAST_NAME']));
-        $sets[] = sprintf("company='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['COMPANY_NAME']));
+//         $pw = $list['ATTENDEES'][$i]['BADGE_ID'];
+//         if($config['login_encrypt_pw'] == 1)
+//         {
+//           $sets[] = sprintf("password='%s'",$db->real_escape_string(password_hash($pw,PASSWORD_DEFAULT)));
+//           $sets[] = "password_encrypted=1";
+//         }
+//         else
+//         {
+//           $sets[] = sprintf("password='%s'",$db->real_escape_string($pw));
+//           $sets[] = "password_encrypted=0";
+//         }
+//         $sets[] = sprintf("firstname='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['FIRST_NAME']));
+//         $sets[] = sprintf("lastname='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['LAST_NAME']));
+//         $sets[] = sprintf("company='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['COMPANY_NAME']));
 
-        if($list['ATTENDEES'][$i]['STATUS'] == "Approved")
-        {
-          $sets[] = "validated=1";
-        }
-        else
-        {
-          switch($list['ATTENDEES'][$i]['STATUS'])
-          {
-            case "Pending"   : break; // Just don't validate
-            case "Rejected"  : 
-            case "Cancelled" : $sets[] = "disabled=1"; break;
-            default          : break;
-          }
-        }
-        $cu = $list['ATTENDEES'][$i]['FIRST_NAME'].substr($list['ATTENDEES'][$i]['LAST_NAME'],0,1);
-        $sets[] = sprintf("chat_username='%s'",$db->real_escape_string($cu));
-        $sets[] = sprintf("avatar='%s'",$db->real_escape_string("user1.jpg"));
-        $sets[] = sprintf("unique_code='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['BADGE_ID']));
+//         if($list['ATTENDEES'][$i]['STATUS'] == "Approved")
+//         {
+//           $sets[] = "validated=1";
+//         }
+//         else
+//         {
+//           switch($list['ATTENDEES'][$i]['STATUS'])
+//           {
+//             case "Pending"   : break; // Just don't validate
+//             case "Rejected"  : 
+//             case "Cancelled" : $sets[] = "disabled=1"; break;
+//             default          : break;
+//           }
+//         }
+//         $cu = $list['ATTENDEES'][$i]['FIRST_NAME'].substr($list['ATTENDEES'][$i]['LAST_NAME'],0,1);
+//         $sets[] = sprintf("chat_username='%s'",$db->real_escape_string($cu));
+//         $sets[] = sprintf("avatar='%s'",$db->real_escape_string("user1.jpg"));
+//         $sets[] = sprintf("unique_code='%s'",$db->real_escape_string($list['ATTENDEES'][$i]['BADGE_ID']));
 
-        $q = "INSERT INTO users SET ".implode(",",$sets);
-        $uid = 0;
-        if($db->query($q))
-        {
-          // Query successful
-          $uid = $db->insert_id;
-          $ud['id'] = $uid;
-        }
+//         $q = "INSERT INTO users SET ".implode(",",$sets);
+//         $uid = 0;
+//         if($db->query($q))
+//         {
+//           // Query successful
+//           $uid = $db->insert_id;
+//           $ud['id'] = $uid;
+//         }
 
-        if($uid != 0)
-        {
-          if(_eshowIncludeSurvey)
-          {
-            $questions = $list['ATTENDEES'][$i]['QUESTION'];
-            // Store the question array
-            for($j=0;$j<count($questions);$j++)
-            {
-              $sets = array();
-              $sets[] = sprintf("userid=%d",$uid);
-              $sets[] = sprintf("CODE='%s'",$db->real_escape_string($questions[$j]['CODE']));
-              $sets[] = sprintf("ANSWER='%s'",$db->real_escape_string($questions[$j]['ANSWER']));
-              $sets[] = sprintf("KEY_ID='%s'",$db->real_escape_string($questions[$j]['KEY_ID']));
-              $sets[] = sprintf("TITLE='%s'",$db->real_escape_string($questions[$j]['TITLE']));
-              $q = "INSERT INTO eShowQuestions SET ".implode(",",$sets);
-              $db->query($q);
+//         if($uid != 0)
+//         {
+//           if(_eshowIncludeSurvey)
+//           {
+//             $questions = $list['ATTENDEES'][$i]['QUESTION'];
+//             // Store the question array
+//             for($j=0;$j<count($questions);$j++)
+//             {
+//               $sets = array();
+//               $sets[] = sprintf("userid=%d",$uid);
+//               $sets[] = sprintf("CODE='%s'",$db->real_escape_string($questions[$j]['CODE']));
+//               $sets[] = sprintf("ANSWER='%s'",$db->real_escape_string($questions[$j]['ANSWER']));
+//               $sets[] = sprintf("KEY_ID='%s'",$db->real_escape_string($questions[$j]['KEY_ID']));
+//               $sets[] = sprintf("TITLE='%s'",$db->real_escape_string($questions[$j]['TITLE']));
+//               $q = "INSERT INTO eShowQuestions SET ".implode(",",$sets);
+//               $db->query($q);
 
-              if(_eshowDownloadResume)
-              {
-                // see if it's the resume field
-                if($questions[$j]['KEY_ID'] == "05931DC7-62CA-42E0-A7D6-5891E5445497")
-                {
-                  if($questions[$j]['ANSWER'] != "") $resumeURL = $questions[$j]['ANSWER']; 
-                }
-              }
-            }
-          }                  
+//               if(_eshowDownloadResume)
+//               {
+//                 // see if it's the resume field
+//                 if($questions[$j]['KEY_ID'] == "05931DC7-62CA-42E0-A7D6-5891E5445497")
+//                 {
+//                   if($questions[$j]['ANSWER'] != "") $resumeURL = $questions[$j]['ANSWER']; 
+//                 }
+//               }
+//             }
+//           }                  
 
-          if(_eshowIncludePrimarySales)
-          {
-            $sales = $list['ATTENDEES'][$i]['SALES_ITEMS_INCLUDE_PRIMARY'];
-            // Store the info array
-            for($j=0;$j<count($sales);$j++)
-            {
-              $sets = array();
-              $sets[] = sprintf("userid=%d",$uid);
-              $sets[] = sprintf("GL_CODE='%s'",$db->real_escape_string($sales[$j]['GL_CODE']));
-              $sets[] = sprintf("CATEGORY_KEY='%s'",$db->real_escape_string($sales[$j]['CATEGORY_KEY']));
-              $sets[] = sprintf("AMOUNT='%s'",$db->real_escape_string($sales[$j]['AMOUNT']));
-              $sets[] = sprintf("QTY='%s'",$db->real_escape_string($sales[$j]['QTY']));
-              $sets[] = sprintf("GUID='%s'",$db->real_escape_string($sales[$j]['GUID']));
-              $sets[] = sprintf("PRIMARYFEE='%s'",$db->real_escape_string($sales[$j]['PRIMARYFEE']));
-              $sets[] = sprintf("ITEM_CODE='%s'",$db->real_escape_string($sales[$j]['ITEM_CODE']));
-              $sets[] = sprintf("TITLE='%s'",$db->real_escape_string($sales[$j]['TITLE']));
-              $sets[] = sprintf("PRODUCTGUID='%s'",$db->real_escape_string($sales[$j]['PRODUCTGUID']));
-              $sets[] = sprintf("FEE_CODE='%s'",$db->real_escape_string($sales[$j]['FEE_CODE']));
-              $sets[] = sprintf("SALESDATE='%s'",$db->real_escape_string($sales[$j]['SALESDATE']));
-              $q = "INSERT INTO eShowSalesItemsShowPrimary SET ".implode(",",$sets);
-              $db->query($q);
-            }
-          }  
+//           if(_eshowIncludePrimarySales)
+//           {
+//             $sales = $list['ATTENDEES'][$i]['SALES_ITEMS_INCLUDE_PRIMARY'];
+//             // Store the info array
+//             for($j=0;$j<count($sales);$j++)
+//             {
+//               $sets = array();
+//               $sets[] = sprintf("userid=%d",$uid);
+//               $sets[] = sprintf("GL_CODE='%s'",$db->real_escape_string($sales[$j]['GL_CODE']));
+//               $sets[] = sprintf("CATEGORY_KEY='%s'",$db->real_escape_string($sales[$j]['CATEGORY_KEY']));
+//               $sets[] = sprintf("AMOUNT='%s'",$db->real_escape_string($sales[$j]['AMOUNT']));
+//               $sets[] = sprintf("QTY='%s'",$db->real_escape_string($sales[$j]['QTY']));
+//               $sets[] = sprintf("GUID='%s'",$db->real_escape_string($sales[$j]['GUID']));
+//               $sets[] = sprintf("PRIMARYFEE='%s'",$db->real_escape_string($sales[$j]['PRIMARYFEE']));
+//               $sets[] = sprintf("ITEM_CODE='%s'",$db->real_escape_string($sales[$j]['ITEM_CODE']));
+//               $sets[] = sprintf("TITLE='%s'",$db->real_escape_string($sales[$j]['TITLE']));
+//               $sets[] = sprintf("PRODUCTGUID='%s'",$db->real_escape_string($sales[$j]['PRODUCTGUID']));
+//               $sets[] = sprintf("FEE_CODE='%s'",$db->real_escape_string($sales[$j]['FEE_CODE']));
+//               $sets[] = sprintf("SALESDATE='%s'",$db->real_escape_string($sales[$j]['SALESDATE']));
+//               $q = "INSERT INTO eShowSalesItemsShowPrimary SET ".implode(",",$sets);
+//               $db->query($q);
+//             }
+//           }  
             
-          if(_eshowIncludeAllSales)
-          {
-            $sales = $list['ATTENDEES'][$i]['SALES_ITEMS_INCLUDE_ALL_SALES'];
-            // Store the info array
-            for($j=0;$j<count($sales);$j++)
-            {
-              $sets = array();
-              $sets[] = sprintf("userid=%d",$uid);
-              $sets[] = sprintf("GL_CODE='%s'",$db->real_escape_string($sales[$j]['GL_CODE']));
-              $sets[] = sprintf("CATEGORY_KEY='%s'",$db->real_escape_string($sales[$j]['CATEGORY_KEY']));
-              $sets[] = sprintf("AMOUNT='%s'",$db->real_escape_string($sales[$j]['AMOUNT']));
-              $sets[] = sprintf("QTY='%s'",$db->real_escape_string($sales[$j]['QTY']));
-              $sets[] = sprintf("GUID='%s'",$db->real_escape_string($sales[$j]['GUID']));
-              $sets[] = sprintf("PRIMARYFEE='%s'",$db->real_escape_string($sales[$j]['PRIMARYFEE']));
-              $sets[] = sprintf("ITEM_CODE='%s'",$db->real_escape_string($sales[$j]['ITEM_CODE']));
-              $sets[] = sprintf("TITLE='%s'",$db->real_escape_string($sales[$j]['TITLE']));
-              $sets[] = sprintf("PRODUCTGUID='%s'",$db->real_escape_string($sales[$j]['PRODUCTGUID']));
-              $sets[] = sprintf("FEE_CODE='%s'",$db->real_escape_string($sales[$j]['FEE_CODE']));
-              $sets[] = sprintf("SALESDATE='%s'",$db->real_escape_string($sales[$j]['SALESDATE']));
-              $q = "INSERT INTO eShowSalesItemsIncludeAllSales SET ".implode(",",$sets);
-              $db->query($q);
-            }
-          }  
+//           if(_eshowIncludeAllSales)
+//           {
+//             $sales = $list['ATTENDEES'][$i]['SALES_ITEMS_INCLUDE_ALL_SALES'];
+//             // Store the info array
+//             for($j=0;$j<count($sales);$j++)
+//             {
+//               $sets = array();
+//               $sets[] = sprintf("userid=%d",$uid);
+//               $sets[] = sprintf("GL_CODE='%s'",$db->real_escape_string($sales[$j]['GL_CODE']));
+//               $sets[] = sprintf("CATEGORY_KEY='%s'",$db->real_escape_string($sales[$j]['CATEGORY_KEY']));
+//               $sets[] = sprintf("AMOUNT='%s'",$db->real_escape_string($sales[$j]['AMOUNT']));
+//               $sets[] = sprintf("QTY='%s'",$db->real_escape_string($sales[$j]['QTY']));
+//               $sets[] = sprintf("GUID='%s'",$db->real_escape_string($sales[$j]['GUID']));
+//               $sets[] = sprintf("PRIMARYFEE='%s'",$db->real_escape_string($sales[$j]['PRIMARYFEE']));
+//               $sets[] = sprintf("ITEM_CODE='%s'",$db->real_escape_string($sales[$j]['ITEM_CODE']));
+//               $sets[] = sprintf("TITLE='%s'",$db->real_escape_string($sales[$j]['TITLE']));
+//               $sets[] = sprintf("PRODUCTGUID='%s'",$db->real_escape_string($sales[$j]['PRODUCTGUID']));
+//               $sets[] = sprintf("FEE_CODE='%s'",$db->real_escape_string($sales[$j]['FEE_CODE']));
+//               $sets[] = sprintf("SALESDATE='%s'",$db->real_escape_string($sales[$j]['SALESDATE']));
+//               $q = "INSERT INTO eShowSalesItemsIncludeAllSales SET ".implode(",",$sets);
+//               $db->query($q);
+//             }
+//           }  
 
-          if(_eshowDownloadResume)
-          {
-            if($resumeURL != "")
-            {
-              $curl_handle = curl_init();
+//           if(_eshowDownloadResume)
+//           {
+//             if($resumeURL != "")
+//             {
+//               $curl_handle = curl_init();
 
-              curl_setopt($curl_handle, CURLOPT_URL,$resumeURL); 
-              curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2); 
-              curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1); 
-              curl_setopt($curl_handle, CURLOPT_HEADER, 1); // return HTTP headers with response
-              curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
-              //curl_setopt($curl_handle, CURLOPT_USERAGENT, 'WomenOfColorOnline'); 
-              curl_setopt($curl_handle, CURLOPT_VERBOSE, true);
+//               curl_setopt($curl_handle, CURLOPT_URL,$resumeURL); 
+//               curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 2); 
+//               curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1); 
+//               curl_setopt($curl_handle, CURLOPT_HEADER, 1); // return HTTP headers with response
+//               curl_setopt($curl_handle, CURLOPT_FOLLOWLOCATION, true);
+//               //curl_setopt($curl_handle, CURLOPT_USERAGENT, 'WomenOfColorOnline'); 
+//               curl_setopt($curl_handle, CURLOPT_VERBOSE, true);
 
-              $headers = array();
-              $headers[] = "Accept: */*";
-              curl_setopt($curl_handle,  CURLOPT_HTTPHEADER, $headers );
+//               $headers = array();
+//               $headers[] = "Accept: */*";
+//               curl_setopt($curl_handle,  CURLOPT_HTTPHEADER, $headers );
 
-              $response = curl_exec($curl_handle); 
-              if(curl_errno == 0)
-              {
-                // Save the file.
-                $headers = array();
+//               $response = curl_exec($curl_handle); 
+//               if(curl_errno == 0)
+//               {
+//                 // Save the file.
+//                 $headers = array();
 
-                list($rawheaders, $resp) = explode("\r\n\r\n", $response, 2);
-                $headerlist = explode("\n",$rawheaders);
-                for($j=0;$j<count($headerlist);$j++)
-                {
-                  $hd = explode(":",$headerlist[$j]);
-                  if(count($hd) == 2)
-                  {
-                    $headers[trim($hd[0])] = trim($hd[1]);
-                  }
-                }
+//                 list($rawheaders, $resp) = explode("\r\n\r\n", $response, 2);
+//                 $headerlist = explode("\n",$rawheaders);
+//                 for($j=0;$j<count($headerlist);$j++)
+//                 {
+//                   $hd = explode(":",$headerlist[$j]);
+//                   if(count($hd) == 2)
+//                   {
+//                     $headers[trim($hd[0])] = trim($hd[1]);
+//                   }
+//                 }
       
-                $url = curl_getinfo($curl_handle, CURLINFO_EFFECTIVE_URL);
-                $headerlist = explode("\n",$url);
-                // $url = 'http://stackoverflow.com/questions/4091203/how-can-i-get-file-name-from-header-using-curl-in-php'; 
-                $params = explode('/', $url);
-                $fn = $params[count($params) - 1];
-                $f = explode("?",$fn);
-                $fileNameFromHeader = $f[0];
+//                 $url = curl_getinfo($curl_handle, CURLINFO_EFFECTIVE_URL);
+//                 $headerlist = explode("\n",$url);
+//                 // $url = 'http://stackoverflow.com/questions/4091203/how-can-i-get-file-name-from-header-using-curl-in-php'; 
+//                 $params = explode('/', $url);
+//                 $fn = $params[count($params) - 1];
+//                 $f = explode("?",$fn);
+//                 $fileNameFromHeader = $f[0];
 
-                $fnparts = explode(".",$fileNameFromHeader);
+//                 $fnparts = explode(".",$fileNameFromHeader);
 
-                $ext = $fnparts[count($fnparts)-1];
+//                 $ext = $fnparts[count($fnparts)-1];
 
-                $destination = $config['resume_folder']."/".trim($list['ATTENDEES'][$i]['BADGE_ID']).".".$ext;
-                $filename = trim($list['ATTENDEES'][$i]['BADGE_ID']).".".$ext;
-                $filesize = intval($headers['Content-Length']);
+//                 $destination = $config['resume_folder']."/".trim($list['ATTENDEES'][$i]['BADGE_ID']).".".$ext;
+//                 $filename = trim($list['ATTENDEES'][$i]['BADGE_ID']).".".$ext;
+//                 $filesize = intval($headers['Content-Length']);
 
-                if(file_exists($destination)) unlink($destination);
-                $handle = fopen($destination,"wb");
-                if($handle !== false)
-                {
-                  fwrite($handle,$resp,$filesize);
-                  fclose($handle);
-                }
+//                 if(file_exists($destination)) unlink($destination);
+//                 $handle = fopen($destination,"wb");
+//                 if($handle !== false)
+//                 {
+//                   fwrite($handle,$resp,$filesize);
+//                   fclose($handle);
+//                 }
 
-                // Update the user table
-                $sets = array();
-                $sets[] = sprintf("resume_filename='%s'",$db->real_escape_string($filename));
-                $sets[] = sprintf("resume_mime='%s'",$db->real_escape_string($headers['Content-Type']));
-                $q = "UPDATE users SET ".implode(",",$sets).sprintf(" WHERE id=%d",$uid);
-                $db->query($q);
-              }
+//                 // Update the user table
+//                 $sets = array();
+//                 $sets[] = sprintf("resume_filename='%s'",$db->real_escape_string($filename));
+//                 $sets[] = sprintf("resume_mime='%s'",$db->real_escape_string($headers['Content-Type']));
+//                 $q = "UPDATE users SET ".implode(",",$sets).sprintf(" WHERE id=%d",$uid);
+//                 $db->query($q);
+//               }
 
-              curl_close($curl_handle); 
-            }
-          }  // post add 
-        }  // user Added, additional additions
-      }  // for i loop
-    }  // success true
-  }  // isset success
-  return $uid;
-}
+//               curl_close($curl_handle); 
+//             }
+//           }  // post add 
+//         }  // user Added, additional additions
+//       }  // for i loop
+//     }  // success true
+//   }  // isset success
+//   return $uid;
+// }
 
 function processLogout() 
 {

@@ -5,10 +5,10 @@ function localRouteMethods(route) {
             
         break;
         case enumRoutes.LOBBY:
-            openModalVideo(dataExternalLinks.LOBBY, 1000);
+            openModalVideo(dataContent.FILES.SAMPLE_VIDEO, 1000);
         break;
         case enumRoutes.AUDITORIUM:
-            openModalIframe(dataIframes.AUDITORIUM, 1000);
+            openModalInline(enumModals.AUDITORIUM, 1000);
         break;
         case enumRoutes.SEMINAR_ROOMS:
             openModalInline(enumModals.SEMINAR_ROOMS, 1000);
@@ -20,4 +20,12 @@ function localRouteMethods(route) {
             openModalInline(enumModals.INFORMATION_DESK, 1000);
         break;
     }
+}
+
+function videoOnEndedCallback() {
+
+}
+
+function videoBeforeCloseCallback() {
+
 }

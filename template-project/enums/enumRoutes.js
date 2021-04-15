@@ -1,5 +1,6 @@
 const enumRoutes = {
     MAIN_MENU: 'mainMenu',
+    PROFILE: 'profile',
 
     EXTERIOR: 'exterior',
     LOBBY: 'lobby',
@@ -21,4 +22,4 @@ const enumRoutes = {
     NETWORKING_LOUNGE_3: 'networkingLounge3',
 
     INFORMATION_DESK: 'informationDesk',
-}
+};

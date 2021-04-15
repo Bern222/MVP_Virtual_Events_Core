@@ -23,7 +23,7 @@ const enumEvents = {
         ROUTE_CHANGE: 'Route Change',
 
         OPEN_MODAL: 'Open Modal',
-        OPEN_PDF: 'Open PDF',
+        OPEN_FILE: 'Open File',
         OPEN_EXTERNAL_LINK: 'Open External Link',
         OPEN_VIDEO: 'Open Video',
         OPEN_ZOOM: 'Open Zoom',

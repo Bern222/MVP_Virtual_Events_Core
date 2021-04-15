@@ -1,4 +1,5 @@
 const configMainMenu = {
+    enableMobileMenu: true,
     logo: {
         imagePath: '../core/images/logos/logo.png',
         action: enumButtonActions.OPEN_EXTERNAL_LINK,
@@ -36,12 +37,25 @@ const configMainMenu = {
         {
             displayText: 'Agenda',
             action: enumButtonActions.OPEN_MODAL_INLINE,
-            actionParams: enumRoutes.AGENDA
+            actionParams: enumModals.AGENDA
         },
         {
             displayText: 'Information Desk',
             action: enumButtonActions.OPEN_ROUTE,
             actionParams: enumRoutes.INFORMATION_DESK
         }
-    ]   
+    ],
+    rightMenu: {
+        menuItems: [
+            {
+                displayText: 'Your Profile',
+                action: enumButtonActions.OPEN_MODAL_INLINE,
+                actionParams: enumModals.PROFILE
+            },
+            {
+                displayText: 'Logout',
+                action: enumButtonActions.LOGOUT
+            }
+        ]
+    }
 }

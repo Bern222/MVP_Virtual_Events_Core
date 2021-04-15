@@ -1,0 +1,70 @@
+/* TODO review */
+
+.trivia-intro-container {
+
+}
+
+.trivia-intro-text {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.trivia-final-text {
+    display: none;
+    margin-bottom: 20px;
+}
+
+.trivia-continue-button {
+    display: none;
+}
+
+.trivia-questions-container {
+    display: none;
+}
+
+.trivia-question {
+
+}
+
+.trivia-question-text {
+    font-size: 23px;
+}
+
+.trivia-answer-container {
+
+}
+
+.trivia-answer {
+    cursor: pointer;
+    font-size: 18px;
+    margin: 5px 0;
+    transition: all .2s ease-in-out;
+}
+
+.trivia-answer:hover {
+    transform: scale(1.1);
+}
+
+.trivia-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trivia-nav-button {
+    cursor: pointer;
+    margin: 20px;
+    
+}
+
+.trivia-nav-previous {
+
+}
+
+.trivia-nav-next {
+
+}
+
+.trivia-active {
+    font-weight: bold;
+}

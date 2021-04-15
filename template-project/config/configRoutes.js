@@ -100,7 +100,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.LOBBY
@@ -120,7 +120,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.LOBBY
@@ -129,7 +129,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Event Menu',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_MODAL_INLINE,
                     actionParams: enumModals.SEMINAR_ROOMS_MODAL
@@ -149,7 +149,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.SEMINAR_ROOMS
@@ -188,7 +188,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.SEMINAR_ROOMS
@@ -227,7 +227,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.SEMINAR_ROOMS
@@ -266,7 +266,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.LOBBY
@@ -324,7 +324,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.EXHIBIT_HALL
@@ -363,7 +363,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.EXHIBIT_HALL
@@ -402,7 +402,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.EXHIBIT_HALL
@@ -441,7 +441,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.EXHIBIT_HALL
@@ -450,7 +450,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Lounges',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_MODAL_INLINE,
                     actionParams: enumModals.NETWORKING_LOUNGE_MODAL
@@ -508,7 +508,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.NETWORKING_LOUNGE
@@ -548,7 +548,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.NETWORKING_LOUNGE
@@ -588,7 +588,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.NETWORKING_LOUNGE
@@ -627,7 +627,7 @@ const configRoutes = [
                     icon: '',
                     buttonText: 'Back',
                     classes: [
-                        'page-black-button'
+                        'route-side-button'
                     ],
                     action: enumButtonActions.OPEN_ROUTE,
                     actionParams: enumRoutes.LOBBY
@@ -642,8 +642,8 @@ const configRoutes = [
                         "width": "15%",
                         "height": "3%",
                     },
-                    action: enumButtonActions.OPEN_PDF,
-                    actionParams: dataExternalLinks.INFORMATION_DESK_PDF
+                    action: enumButtonActions.OPEN_FILE,
+                    actionParams: dataContent.FILES.SAMPLE_PDF
                 },
                 {
                     icon: '',
@@ -668,7 +668,7 @@ const configRoutes = [
                         "height": "4%",
                     },
                     action: enumButtonActions.OPEN_MODAL_IFRAME,
-                    actionParams: dataIframes.INFORMATION_DESK
+                    actionParams: dataContent.IFRAMES.SAMPLE_IFRAME
                 }
             ],
             portrait: [

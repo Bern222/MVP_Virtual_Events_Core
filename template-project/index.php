@@ -9,7 +9,7 @@ function isMobile () {
   return is_numeric(strpos(strtolower($_SERVER['HTTP_USER_AGENT']), "mobile"));
 }
 // echo $root . "/core/common.php";
-require_once($root . "/core/common.php");
+require_once("../core/common.php");
 
 if($config['login_required'] == 0)
 {
@@ -85,6 +85,7 @@ if($function == "PWReset")
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
   <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>  
   <link rel="stylesheet" href="../core/css/main.css" />
+  <link rel="stylesheet" href="../core/css/header.css" />
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-179015658-1"></script>
@@ -192,7 +193,6 @@ $(document).ready(function () {
   </div>
 
   <div id="exterior" class="fullscreen exterior">
-   <!-- <img id="exteriorImage" class="full-background" src="images/1-Exterior-Login.jpg"/> -->
   </div>
 
   <div id="cookieModal" class="login-modal" style="display: none; max-width: 800px;">
@@ -209,7 +209,7 @@ $(document).ready(function () {
      <td><input type="text" id="em" name="em" size="40" maxlength="255" value="">
     </tr>
     <tr>
-     <td>BadgeID (via eShow):</td>
+     <td>Password:</td>
      <td><input type="password" id="pw" name="pw" size="40" maxlength="40" value="">
     </tr>
     <tr>

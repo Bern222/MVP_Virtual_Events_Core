@@ -4,7 +4,7 @@ $(document).ready(function () {
 	// closeChatWindow();
 	//document.onkeydown = KeyPress;  //  for bypass
 	
-    setupLandscapeDetection();
+    setupDeviceOrientation();
     setupChatWindowDrag();
 
 
@@ -58,6 +58,12 @@ $(document).ready(function () {
 
 	// Build Routes from local config
 	for (var i=0;i<configRoutes.length;i++) {
+		console.log('ROUTE:', configRoutes[i].id, configRoutes);
+		buildRoute(configRoutes[i]);
+	}
+
+	// Build Modals from local config
+	for (var i=0;i<configModals.length;i++) {
 		console.log('ROUTE:', configRoutes[i].id, configRoutes);
 		buildRoute(configRoutes[i]);
 	}

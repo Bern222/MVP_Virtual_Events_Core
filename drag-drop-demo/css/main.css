@@ -1,0 +1,100 @@
+body {
+    background: #040916;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Carrois Gothic', sans-serif;
+}
+
+img {
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-background {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.resize-button {
+    background: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    left: 20%;
+    top: 20%;
+    z-index: 1;
+}
+
+.config-menu {
+    background: rgba(0,0,0,.5);
+    min-width: 210px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    padding: 20px;
+    z-index: 11;
+}
+
+.config-button {
+    cursor: pointer;
+    background: white;
+    color: black;
+    padding: 20px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 1px solid;
+}
+
+.button-active {
+    border: 2px solid red;
+    z-index: 10;
+}
+
+.rotate-slider {
+    margin-bottom:  15px;
+}
+
+.css-text {
+    background: white;
+    color: black;
+    padding: 10px;
+    min-height: 90px;
+}
+
+.relative-container {
+    position: relative;
+}
+
+.resize-button-remove {
+    cursor: pointer;
+    position: absolute;
+    border-radius: 5px;
+    top: -10px;
+    right: -10px;
+    padding:3px;
+    font-size: 10px;
+    background: red;
+    color: white;
+
+}

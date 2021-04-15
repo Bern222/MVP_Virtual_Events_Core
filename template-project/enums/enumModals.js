@@ -3,6 +3,6 @@ const enumModals = {
     SEMINAR_ROOMS: 'seminarRoomsModal',
     NETWORKING_LOUNGE: 'networkingLoungeModal',
     AGENDA: 'agendaModal',
-    INFORMATION_DESK: 'informationDeskModal'
-
+    INFORMATION_DESK: 'informationDeskModal',
+    PROFILE: 'profileModal'
 };

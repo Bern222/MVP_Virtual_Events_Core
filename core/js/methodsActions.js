@@ -1,7 +1,43 @@
-function openPDF(url) {
-    window.open(url);
+function getClickAction(buttonObj) {
+	var clickAction = '';
+	switch(buttonObj.action) {
+		case enumButtonActions.OPEN_ROUTE:
+			clickAction = 'changeRoute(\'' + buttonObj.actionParams + '\')';
+		break;
+		case enumButtonActions.OPEN_FILE:
+			// TODO: add addition condition on different file types
+			clickAction = 'window.open(\'' + buttonObj.actionParams + '\')';
+		break;
+		case enumButtonActions.OPEN_EXTERNAL_LINK:
+			var linkName = '_blank';
+			if (buttonObj.actionParams) {
+				if (buttonObj.actionParams.name) {
+					linkName = buttonObj.actionParams.name;
+				}
+				clickAction = 'window.open(\'' + buttonObj.actionParams.url + '\', \'' + linkName + '\')';
+			}
+		break;
+		case enumButtonActions.OPEN_MODAL_HTML:
+			clickAction = 'openModalHtml(\'' + buttonObj.actionParams.modalId + '\', \'' + buttonObj.actionParams.html + '\')';
+		break;
+		case enumButtonActions.OPEN_MODAL_INLINE:
+			clickAction = 'openModalInline(\'' + buttonObj.actionParams + '\')';
+		break;
+		case enumButtonActions.OPEN_MODAL_VIDEO:
+			clickAction = 'openModalVideo(\'' + buttonObj.actionParams + '\')';
+		break;
+		case enumButtonActions.OPEN_MODAL_IFRAME:
+			clickAction = 'openModalIframe(\'' + buttonObj.actionParams + '\')';
+		break;
+		case enumButtonActions.LOGOUT:
+			clickAction = 'login()';
+		break;
+	}
+	return clickAction;
 }
 
+
+// ACTION METHODS -------------------------------------
 function openExternalLink(url) {
     window.open(url);
 }
@@ -21,8 +57,14 @@ function openModalInline(modalId, customDelayTime = 0) {
 	}, customDelayTime);
 }
 
-function openModalVideo(videoUrl, onEndedCallback, beforeCloseCallback) {
-    setTimeout(function() {
+function openModalHtml(modalId, htmlContent, customDelayTime = 0) {
+	$('#' + modalId + ' .modal-html-content').html(htmlContent);
+	openModalInline(modalId, customDelayTime)
+}
+
+function openModalVideo(videoUrl, customDelayTime = 1) {
+	clearTimeout(currentAutoPlayVideoTimeout);
+	currentAutoPlayVideoTimeout = setTimeout(function() {
         $.fancybox.open({
             src  : videoUrl,
             type : 'video',
@@ -30,32 +72,19 @@ function openModalVideo(videoUrl, onEndedCallback, beforeCloseCallback) {
                 animationEffect: "zoom",
                 animationDuration: modalFadeTime,
                 afterShow : function( instance, current ) {
-                    console.info( 'video afterShow' );
-                    var video = document.getElementsByTagName('video')[0];
+                    var video = $('.fancybox-video')[0];
 
                     video.onended = function(e) {
-                        console.info( 'Video onended' );
-                        $.fancybox.close();
-                        setTimeout(function() {
-                            // TODO revisit to include args
-                            if (onEndedCallback) {
-                                onEndedCallback();
-                            }
-                        },100);
+						videoOnEndedCallback(videoUrl);
                     };
                 },
                 beforeClose: function( instance, current ) {
-                    if (beforeCloseCallback) {
-                        setTimeout(function() {
-                            console.info( 'Video beforeClose' );
-                            // code if needed
-                        },100);
-                    }
+                    videoBeforeCloseCallback(videoUrl);
                 }
 
             }
         });
-    },100);
+    }, customDelayTime);
 }
 
 function openModalIframe(iframeUrl) {
@@ -125,6 +154,10 @@ function openShare() {
 	}, 100);
 }
 
+function playVideo(routeId) {
+	$('#' + id)[0].play();
+}
+
 function logout() {
 	request = $.post("modules/loginproc.php", { method: "processLogout" });
 
@@ -133,21 +166,14 @@ function logout() {
 	});
 }
 
-// TODO: Revisit Bypass for testing
-// function KeyPress(e) {
-// 	var evtobj = window.event? event : e
-// 	// check for CTRL + b
-// 	if (evtobj.keyCode == 66 && evtobj.ctrlKey) { 
-// 		bypassTimeRestrictions = true;
-// 		if (isNetworkingBlock) {
-// 			isNetworkingBlock = false;
-// 			$.fancybox.close();
-// 			openSelectionModal('networkingModal');
-// 		}
-// 		if(isExhibitHallBlock) {
-// 			isExhibitHallBlock = false;
-// 			$.fancybox.close();
-// 			fadeIn('exhibit-hall');
-// 		}
-// 	}
-// }
+
+function flyIntoLobby() {
+	$('.exterior-fly-in-video-player-container').fadeTo(1, 1);
+
+	$('#exteriorFlyInVideoPlayer').get(0).load();
+	$('#exteriorFlyInVideoPlayer').get(0).play();
+	setTimeout(function() { 
+		fadeIn('lobby');
+		$('.exterior-fly-in-video-player-container').fadeTo(1, 0);
+	},4000);
+}

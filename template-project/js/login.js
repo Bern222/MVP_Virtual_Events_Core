@@ -75,7 +75,7 @@ function openLoginModal() {
 				
 			}
 		});
-	}, 3000);
+	}, 500);
 }
 
 function closeLoginModal() {

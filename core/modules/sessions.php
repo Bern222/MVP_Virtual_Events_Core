@@ -6,7 +6,7 @@
 
   if(!isset($_SESSION['session_id'])) $_SESSION['session_id'] = "";
   if(!isset($_SESSION['logged_in'])) $_SESSION['logged_in'] = 0;
-  if(!isset($_SESSION['userid'])) $_SESSION['userid'] = 0;
+  if(!isset($_SESSION['userid'])) $_SESSION['userid'] = -1;
   if(!isset($_SESSION['username'])) $_SESSION['username'] = 0;
   if(!isset($_SESSION['chat_username'])) $_SESSION['chat_username'] = "";
 

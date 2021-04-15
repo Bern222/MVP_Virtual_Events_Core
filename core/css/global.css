@@ -1,0 +1,264 @@
+body {
+    position: relative;
+    background: #000000;
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    color: #FFFFFF;
+    font-family: Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+
+
+/* TODO: ALL BELOW NEEDS REVIEW */
+.ie-11-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: black;
+    color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.ie-11-block {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+/* Kiosk Pulse */
+.blob {
+	background: black;
+	border-radius: 50%;
+	box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
+	margin: 10px;
+	height: 30px;
+    width: 30px;
+    min-width: 20px;
+    min-height: 20px;
+	transform: scale(2);
+    animation: pulse-black 3s infinite;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.blob.blue {
+	background: rgba(120, 120, 120, 1);
+	box-shadow: 0 0 0 0 rgba(120, 120, 120, 1);
+    animation: pulse-gray 3s infinite;
+    border: 1px solid gray;
+}
+
+@keyframes pulse-gray {
+	0% {
+        transform: scale(0.5);
+        opacity: 0;
+		box-shadow: 0 0 0 0 rgba(120, 120, 120, 1);
+	}
+	
+	70% {
+        transform: scale(1.2);
+        opacity: 1;
+		box-shadow: 0 0 0 10px rgba(120, 120, 120, 0);
+	}
+	
+	100% {
+        transform: scale(0.5);
+        opacity: 0;
+		box-shadow: 0 0 0 0 rgba(120, 120, 120, 0);
+	}
+}
+
+.blob-container {
+    opacity: .7;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.room-dropdown {
+    padding: 20px;
+    text-align: left;
+    color: black;
+  }
+  
+.chat-dropdown {
+    margin-left: 30px;
+}
+
+.zoom-badge {
+    position: absolute;
+    background: red;
+    color: #FFF;
+    top: 217px;
+    right: 294px;
+    padding:5px 10px;
+    border-radius:40px;
+}
+
+.zoom-img {
+    width: 220px;
+    cursor: pointer;
+}
+
+.zoom-participate-text {
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.zoom-text {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.zoom-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.zoom-flex {
+    width: 100%;
+    height: 100%;
+    background: #2E8CFB;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.teams-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.teams-flex {
+    width: 100%;
+    height: 100%;
+    background: #3F4790;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.teams-img {
+    width: 220px;
+    cursor: pointer;
+}
+
+.teams-participate-text {
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.teams-text {
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.webex-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.webex-flex {
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.webex-img {
+    width: 220px;
+    cursor: pointer;
+}
+
+.webex-participate-text {
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.webex-text {
+    margin-top: 20px;
+    color: #01BCEA;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.webex-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.google-meet-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.google-meet-flex {
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.google-meet-img {
+    width: 575px;
+    cursor: pointer;
+}
+
+.google-meet-participate-text {
+    color: #FFF;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.google-meet-text {
+    margin-top: 20px;
+    color: #078176;
+    font-size: 20px;
+    cursor: pointer;
+}
