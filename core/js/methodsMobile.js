@@ -1,5 +1,5 @@
 
-
+// TODO Revisit
 function setupDeviceOrientation() {
     
     $('#portraitBlock').hide();
@@ -13,7 +13,7 @@ function setupDeviceOrientation() {
     if (isMobile) {
         window.addEventListener('orientationchange', doOnOrientationChange);
         if (enableMobileLandscapeLock) {
-            $('#portraitBlock').text(landscapeLockMessage);
+            $('#portraitBlock').text(configSiteSettings.landscapeLockMessage);
         }
         doOnOrientationChange();
     }
@@ -23,16 +23,11 @@ function doOnOrientationChange() {
 	switch(window.orientation) {  
         case -90: case 90:
             // Landscape
-            if (enableMobileLandscapeLock) {
-                $('#portraitBlock').hide();
-            }
+            $('#portraitBlock').hide();
             break; 
         default:
             // Portrait
-            if (enableMobileLandscapeLock) {
-                $('#portraitBlock').show();
-            }
-
+            // $('#portraitBlock').show();
             
             //alert('Best viewed horizontally.  Please rotate your device.');
             break; 

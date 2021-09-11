@@ -1,0 +1,42 @@
+.element-active {
+    border: 4px solid rgb(65, 53, 233);
+    z-index: 10;
+}
+
+.resize-element {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 1;
+    opacity: .7;
+    width: 20%;
+    height: 20%;
+    left: 20%;
+    top: 20%;
+    cursor: pointer;
+}
+
+.resize-element-remove {
+    cursor: pointer;
+    position: absolute;
+    border-radius: 11px;
+    top: -10px;
+    right: -10px;
+    padding: 2px 5px;
+    font-size: 10px;
+    background: red;
+    color: white;
+}
+
+.input-header-default {
+    font-size: 25px;
+    font-weight: bold;
+    border: none;
+    margin: 0px 0px 20px 0px;
+}
+
+.action-params-container {
+    color: black;
+}

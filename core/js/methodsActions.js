@@ -1,75 +1,89 @@
-function getClickAction(buttonObj) {
+function getClickAction(elementObj) {
 	var clickAction = '';
-	switch(buttonObj.action) {
-		case enumButtonActions.OPEN_ROUTE:
-			clickAction = 'changeRoute(\'' + buttonObj.actionParams + '\')';
-		break;
-		case enumButtonActions.OPEN_FILE:
-			// TODO: add addition condition on different file types
-			clickAction = 'window.open(\'' + buttonObj.actionParams + '\')';
-		break;
-		case enumButtonActions.OPEN_EXTERNAL_LINK:
-			var linkName = '_blank';
-			if (buttonObj.actionParams) {
-				if (buttonObj.actionParams.name) {
-					linkName = buttonObj.actionParams.name;
+	if(elementObj.actionParams) {
+		switch(elementObj.action) {
+			case enumButtonActions.OPEN_ROUTE:
+				clickAction = 'changeRoute(\'' + elementObj.actionParams + '\')';
+			break;
+			case enumButtonActions.OPEN_FILE:
+				// TODO: add addition condition on different file types
+				clickAction = 'openExternalLink(\'' + elementObj.actionParams + '\')';
+			break;
+			case enumButtonActions.OPEN_EXTERNAL_LINK:
+				var linkName = '_blank';
+				console.log('HERE:', elementObj);
+				if (elementObj.actionParams) {
+					if (elementObj.actionParams.name) {
+						linkName = elementObj.actionParams.name;
+					}
+					
+					if (elementObj.actionParams && dataContent[elementObj.actionParams]) {
+						clickAction = 'window.open(\'' + dataContent[elementObj.actionParams].path + '\', \'' + linkName + '\')';
+					}
 				}
-				clickAction = 'window.open(\'' + buttonObj.actionParams.url + '\', \'' + linkName + '\')';
-			}
-		break;
-		case enumButtonActions.OPEN_MODAL_HTML:
-			clickAction = 'openModalHtml(\'' + buttonObj.actionParams.modalId + '\', \'' + buttonObj.actionParams.html + '\')';
-		break;
-		case enumButtonActions.OPEN_MODAL_INLINE:
-			clickAction = 'openModalInline(\'' + buttonObj.actionParams + '\')';
-		break;
-		case enumButtonActions.OPEN_MODAL_VIDEO:
-			clickAction = 'openModalVideo(\'' + buttonObj.actionParams + '\')';
-		break;
-		case enumButtonActions.OPEN_MODAL_IFRAME:
-			clickAction = 'openModalIframe(\'' + buttonObj.actionParams + '\')';
-		break;
-		case enumButtonActions.LOGOUT:
-			clickAction = 'login()';
-		break;
+			break;
+			case enumButtonActions.OPEN_MODAL_HTML:
+				clickAction = 'openModalHtml(\'' + elementObj.actionParams.modalId + '\', \'' + elementObj.actionParams.html + '\')';
+			break;
+			case enumButtonActions.OPEN_MODAL_INLINE:
+				console.log('MODAL: ', elementObj);
+				clickAction = 'openModalInline(\'' + elementObj.actionParams + '\')';
+			break;
+			case enumButtonActions.OPEN_MODAL_VIDEO:
+				clickAction = 'openModalVideo(\'' + dataContent[elementObj.actionParams] + '\')';
+			break;
+			case enumButtonActions.OPEN_MODAL_IFRAME:
+				clickAction = 'openModalIframe(\'' + dataContent[elementObj.actionParams] + '\')';
+			break;
+			case enumButtonActions.LOGOUT:
+				clickAction = 'login()';
+			break;
+		}
 	}
+
+	
+
 	return clickAction;
 }
 
 
 // ACTION METHODS -------------------------------------
-function openExternalLink(url) {
-    window.open(url);
+function openExternalLink(url, linkName = '_blank') {
+    window.open(url, linkName);
+	logEvent(currentRoute, enumButtonActions.OPEN_EXTERNAL_LINK + ' - ' + url);
 }
 
 function openModalInline(modalId, customDelayTime = 0) {
+	logEvent(currentRoute, enumButtonActions.OPEN_MODAL_INLINE + ' - ' + modalId);
+
+	defaultModalOpts.afterClose = function () {
+        onModalClose(modalId);
+    };
+
     setTimeout(function() {
 		$.fancybox.open({
 			src  : '#' + modalId,
 			type : 'inline',
-			animationEffect: "zoom",
 			animationDuration: modalFadeTime,
-			opts : {
-				touch: false
-				
-			}
+			opts : defaultModalOpts
 		});
 	}, customDelayTime);
 }
 
 function openModalHtml(modalId, htmlContent, customDelayTime = 0) {
+	logEvent(currentRoute, enumButtonActions.OPEN_MODAL_HTML + ' - ' + modalId);
 	$('#' + modalId + ' .modal-html-content').html(htmlContent);
 	openModalInline(modalId, customDelayTime)
 }
 
 function openModalVideo(videoUrl, customDelayTime = 1) {
 	clearTimeout(currentAutoPlayVideoTimeout);
+	logEvent(currentRoute, enumButtonActions.OPEN_MODAL_VIDEO + ' - ' + videoUrl);
 	currentAutoPlayVideoTimeout = setTimeout(function() {
         $.fancybox.open({
             src  : videoUrl,
             type : 'video',
             opts : {
-                animationEffect: "zoom",
                 animationDuration: modalFadeTime,
                 afterShow : function( instance, current ) {
                     var video = $('.fancybox-video')[0];
@@ -88,6 +102,7 @@ function openModalVideo(videoUrl, customDelayTime = 1) {
 }
 
 function openModalIframe(iframeUrl) {
+	logEvent(currentRoute, enumButtonActions.OPEN_MODAL_IFRAME + ' - ' + iframeUrl);
     var openAsNewTab = /MSIE|Trident|Edge|iPhone|iPad|iPod|Android/i.test(navigator.userAgent);  //  Note added IE to this as it doesn't open PDF's in iframe well in fancy box
     if(openAsNewTab) {
         // Open in new tab
@@ -99,7 +114,6 @@ function openModalIframe(iframeUrl) {
             $.fancybox.open({
                 src  : iframeUrl,
                 type : 'iframe',
-                animationEffect: "zoom",
                 animationDuration: modalFadeTime
             });
         }, 100);
@@ -126,7 +140,6 @@ function openProfile() {
 		$.fancybox.open({
 			src  : '#profileModal',
 			type : 'inline',
-			animationEffect: "zoom",
 			animationDuration: modalFadeTime,
 			opts : {
 				beforeClose : function( instance, current ) {
@@ -145,7 +158,6 @@ function openShare() {
 		$.fancybox.open({
 			src  : '#shareModal',
 			type : 'inline',
-			animationEffect: "zoom",
 			animationDuration: modalFadeTime,
 			opts : {
 				touch: false

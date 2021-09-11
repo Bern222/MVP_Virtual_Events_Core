@@ -155,7 +155,7 @@
   }
 
   /* TODO: NEED TO REVISIT ALL MEDIA QUERIES AND NEEDS TO BE LOCALIZED NOT CORE */
-  @media (min-width: 1500px) {
+  @media (min-width: 756px) {
     .header-menu-item {
       margin-right: 0px;
       cursor: pointer;

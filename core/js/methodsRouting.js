@@ -1,14 +1,16 @@
 $(document).ready(function () {
-    if(enableHashNavigation && window.location.hash && window.location.hash.length > 1) {
+    if(configSiteSettings.enableHashNavigation && window.location.hash && window.location.hash.length > 1) {
         // changeRoute(window.location.hash);
     }
 });
 
 
 function changeRoute(route) {
-    if (enableHashNavigation) {
+    console.log('ROUTE:', route, currentRoute);
+    if (configSiteSettings.enableHashNavigation) {
         window.location.hash = route;
     }    
+    logEvent(route, enumButtonActions.OPEN_ROUTE);
     const routeIndex = configRoutes.findIndex(x => x.id === route);
 
     // if (routeIndex != currentRouteIndex) {
@@ -16,18 +18,24 @@ function changeRoute(route) {
 
         prepareRoute(route);
         localRouteMethods(route);
+        
 
         // May need to be in a callback depending on local route methods
         // Created transition to support other methods than fade
         $('#' + route).show();
-        switch(configRoutes[currentRouteIndex].transition) {
-            case 'none':
-                $('#' + route).fadeTo(0, 1);
-                break;
-            default:
-                $('#' + route).fadeTo(routeFadeTime, 1);
-                break;
-        }    
+        if (configRoutes[currentRouteIndex]) {
+            switch(configRoutes[currentRouteIndex].transition) {
+                case 'none':
+                    $('#' + route).fadeTo(0, 1);
+                    break;
+                default:
+                    $('#' + route).fadeTo(configSiteSettings.routeFadeTime, 1);
+                    break;
+            }    
+        } else {
+            $('#' + route).fadeTo(configSiteSettings.routeFadeTime, 1);
+        }
+        
     // }
 }
 
@@ -78,10 +86,27 @@ function prepareRoute(route) {
     $.fancybox.close();
 
     // closeChatWidnow();
-    $('#' + currentRoute).fadeTo(0, 0);
-	$('#' + currentRoute).hide();
-    currentRoute = route;
-    $('#' + route).show();
+    if (route != currentRoute) {
+        if (configRoutes[currentRouteIndex] && configRoutes[currentRouteIndex].transition == 'none') {
+            $('#' + currentRoute).fadeTo(0, 1);
+            $('#' + route).show();
+            var timeoutRoute = currentRoute;
+            setTimeout(function() {
+                $('#' + timeoutRoute).fadeTo(0, 0);
+                $('#' + timeoutRoute).hide();
+            }, 3000);
+        
+            currentRoute = route;
+        } else {
+            $('#' + currentRoute).fadeTo(0, 0);
+            $('#' + currentRoute).hide();
+            $('#' + route).show();
+            currentRoute = route;
+        }
+    }
+
+
+    
 
     // TODO: Determine if this is CORE
     $('.header li div').removeClass('header-active');

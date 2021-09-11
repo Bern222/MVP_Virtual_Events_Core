@@ -4,11 +4,11 @@ function buildMainMenu() {
 
 		if (configMainMenu) {
 			
-			addStyles(configMainMenu, 'header');
+			addStyles(configMainMenu, 'mainMenuContainer');
 
 			// Add override CSS
 			if (configMainMenu.overrideCss) {
-				$('#header').css(configMainMenu.overrideCss);
+				$('#mainMenuContainer').css(configMainMenu.overrideCss);
 			}
 
 			var clickAction;
@@ -17,7 +17,7 @@ function buildMainMenu() {
 
 			// RIGHT MENU
 			if (configMainMenu.rightMenu && configMainMenu.rightMenu.menuItems && configMainMenu.rightMenu.menuItems.length > 0) {
-				$('#header').append('<div id="rightMenuContainer" class="right-menu-container"></div>');
+				$('#mainMenuContainer').append('<div id="rightMenuContainer" class="right-menu-container"></div>');
 
 				if (configMainMenu.divider) {
 					$('#rightMenuContainer').append('<div style="color: ' + configMainMenu.divider.color + '"> | </div>');
@@ -37,7 +37,7 @@ function buildMainMenu() {
 
 			// Mobile Dropdown Menu Button
 			if (configMainMenu.enableMobileMenu) {
-				$('#header').append('<input class="menu-btn" type="checkbox" id="menu-btn" /><label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>');
+				$('#mainMenuContainer').append('<input class="menu-btn" type="checkbox" id="menu-btn" /><label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>');
 			}
 
 			// Main Menu Logo
@@ -45,14 +45,16 @@ function buildMainMenu() {
 				clickAction = getClickAction(configMainMenu.logo);
 				eventAttribute = getEventDataAttribute(enumRoutes.MAIN_MENU, configMainMenu.logo);
 				
-				$('#header').append('<div onclick="' + clickAction + '"><img class="header-menu-logo event-tracked" ' + eventAttribute + ' src="' + configMainMenu.logo.imagePath + '"/></div>');
+				$('#mainMenuContainer').append('<div onclick="' + clickAction + '"><img class="header-menu-logo event-tracked" ' + eventAttribute + ' src="' + configMainMenu.logo.imagePath + '"/></div>');
 			}
 
-			$('#header').append('<ul id="headerMenu" class="header-menu"></ul>');
+			$('#mainMenuContainer').append('<ul id="headerMenu" class="header-menu"></ul>');
 
+			console.log('MAIN MENU LENGTH:', configMainMenu.menuItems);
 			for (var i=0; i<configMainMenu.menuItems.length; i++) {
 				currentItem = configMainMenu.menuItems[i];
 				clickAction = getClickAction(currentItem);
+				console.log('CURRENTITEM:', currentItem, clickAction);
 				eventAttribute = getEventDataAttribute(enumRoutes.MAIN_MENU, currentItem);
 
 				var menuItemId = '';
@@ -66,24 +68,24 @@ function buildMainMenu() {
 
 			// TODO - NEED TO FIX AND REWORK WITH RIGHT MENU ABOVE
 			if (configMainMenu.rightMenu && configMainMenu.rightMenu.profileMenu && configMainMenu.rightMenu.profileMenu.length > 0 && currentUser && currentUser.chat_username) {
-				$('#header').append('<div class="user-profile-container">');
-				$('#header').append('	<div class="user-profile">');
-				$('#header').append('		<div class="header-menu-item">' + currentUser.chat_username + '</div>');
-				$('#header').append('		<div class="profile-container">');
-				$('#header').append('			<div class="subnav" style="display: block;">');
-				$('#header').append('			<div class="arrow" style="display: block;"></div>');
-				$('#header').append('				<ul>');
+				$('#mainMenuContainer').append('<div class="user-profile-container">');
+				$('#mainMenuContainer').append('	<div class="user-profile">');
+				$('#mainMenuContainer').append('		<div class="header-menu-item">' + currentUser.chat_username + '</div>');
+				$('#mainMenuContainer').append('		<div class="profile-container">');
+				$('#mainMenuContainer').append('			<div class="subnav" style="display: block;">');
+				$('#mainMenuContainer').append('			<div class="arrow" style="display: block;"></div>');
+				$('#mainMenuContainer').append('				<ul>');
 
 				for(var i=0; i<configMainMenu.rightMenu.profileMenu.menuItems.length; i++) {
 					currentItem = configMainMenu.rightMenu.profileMenu.menuItems[i];
 					clickAction = getClickAction(currentItem);
 					eventAttribute = getEventDataAttribute(enumRoutes.PROFILE, currentItem);
-					$('#header').append('<li><div class="subnav-button event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + currentItem.displayText + '</div></li>');
+					$('#mainMenuContainer').append('<li><div class="subnav-button event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + currentItem.displayText + '</div></li>');
 
 					addStyles(currentItem, itemId);
 				}
 
-				$('#header').append('</ul></div"></div></div>');
+				$('#mainMenuContainer').append('</ul></div"></div></div>');
 			}
 		} 
 	} catch (error) {
@@ -104,7 +106,11 @@ function buildRoute(routeObj) {
 
 			var videoAttributes = '';
 			if(!routeObj.disableBackgroundVideoAutoplay) {
-				videoAttributes = 'autoplay muted';
+				videoAttributes = 'autoplay';
+			}
+
+			if(!routeObj.disableBackgroundVideoMuted) {
+				videoAttributes += ' muted';
 			}
 
 			if (!routeObj.disableBackgroundVideoLoop) {
@@ -112,33 +118,34 @@ function buildRoute(routeObj) {
 			}
 
 			$('#' + routeObj.id + ' .route-relative-container').append('<div class="full-background-landscape">')
-			$('#' + routeObj.id + ' .route-relative-container').append('	<video id="' + routeObj.id + 'BackgroundVideo" ' + videoAttributes + ' playsinline onended="backgroundVideoOnEndedCallback(\'' + routeObj.id + '\')"><source src="' + routeObj.backgroundVideoLandscape + '" type="video/mp4" />Your browser does not support the video tag.</video>')
+			$('#' + routeObj.id + ' .route-relative-container').append('	<video class="full-background-landscape" id="' + routeObj.id + 'BackgroundVideo" ' + videoAttributes + ' playsinline onended="backgroundVideoOnEndedCallback(\'' + routeObj.id + '\')"><source src="' + routeObj.backgroundVideoLandscape + '" type="video/mp4" />Your browser does not support the video tag.</video>')
 
 			$('#' + routeObj.id + ' .route-relative-container').append('</div>')
 
 		} else {
 			// Add Image Background
-			$('#' + routeObj.id + ' .route-relative-container').append('<img class="full-background-landscape" src="' + routeObj.backgroundLandscape + '"/>')
+			$('#' + routeObj.id + ' .route-relative-container').append('<img class="full-background-landscape" src="' + routeObj.backgroundLandscape.path + '"/>')
 		}
 
-		// Loop though buttons, TODO Add portrait support / check
-		if (routeObj.buttons && routeObj.buttons.landscape && routeObj.buttons.landscape.length > 0) {
+		// Loop though elements, TODO Add portrait support / check
+		if (routeObj.elements && routeObj.elements.length > 0) {
 			
 			// Create the absolute button container
 			$('#' + routeObj.id + ' .route-relative-container').append('<div id="' + routeObj.id + 'AbsoluteContainer" class="absolute-button-container">');
 
 			// Loop though the button objects
-			for (var i=0; i < routeObj.buttons.landscape.length; i++) {
+			for (var i=0; i < routeObj.elements.length; i++) {
 
-				const buttonId = routeObj.id + 'Button' + i;
-				const buttonObj = routeObj.buttons.landscape[i];
-				const clickAction = getClickAction(buttonObj);
-				const eventAttribute = getEventDataAttribute(routeObj.id, buttonObj);
-				const iconHtml = getButtonIcon(buttonObj);
+				const elementId = routeObj.id + 'Button' + i;
+				const elementObj = routeObj.elements[i];
+				const clickAction = getClickAction(elementObj);
+				const eventAttribute = getEventDataAttribute(routeObj.id, elementObj);
+				const iconHtml = getButtonIcon(elementObj);
+				const elementHtml = getButtonHtml(elementObj);
 				// Add the button div
-				$('#' + routeObj.id + 'AbsoluteContainer').append('<div id="' + buttonId + '" class="absolute-button event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + iconHtml + '</div>');
+				$('#' + routeObj.id + 'AbsoluteContainer').append('<div id="' + elementId + '" class="absolute-button event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + iconHtml + elementHtml + '</div>');
 				
-				addStyles(buttonObj, buttonId);
+				addStyles(elementObj, elementId);
 			}
 
 			// Close the button container
@@ -146,21 +153,21 @@ function buildRoute(routeObj) {
 		}
 	
 		// Check for page buttons (TODO: seems redundant with above, look at combining these)
-		if (routeObj.buttons && routeObj.buttons.pageButtons && routeObj.buttons.pageButtons.length > 0) {
+		if (routeObj.elements && routeObj.elements.pageButtons && routeObj.elements.pageButtons.length > 0) {
 			$('#' + routeObj.id).append('<div class="route-button-container"></div>');
 
 			// Loop though page button objects
-			for (var i=0; i < routeObj.buttons.pageButtons.length; i++) {
+			for (var i=0; i < routeObj.elements.pageButtons.length; i++) {
 				
-				const buttonId = routeObj.id + 'PageButton' + i;
-				const buttonObj = routeObj.buttons.pageButtons[i];
-				const clickAction = getClickAction(buttonObj);
-				const eventDataAttribute = getEventDataAttribute(routeObj.id, buttonObj);
+				const elementId = routeObj.id + 'PageButton' + i;
+				const elementObj = routeObj.elements.pageButtons[i];
+				const clickAction = getClickAction(elementObj);
+				const eventDataAttribute = getEventDataAttribute(routeObj.id, elementObj);
 				
 				// Add the button div
-				$('#' + routeObj.id + ' .route-button-container').append('<div id="' + buttonId + '" ' + eventDataAttribute + ' class="route-side-button" onclick="' + clickAction + '">' + buttonObj.buttonText + '</div>');
+				$('#' + routeObj.id + ' .route-button-container').append('<div id="' + elementId + '" ' + eventDataAttribute + ' class="route-side-button" onclick="' + clickAction + '">' + elementObj.buttonText + '</div>');
 				
-				addStyles(buttonObj, buttonId);
+				addStyles(elementObj, elementId);
 			}
 		}
 		
@@ -175,26 +182,50 @@ function buildRoute(routeObj) {
 
 function buildModal(modalObj) {
 	try {
+		console.log('MODAL OBJ:', modalObj);
 		$('#modalContainer').append('<div id="' + modalObj.id + '" class="default-modal">');
 		
 		if (modalObj.type != enumModalTypes.HTML) {
 			$('#' + modalObj.id).append('<div class="modal-list-buttons"></div>');
 
-			for (var i=0; i < modalObj.buttons.length; i++) {
-				const buttonId = modalObj.id + 'Button' + i;
-				const buttonObj = modalObj.buttons[i];
-				const clickAction = getClickAction(buttonObj);
-				const eventAttribute = getEventDataAttribute(modalObj.id, buttonObj);
+			if (modalObj.buttons) {
+				for (var i=0; i < modalObj.buttons.length; i++) {
+					const configObj = modalObj.buttons[i];
 
-				switch(modalObj.type) {
-					case enumModalTypes.THUMB_LIST:					
-						$('#' + modalObj.id + ' .modal-list-buttons').append('<div id="' + buttonId + '" class="modal-thumb-list-item event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '"></div>');
-						$('#' + buttonId).append('<div class="modal-thumb-list-image">');
-						$('#' + buttonId).append('<div><div class="modal-header-text"><div class="modal-description-text"></div></div>');					
+					switch(configObj.type) {
+						case 'header':
+							$('#' + modalObj.id + ' .modal-list-buttons').append('<div class="modal-header">' + configObj.title + '</div>');
+							if (configObj.subTitle) {
+								$('#' + modalObj.id + ' .modal-list-buttons').append('<div class="modal-subheader">' + configObj.subTitle + '</div>');
+							}
 						break;
-					case enumModalTypes.SIMPLE_LIST:
-						$('#' + modalObj.id + ' .modal-list-buttons').append('<div id="' + buttonId + '" class="modal-simple-list-item event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + buttonObj.buttonText + '</div>');
+						default:
+							const buttonId = modalObj.id + 'Button' + i;
+							const clickAction = getClickAction(configObj);
+							const eventAttribute = getEventDataAttribute(modalObj.id, configObj);
+			
+							switch(modalObj.type) {
+								case enumModalTypes.THUMB_LIST:				
+									var thumbImage = '../core/images/icons/icon-video.jpg';	
+									if (configObj.thumbImage) {
+										thumbImage = configObj.thumbImage;
+									}	
+									$('#' + modalObj.id + ' .modal-list-buttons').append('<div id="' + buttonId + '" class="modal-thumb-list-item event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '"></div>');
+									$('#' + buttonId).append('<img class="modal-thumb-list-image" src="' + thumbImage + '"/>');
+									$('#' + buttonId).append('<div class="modal-header-container"><div class="modal-header-text">' + configObj.buttonText +'</div>');	
+									
+									if (configObj.bottomLink) {
+										var bottomLinkAttribute ='data-event-category="' + modalObj.id + '" data-event-action="' + enumButtonActions.OPEN_EXTERNAL_LINK + ' - ' + configObj.bottomLink + '"';
+										$('#' + buttonId + " .modal-header-container").append('<div><a class="modal-bottom-link-text event-tracked" ' + bottomLinkAttribute + ' onclick="event.stopPropagation(); openExternalLink(\'' + configObj.bottomLink + '\');">' + configObj.bottomLinkText +'</a></div>');
+									}
+									
+									break;
+								case enumModalTypes.SIMPLE_LIST:
+									$('#' + modalObj.id + ' .modal-list-buttons').append('<div id="' + buttonId + '" class="modal-simple-list-item event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + configObj.buttonText + '</div>');
+									break;
+							}
 						break;
+					}
 				}
 			}
 		} else {
@@ -227,8 +258,20 @@ function getButtonIcon(buttonObj) {
 			case 'icon-arrow':
 				iconHtml = '<div class="blob-container"><div class="blob blue"><i class="fa fa-mouse-pointer"></i></div></div>';
 			break;
+			case 'icon-dot':
+				iconHtml = '<div class="blob blue"></div>';
+				break;
 		}
 	}
 
 	return iconHtml;
+}
+
+function getButtonHtml(buttonObj) {
+	var buttonHtml = '';
+	if (buttonObj && buttonObj.html) {
+		buttonHtml = buttonObj.html;
+	}
+
+	return buttonHtml;
 }

@@ -1,25 +1,25 @@
 const sessionUUID = uuidv4();
 
-function getEventDataAttribute(routeId, buttonObj) {
-	var eventDataAttribute = 'data-event-category="' + routeId + '" data-event-action="' + buttonObj.action;
-	switch(buttonObj.action) {
+function getEventDataAttribute(routeId, elementObj) {
+	var eventDataAttribute = 'data-event-category="' + routeId + '" data-event-action="' + elementObj.action;
+	switch(elementObj.action) {
 		case enumButtonActions.OPEN_ROUTE:
-			eventDataAttribute += ' -  ' + buttonObj.actionParams + '"';
+			eventDataAttribute += ' -  ' + elementObj.actionParams + '"';
 		break;
 		case enumButtonActions.OPEN_FILE:
-			eventDataAttribute += ' - ' + buttonObj.actionParams + '"' ;
+			eventDataAttribute += ' - ' + elementObj.actionParams + '"' ;
 		break;
 		case enumButtonActions.OPEN_EXTERNAL_LINK:
-			eventDataAttribute += ' - ' + buttonObj.actionParams.url + '"' ;	
+			eventDataAttribute += ' - ' + dataContent[elementObj.actionParams] + '"' ;	
 		break;
 		case enumButtonActions.OPEN_MODAL_INLINE:
-			eventDataAttribute += ' - ' + buttonObj.actionParams + '"' ;
+			eventDataAttribute += ' - ' + elementObj.actionParams + '"' ;
 		break;
 		case enumButtonActions.OPEN_MODAL_VIDEO:
-			eventDataAttribute += ' - ' + buttonObj.actionParams + '"' ;
+			eventDataAttribute += ' - ' + elementObj.actionParams + '"' ;
 		break;
 		case enumButtonActions.OPEN_MODAL_IFRAME:
-			eventDataAttribute += ' - ' + buttonObj.actionParams + '"' ;
+			eventDataAttribute += ' - ' + elementObj.actionParams + '"' ;
 		break;
 		case enumButtonActions.LOGIN:
 			// TODO: No action params
@@ -47,14 +47,12 @@ function initEventListeners() {
 }
 
 function logEvent(category, action, value = currentUser.id) {
-	
+
 	var userId = value;
 	if (!value) {
 		userId = 1;
 		value = remoteIP + ' - ' + sessionUUID;
 	}
-
-	// console.log('LOG EVENT: ', category, action, value);
 
 	gtag('event', category, { 'event_category': category, 'event_action': action, 'value': value});
 

@@ -1,9 +1,9 @@
 <?php
 
   $dbhost = '127.0.0.1';
-  $dbuser = 'mvpvirtualevents_dbuser';
-  $dbpass = 'f1uOgykR$8#Z';
-  $dbname = 'mvpvirtualevents_data';
+  $dbuser = 'aaaatthegarage_dbuser';
+  $dbpass = 'Dgzh#85xZ3K^';
+  $dbname = 'aaaatthegarage_nightout';
 
   $db = new mysqli($dbhost, $dbuser, $dbpass, $dbname);
 

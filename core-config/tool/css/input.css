@@ -1,0 +1,14 @@
+.defualt-header-input {
+    
+}
+
+
+.remove-button {
+    background: red;
+    color: white;
+    font-size: 12px;
+    padding: 1px;
+    width: 18px;
+    text-align: center;
+    border-radius: 20px;
+}

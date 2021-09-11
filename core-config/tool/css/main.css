@@ -1,0 +1,430 @@
+::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+}
+
+/* GENERAL */
+body {
+    background: #040916;
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Helvetica, sans-serif;
+}
+
+.list-delete-button {
+    background: red;
+    color: white;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+}
+
+#alertModalText {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+.align-center {
+    display: flex;
+    align-items: center;
+}
+
+.right-space {
+    margin-right: 10px;
+}
+
+.indent {
+    margin-left: 5px;
+}
+
+.small-header {
+    color: gray;
+    font-size: 12px;
+    line-height: 30px;
+}
+
+.configurator-section {
+    margin: 20px 0px;
+}
+
+img {
+    -khtml-user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.no-content-text {
+    font-size: 12px;
+    color: gray;
+    font-style: italic;
+    text-align: center;
+}
+
+.configurator-route {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background: white;
+    color: black;
+}
+
+.configurator-default-modal {
+    display: none; 
+    background: rgb(255, 255, 255,.85); 
+    color: black;
+    -webkit-box-shadow: 0px 4px 13px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 4px 13px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 4px 13px 0px rgba(0,0,0,0.75);
+    max-width: 800px;
+    max-height: 600px;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    border-radius: 20px;
+}
+
+.configurator-select-content-modal {
+    width: 80vw;
+    height: 80vh;
+    max-width: 80vw;
+    max-height: 80vh;
+    background: black;
+    color: white;
+}
+
+.configurator-button {
+    cursor: pointer;
+    border-radius: 10px;
+    background: black;
+    color: white;
+    padding: 10px;
+    display: inline-block;
+    margin: 20px 0px;
+}
+
+.center-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider {
+    border-top: 3px solid #e8e8e8;
+    border-radius: 5px;
+    min-width: 300px;
+    margin-bottom: 20px;
+}
+
+.center {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.default-button {
+    margin: 0 auto;
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 20px;
+    background: black;
+    color: white;
+    border-radius: 10px;
+}
+
+.red-button {
+    background: rgb(208, 96, 121);
+    color: white;
+}
+
+.gray-button {
+    background: rgb(153, 153, 153);
+    color: white;
+}
+
+.green-button {
+    background: rgb(115, 175, 85);
+    color: white;
+}
+
+.disabled-button {
+    background: rgba(153, 153, 153, .7);
+    color: white;
+}
+
+.configurator-error-text {
+    color: rgb(208, 96, 121);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.input-table {
+
+}
+
+.input-header {
+    color: black;
+    font-weight: bold;
+}
+
+.input-table-row {
+    margin-bottom: 15px;
+}
+
+.clickable-table-row {
+    cursor: pointer;
+}
+
+
+
+/* ROUTES */
+.configurator-route-landing {
+    background: white;
+    color: black;
+}
+
+.configurator-landing-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.configurator-route-route {
+    background: black;
+}
+
+.configurator-landing-logo {
+    width: 150px;
+    margin: 50px;
+}
+
+.configurator-landing-logo img {
+    width: 100%;
+}
+
+.configurator-status-row {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+}
+
+.configurator-landing-status-container {
+    margin-bottom: 40px;
+}
+
+
+.configurator-route-content-library {
+    background: black !important;
+    color: white !important;
+}
+
+.configurator-content-library-container {
+    height: 80vh;
+    overflow-y: scroll;
+}
+
+.configurator-select-content-container {
+    overflow-y: scroll;
+}
+
+
+.configurator-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.configurator-stage {
+    position: relative;
+    width: 1365px;
+    height: 768px;
+    min-width: 1365px;
+    min-height: 768px;
+    border: 1px solid gray;
+}
+
+.configurator-full-background {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+.configurator-element-container {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.configurator-route-menu {
+    width: 30%;
+    /* max-width: 300px; */
+    height: 100%;
+    background: white;
+    color: black;
+    padding: 30px;
+}
+
+.configurator-route-menu-header {
+    margin: 20px 0px;
+    text-align: center;
+}
+
+
+.configurator-route-config {
+    margin-bottom: 20px;
+}
+
+.configurator-element-config {
+
+}
+
+.configuratior-viewport-full-background {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+}
+
+
+/* MODALS */
+.configurator-site-settings {
+
+}
+
+
+/* MENUS */
+.configurator-main-menu {
+
+}
+
+.configurator-menu-item {
+
+}
+
+
+
+
+.configurator-list-route-container {
+    /* width: 80%; */
+}
+
+.configurator-list-modal-container {
+    /* width: 80%; */
+}
+
+.configurator-list-row {
+    cursor: pointer;
+    width: 100%;
+    padding: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.configurator-list-header {
+    margin-right: 20px;
+}
+
+.list-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.plus-button {
+    cursor: pointer;
+	border: 2px solid lightgrey;
+	background-color: #fff;
+	font-size: 10px;
+	height: 2.5em;
+	width: 2.5em;
+	border-radius: 999px;
+	position: relative;
+}
+
+.plus-button:hover {
+	background-color: rgb(196, 196, 196);
+    color: white;
+}
+
+.plus-button:before {
+    content: "";
+    display: block;
+    background-color: grey;
+    position: absolute;
+    height: 1em;
+	width: 0.2em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.plus-button:after {
+    content: "";
+    display: block;
+    background-color: grey;
+    position: absolute;
+    height: 0.2em;
+	width: 1em;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none; /* Safari */
+       -khtml-user-select: none; /* Konqueror HTML */
+         -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+              user-select: none; /* Non-prefixed version, currently
+                                    supported by Chrome, Edge, Opera and Firefox */
+}
+
+
+/* Overrides */
+.tablesorter-default .header, .tablesorter-default .tablesorter-header {
+    font-size: 15px;
+}
+
+.tablesorter-default td {
+    background-color: black;
+    border-bottom: #ccc 1px solid;
+    padding: 25px;
+    vertical-align: top;
+    font-size: 20px;
+    color: white;
+}
+
+.tablesorter-default thead .headerSortDown, .tablesorter-default thead .tablesorter-headerDesc, .tablesorter-default thead .tablesorter-headerSortDown,
+.tablesorter-default thead .headerSortUp, .tablesorter-default thead .tablesorter-headerAsc, .tablesorter-default thead .tablesorter-headerSortUp {
+    border-bottom: #FBD618 2px solid;
+}

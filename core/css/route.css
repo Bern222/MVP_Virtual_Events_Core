@@ -9,7 +9,8 @@
 }
 
 .full-background-landscape {
-    width: 100%;
+    /*  TODO HERE width: 100%; */
+    height: 100vh;
 }
 
 .full-background-portrait {

@@ -39,6 +39,8 @@ $method = $_POST['method'];
 switch($method){
 	  case "processLogin": echo processLogin();
       break;
+    case "processEmailOnlyLogin": echo processEmailOnlyLogin();
+      break;
     case "processLogout": echo processLogout();
       break;
 	  case "lostPasswordEmail": echo lostPasswordEmail();
@@ -123,6 +125,61 @@ function processLogin()
   // logged_in = 1 if successfully logged in.
 
   return "Success!";
+}
+
+function processEmailOnlyLogin() {
+
+  global $userdata; // On successful validation, this array will be populated with user data
+
+  if(isset($_POST['email'])) $email=$_POST['email'];
+
+  $status = userVerifyByEmail($email);
+
+  if($status <= 0)
+  {
+    // An error occurred
+    $error = "Unknown Error";
+    switch($status)
+    {
+      case _USER_MISSING     : // Either user name or password missing
+                               $error = "You must enter a proper email address to log in.";
+                               break;
+      case _USER_UNKNOWN     : // Unknown User
+      case _USER_BADPASSWORD : // Invalid Password
+                               $error = "Email is invalid, please try again.";
+                               break;
+      case _USER_INVALIDATED : // Account not validated
+                               $error = "Your account has not been validated by the administrator.";
+                               break;
+      case _USER_DISABLED    : // Account disabled
+                               $error = "Your account has been disabled.";
+                               break;
+      case _USER_DBERROR     : // Database error
+                               $error = "A database error has occurred. Please try again later.";
+                               break;
+      default                : // Unknown Error
+                               $error = "Unknown Error. Please try again later.";
+                               break;
+    }
+    return $error;
+  }
+
+  // Successful validataion, create a session now.
+  $sessionid = createSession($userdata['id']);
+
+  if($sessionid == "")
+  {
+    // Session creation failed
+    return "Unable to create session";
+  }
+
+  // If we get here, the user has been verified and a login session has been created
+  // in the sessions table.  The following $_SESSION variables should now be set:
+  // sessionid = The session id as a random character string
+  // userid = The user id number from the id field in the user table.
+  // logged_in = 1 if successfully logged in.
+
+  return json_encode($_SESSION['userdata']);
 }
 
 // This function will check for the individual and add them "on the fly" if needed

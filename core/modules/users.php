@@ -1,5 +1,38 @@
 <?php
 
+function userVerifyByEmail($email)
+  {
+    global $config;
+    global $db;
+    global $userdata;
+
+    $userdata = array(id=>0);
+    $allSales = array();
+
+    if($email == "")
+    {
+      return(_USER_MISSING);
+    }
+
+    $q = sprintf("SELECT * FROM users WHERE email='%s'",$db->real_escape_string($email));
+    if($r = $db->query($q))
+    {
+      if($r->num_rows > 0)
+      {
+        $userdata = $r->fetch_assoc();
+      }
+      $r->close();
+    }
+    else
+    {
+      return(_USER_DBERROR);
+    }
+
+    if($userdata['id'] == 0) return(_USER_UNKNOWN);
+
+    return(_USER_VALID);  
+  }
+
   /*****************************************************************************/
   /* This module allows access to the users table in the database              */
   /*****************************************************************************/
