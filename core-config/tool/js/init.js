@@ -19,7 +19,6 @@ $(document).ready(function() {
 
     for (const key in enumModalTypes) {
         if (enumModalTypes.hasOwnProperty(key)) {
-            console.log('EMAIL MODAL TYPES:', key);
             $('.input-modal-types').append('<option value="' + enumModalTypes[key] + '">' + enumModalTypes[key] + '</option>)');
         }
     }

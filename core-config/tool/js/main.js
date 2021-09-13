@@ -74,7 +74,6 @@ function updateListMenu(type) {
         case enumsConfigurator.ROUTE_ROUTES:
             $('.configurator-list-route-container').empty();
             for(var i=0;i<configRoutes.length;i++) {
-                console.log('COUNT:', i);
                 $('.configurator-list-route-container').append('<div class="configurator-list-row"><h2 class="configurator-list-header" onclick="openConfigureRoute(\'' + configRoutes[i].id +'\')">' + configRoutes[i].title + '</h2><div class="list-delete-button" onclick="deleteRow(\'routes\',\'' + configRoutes[i].id + '\')">X</div></div>');
             }
             break;
@@ -221,7 +220,7 @@ function openModal(type, data = '') {
             break;
         case enumsConfigurator.ADD_CONTENT:
             // TODO: Temp until upload is fixed
-            updateContentInputContainer(enumContentTypes.PDF);
+            updateContentInputContainer(enumContentTypes.EXTERNAL_LINK);
             $.fancybox.open({
                 src  : '#addContentModal',
                 type : 'inline',
@@ -239,6 +238,10 @@ function openModal(type, data = '') {
             $('#inputEditContentTitle').val(dataContent[data].title);
             $('#inputEditContentType').val(dataContent[data].type);
 
+            console.log('PATH:', dataContent[data], dataContent[data].path);
+            // TODO: this will change with upload fixes
+            $('#inputEditContentPath').val(dataContent[data].path);
+
             var inputVal = $("#inputEditContentType option:checked").val();
             if (inputVal == enumContentTypes.EXTERNAL_LINK || inputVal == enumContentTypes.IFRAME) {
                 $('#inputContentPathContianer').show();
@@ -250,6 +253,7 @@ function openModal(type, data = '') {
 
             $("#inputEditContentType").change(function () {
                 var inputVal = $("#inputEditContentType option:checked").val();
+
                 if (inputVal == enumContentTypes.EXTERNAL_LINK || inputVal == enumContentTypes.IFRAME) {
                     $('#inputContentPathContianer').show();
                 } else {

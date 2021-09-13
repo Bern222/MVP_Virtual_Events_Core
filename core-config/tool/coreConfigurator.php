@@ -278,7 +278,7 @@
             <div class="center-container">
                 <div class="list-header">
                     <h1 class="configurator-list-header">Modals</h1>
-                    <div class="plus-button" onclick="openModal('addModal')"></div>
+                    <div class="plus-button" onclick="openModal('addModalModal')"></div>
                 </div>
                 <div class="divider"></div>
                 <div class="configurator-list-modal-container">
@@ -341,6 +341,12 @@
                         <div id="configruatorElementConfigContainer" class="configurator-element-config">
                             <div class="small-header">Item Name</div>
                             <input id="inputElementName" class="input-header-default" onkeypress="clsAlphaNoOnly(event)" onpaste="return false;"></input>
+                            <div class="small-header">Icon</div>
+                            <select id="inputElementIcon" class="select-default" onchange="updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ICON, this.value)">
+                                <option value="none">None</option>
+                                <option value="icon-arrow">Arrow</option>
+                                <option value="icon-dot">Dot</option>
+                            </select>
                             <div class="rotate-slider">
                                 <div class="small-header">Rotate Item</div>
                                 <div id="rotateSlider"></div>
@@ -415,7 +421,10 @@
         </div>
 
         <div id="addContentModal" class="configurator-default-modal">
-            <h3>Add Content</h3>
+            <div class="list-header">
+                <h1 id="mainMenuItemModalHeader" class="configurator-list-header">Add Content Item</h1>
+            </div>
+            <div class="divider"></div>
             <table class="input-table-row">
                 <tr>
                     <td class="input-header">Name:</td>
@@ -450,7 +459,10 @@
         </div>
 
         <div id="editContentModal" class="configurator-default-modal">
-            <h3>Edit Content</h3>
+            <div class="list-header">
+                <h1 id="mainMenuItemModalHeader" class="configurator-list-header">Edit Content Item</h1>
+            </div>
+            <div class="divider"></div>
             <input id="inputContentKey" type="hidden"/>
             <table class="input-table-row">
                 <tr>

@@ -34,8 +34,8 @@ function fillInputs() {
     // updateActionParamInput(enumButtonActions.OPEN_ROUTE, 'routes');
 }
 
-function updateActionParamInput(actionData, newAction, type) {
-    console.log('UPDATE ACTION PARAMS INPUT:', actionData);
+function updateActionParamInput(actionData, newAction, type, update = true) {
+    console.log('UPDATE ACTION PARAMS INPUT:', actionData, newAction);
     switch(newAction) {
         case enumButtonActions.OPEN_ROUTE:
             refreshRouteSelect();
@@ -46,7 +46,7 @@ function updateActionParamInput(actionData, newAction, type) {
                 $(".select-route")[0].selectedIndex = 0;
             }
 
-            if (configRoutes && configRoutes.length > 0) {
+            if (update && configRoutes && configRoutes.length > 0) {
                 if (type == 'routes') {
                     updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, configRoutes[0].id);
                 } else {
@@ -59,10 +59,12 @@ function updateActionParamInput(actionData, newAction, type) {
         case enumButtonActions.OPEN_MODAL_IFRAME:
             refreshContentSelectDisplay(actionData, newAction);
 
-            if (type == 'routes') {
-                updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, actionData.actionParams);
-            } else {
-                updateCurrentMainMenuConfiguration(enumsConfigurator.MAIN_MENU_ACTION_DATA, actionData.actionParams);
+            if (update) {
+                if (type == 'routes') {
+                    updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, actionData.actionParams);
+                } else {
+                    updateCurrentMainMenuConfiguration(enumsConfigurator.MAIN_MENU_ACTION_DATA, actionData.actionParams);
+                }
             }
         break;
         case enumButtonActions.OPEN_MODAL_INLINE:
@@ -72,7 +74,7 @@ function updateActionParamInput(actionData, newAction, type) {
             } else {
                 $(".select-modal")[0].selectedIndex = 0;
             }
-            if (configRoutes && configRoutes.length > 0) {
+            if (update && configRoutes && configRoutes.length > 0) {
                 if (type == 'routes') {
                     updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, configRoutes[0].id);
                 } else {

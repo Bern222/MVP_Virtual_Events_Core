@@ -29,6 +29,7 @@ var enumsConfigurator = {
     ELEMENT_DELETE: 'elementDelete', 
     ELEMENT_CREATE: 'elementCreate',
     ELEMENT_ROTATE: 'elementRotate',
+    ELEMENT_ICON: 'elementIcon',
     ELEMENT_NAME: 'elementName',
     ELEMENT_BACKGROUND: 'elementBackground',
     ELEMENT_ACTION: 'elementAction',

@@ -78,6 +78,11 @@ function selectElement(elementId) {
 
         $('.configurator-element-config').show();
         $('.resize-element-remove').hide();
+        if(currentElement.icon) {
+            $('#inputElementIcon').val(currentElement.icon);
+        } else {
+            $('#inputElementIcon').val('none');
+        }
         $('#inputElementName').val(currentElement.title);
 
 
@@ -95,10 +100,13 @@ function selectElement(elementId) {
 
 
         // ACTION
-        console.log('ACTION:', currentElement.action, currentElement.actionParams);
+        console.log('ACTION:', currentElement);
         if(currentElement.action && currentElement.action != '') {
             $('.select-element-action').val(currentElement.action);
-            updateActionParamInput(currentElement, currentElement.action, 'routes');
+            if (currentElement.actionParams && currentElement.actionParams != '') {
+                // refreshContentSelectDisplay(currentElement, currentElement.action);
+                updateActionParamInput(currentElement, currentElement.action, 'routes', false);
+            }
         } else {
             resetActionParams();
         }

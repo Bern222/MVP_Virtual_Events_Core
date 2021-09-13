@@ -26,7 +26,6 @@ function getClickAction(elementObj) {
 				clickAction = 'openModalHtml(\'' + elementObj.actionParams.modalId + '\', \'' + elementObj.actionParams.html + '\')';
 			break;
 			case enumButtonActions.OPEN_MODAL_INLINE:
-				console.log('MODAL: ', elementObj);
 				clickAction = 'openModalInline(\'' + elementObj.actionParams + '\')';
 			break;
 			case enumButtonActions.OPEN_MODAL_VIDEO:

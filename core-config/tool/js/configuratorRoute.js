@@ -162,6 +162,11 @@ function updateCurrentRouteConfiguration(type, configData) {
                     currentRouteConfig.elements[currentElementIndex] = currentElement;
                 }
             break;
+            case enumsConfigurator.ELEMENT_ICON:
+                currentElement.icon = $('#inputElementIcon').val();
+                console.log('UPDATE CONFIG - Element Icon', $('#inputElementIcon').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
+                currentRouteConfig.elements[currentElementIndex] = currentElement;
+            break;
             case enumsConfigurator.ELEMENT_NAME:
                 console.log('UPDATE CONFIG - Element Name', $('#inputElementName').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
                 currentElement.title = $('#inputElementName').val();
@@ -178,7 +183,7 @@ function updateCurrentRouteConfiguration(type, configData) {
             case enumsConfigurator.ELEMENT_ACTION:
                 console.log('UPDATE CONFIG - Action', $('#selectElementAction').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
                 currentElement.action = $('#selectElementAction').val();
-                currentElement.actionParams = '';
+                // currentElement.actionParams = '';
                 currentRouteConfig.elements[currentElementIndex] = currentElement;
             break;
             case enumsConfigurator.ELEMENT_ACTION_DATA:

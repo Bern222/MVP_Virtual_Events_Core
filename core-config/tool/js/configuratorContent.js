@@ -13,11 +13,15 @@ function saveContent(type) {
         //TODO: Refactor once upload is fixed
         dataContent[key].path = $('#inputEditContentPath').val();
     } else {
-        dataContent[key].title = $('#inputAddContentTitle').val();
-        dataContent[key].type = $('#inputAddContentType').val();
+        var formattedContentKey = uuidv4();
 
         //TODO: Refactor once upload is fixed
-        dataContent[key].path = $('#inputAddContentPath').val();
+        var content = {
+            title: $('#inputAddContentTitle').val(),
+            type: $('#inputAddContentType').val(),
+            path: $('#inputAddContentPath').val()
+        }
+        dataContent[formattedContentKey] = content;
     }
 
     filteredContentArray = dataContent;
@@ -170,8 +174,11 @@ function updateContentInputContainer(value) {
             $('#pathInputContainer').show();
             break;
         default:
-            $('#uploadContainer').show();
-            $('#pathInputContainer').hide();
+            //TODO: Temp before upload is fixed
+            $('#uploadContainer').hide();
+            $('#pathInputContainer').show();
+            // $('#uploadContainer').show();
+            // $('#pathInputContainer').hide();
             break;
     }
 }
