@@ -1,8 +1,3 @@
-function addContent() {
-    
-
-}
-
 function saveContent(type) {
     var key = $('#inputContentKey').val();
 
@@ -52,7 +47,7 @@ function updateContentTable(type) {
             if (type && type == 'library') {
                 $('.content-library-table-body').append('<tr class="clickable-table-row" onclick="openModal(\'editContent\', \'' + key + '\')"><td>' + filteredContentArray[key].title + '</td><td>' + filteredContentArray[key].type + '</td><td>' + dataContent[key].path + '</td><td><div class="remove-button" onclick="event.stopPropagation(); openModal(\'deleteContent\', \'' + key + '\')">X</div></td></tr>');
             } else {
-                $('.content-library-table-body').append('<tr class="clickable-table-row" onclick="addSelectedContent(\'' + key + '\', \'' + type + '\');"><td>' + filteredContentArray[key].title + '</td><td>' + filteredContentArray[key].type + '</td><td>' + dataContent[key].path + '</td></tr>');
+                $('.content-library-table-body').append('<tr class="clickable-table-row" onclick="addSelectedContent(\'' + type + '\', \'' + key + '\');"><td>' + filteredContentArray[key].title + '</td><td>' + filteredContentArray[key].type + '</td><td>' + dataContent[key].path + '</td></tr>');
             }
 
         }
@@ -69,6 +64,18 @@ function getFilteredContent(type) {
             var curContent = dataContent[key];
         // for(var i=0; i<dataContent.length; i++) {
             switch(type) {
+                // TODO: Review the discrepency here
+                case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
+                case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
+                case enumContentTypes.IMAGE:
+                    if (curContent.type == enumContentTypes.IMAGE ||
+                        curContent.type == enumContentTypes.BACKGROUND ||
+                        curContent.type == enumContentTypes.WORD_DOC ||
+                        curContent.type == enumContentTypes.ICON ||
+                        curContent.type == enumContentTypes.THUMBNAIL) {
+                        returnContent[key] = curContent;
+                    }
+                    break;
                 case enumContentTypes.BACKGROUND:
                     if (curContent.type == type) {
                         returnContent[key] = curContent;
@@ -110,58 +117,86 @@ function selectContent(key) {
     curSelectedContent = key;
 }
 
-function addSelectedContent(data, type) {
+function addSelectedContent(type, data) {
     $.fancybox.close();
     console.log('SELECT CONTENT TYPE: ', data, type, currentRouteConfig);
 
-    var updateMethod = updateCurrentMainMenuConfiguration;
-    var updateEnum = enumsConfigurator.MAIN_MENU_ACTION_DATA;
+    var updateMethod;
+    var updateEnum;
     
-    if (currentRouteConfig && currentRouteConfig.elements) {
-        updateMethod = updateCurrentRouteConfiguration;
-        updateEnum = enumsConfigurator.ELEMENT_ACTION_DATA;
+    switch(currentRoute) {
+        case enumsConfigurator.ROUTE_LANDING:
+            break;
+        case enumsConfigurator.ROUTE_CONTENT_LIBRARY:
+            
+            break;
+        case enumsConfigurator.ROUTE_AUTHENTICATION:
+            
+            break;
+        case enumsConfigurator.ROUTE_MAIN_MENU:
+            updateMethod = updateCurrentMainMenuConfiguration;
+            updateEnum = enumsConfigurator.MAIN_MENU_ACTION_DATA;
+            break;
+        case enumsConfigurator.ROUTE_ROUTES:
+            break;
+        case enumsConfigurator.ROUTE_MODALS:
+            break;
+        case enumsConfigurator.ROUTE_ROUTE_CONFIGURATOR:
+            updateMethod = updateCurrentRouteConfiguration;
+            updateEnum = enumsConfigurator.ELEMENT_ACTION_DATA;
+            break;
+        case enumsConfigurator.ROUTE_MODAL_CONFIGURATOR:
+            break;
     }
 
+
+    // TODO: figure out where graphic image / hover belong in emums, messy code with image and hover
     switch(type) {
+        case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
+            console.log('current el', currentElement, dataContent[data]);
+            if (currentElement.graphic) {
+                if (currentElement.graphic.image) {
+                    currentElement.graphic.image = data;
+                } else {
+                    currentElement.graphic['image'] = data;
+                }
+            } else {
+                currentElement.graphic = {image: data};
+            }
+            console.log('current el 2', currentElement, dataContent[data]);
+            updateMethod(enumsConfigurator.ELEMENT_GRAPHIC_IMAGE, data);
+            break;
+        case enumsConfigurator.ELEMENT_GRAPHIC_HOVER:
+            if (currentElement.graphic) {
+                if (currentElement.graphic.hover) {
+                    currentElement.graphic.hover = data;
+                } else {
+                    currentElement.graphic['hover'] = data;
+                }
+            } else {
+                currentElement.graphic = {hover: data};
+            }
+            updateMethod(enumsConfigurator.ELEMENT_GRAPHIC_HOVER, data);
+            break;
+        
         case enumContentTypes.BACKGROUND:
-            updateMethod(enumsConfigurator.ELEMENT_BACKGROUND, data);
-            // updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_BACKGROUND, key);
+            updateMethod(enumsConfigurator.ROUTE_BACKGROUND, data);
             break;
         case enumButtonActions.OPEN_EXTERNAL_LINK:
         case enumButtonActions.OPEN_MODAL_VIDEO:
         case enumButtonActions.OPEN_MODAL_IFRAME:
             updateMethod(updateEnum, data);
-            // if (currentRouteConfig && currentRouteConfig != {}) {
-            //     updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, key);
-            // } else {
-            //     updateCurrentMainMenuConfiguration(enumsConfigurator.MAIN_MENU_ACTION_DATA, key);
-            // }
+          
             var actionObject = {
                 actionParams: data
             }
 
-
             refreshContentSelectDisplay(actionObject, type);
             break;
-        // case enumButtonActions.OPEN_MODAL_VIDEO:
-        //     updateMethod(enumsConfigurator.ELEMENT_ACTION_DATA, key);
-        //     // updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, key);
-        //     refreshContentSelectDisplay(type);
-        //     break;
-        // case enumButtonActions.OPEN_MODAL_IFRAME:
-        //     updateMethod(enumsConfigurator.ELEMENT_ACTION_DATA, key);
-        //     // updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, key);
-        //     refreshContentSelectDisplay(type);
-        //     break;
         case enumsConfigurator.ELEMENT_ACTION_DATA:
             updateMethod(updateEnum, data);
-            // updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, key);
             break;
     }
-}
-
-function refreshSelectContentModal(type) {
-    updateContentTable(type);
 }
 
 function updateContentInputContainer(value) {

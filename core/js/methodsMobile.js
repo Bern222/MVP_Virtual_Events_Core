@@ -27,7 +27,8 @@ function doOnOrientationChange() {
             break; 
         default:
             // Portrait
-            // $('#portraitBlock').show();
+            // $('#portraitBlock').hide();
+            $('#portraitBlock').show();
             
             //alert('Best viewed horizontally.  Please rotate your device.');
             break; 

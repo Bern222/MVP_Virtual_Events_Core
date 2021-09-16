@@ -121,7 +121,7 @@
                     <img src="images/logo_mvp_yellow.png"/>
                 </div>
                 <div class="configurator-landing-status-container"></div>
-                <div id="continueButton" class="default-button green-button hidden" onclick="window.open('coreConfigurator.php');">Good to go!</div>
+                <div id="continueButton" class="default-button green-button hidden" onclick="window.open('siteConfigurator.php');">Good to go!</div>
                 <div id="errorText" class="configurator-error-text hidden">Something went wrong, contact tech support (probably Mike or Ben)</div>
             </div>
         </div>

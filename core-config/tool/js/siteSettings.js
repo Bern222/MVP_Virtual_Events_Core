@@ -52,3 +52,7 @@ function saveSiteSettings() {
     showAlert(iconSuccess + ' Site Settings Saved');
 
 }
+
+function discardSiteSettings() {
+    // TODO: save original site settings
+}

@@ -63,7 +63,7 @@ function buildMainMenu() {
 				}
 
 
-				$('#headerMenu').append('<li><div ' + menuItemId + '" class="header-menu-item event-tracked"  ' + eventAttribute + ' onclick="' + clickAction + '" tabindex="1" role="menuitem">' + currentItem.displayText + '</div></li>');
+				$('#headerMenu').append('<li><div ' + menuItemId + ' class="header-menu-item event-tracked"  ' + eventAttribute + ' onclick="' + clickAction + '" tabindex="1" role="menuitem">' + currentItem.displayText + '</div></li>');
 			}
 
 			// TODO - NEED TO FIX AND REWORK WITH RIGHT MENU ABOVE
@@ -130,33 +130,33 @@ function buildRoute(routeObj) {
 		// Loop though elements, TODO Add portrait support / check
 		if (routeObj.elements && routeObj.elements.length > 0) {
 			
-			// Create the absolute button container
-			$('#' + routeObj.id + ' .route-relative-container').append('<div id="' + routeObj.id + 'AbsoluteContainer" class="absolute-button-container">');
+			// Create the absolute element container
+			$('#' + routeObj.id + ' .route-relative-container').append('<div id="' + routeObj.id + 'AbsoluteContainer" class="absolute-element-container">');
 
-			// Loop though the button objects
+			// Loop though the element objects
 			for (var i=0; i < routeObj.elements.length; i++) {
 
-				const elementId = routeObj.id + 'Button' + i;
+				const elementId = routeObj.id + 'Element' + i;
 				const elementObj = routeObj.elements[i];
 				const clickAction = getClickAction(elementObj);
 				const eventAttribute = getEventDataAttribute(routeObj.id, elementObj);
-				const iconHtml = getButtonIcon(elementObj);
+				const graphicHtml = getElementGraphic(elementObj);
 				const elementHtml = getButtonHtml(elementObj);
 				// Add the button div
-				$('#' + routeObj.id + 'AbsoluteContainer').append('<div id="' + elementId + '" class="absolute-button event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + iconHtml + elementHtml + '</div>');
+				$('#' + routeObj.id + 'AbsoluteContainer').append('<div id="' + elementId + '" class="absolute-element event-tracked" ' + eventAttribute + ' onclick="' + clickAction + '">' + graphicHtml + elementHtml + '</div>');
 				
 				addStyles(elementObj, elementId);
 			}
 
-			// Close the button container
+			// Close the element container
 			$('#' + routeObj.id + ' .route-relative-container').append('</div>');
 		}
 	
-		// Check for page buttons (TODO: seems redundant with above, look at combining these)
+		// Check for page elements (TODO: seems redundant with above, look at combining these)
 		if (routeObj.elements && routeObj.elements.pageButtons && routeObj.elements.pageButtons.length > 0) {
-			$('#' + routeObj.id).append('<div class="route-button-container"></div>');
+			$('#' + routeObj.id).append('<div class="route-element-container"></div>');
 
-			// Loop though page button objects
+			// Loop though page element objects
 			for (var i=0; i < routeObj.elements.pageButtons.length; i++) {
 				
 				const elementId = routeObj.id + 'PageButton' + i;
@@ -164,8 +164,8 @@ function buildRoute(routeObj) {
 				const clickAction = getClickAction(elementObj);
 				const eventDataAttribute = getEventDataAttribute(routeObj.id, elementObj);
 				
-				// Add the button div
-				$('#' + routeObj.id + ' .route-button-container').append('<div id="' + elementId + '" ' + eventDataAttribute + ' class="route-side-button" onclick="' + clickAction + '">' + elementObj.buttonText + '</div>');
+				// Add the element div
+				$('#' + routeObj.id + ' .route-element-container').append('<div id="' + elementId + '" ' + eventDataAttribute + ' class="route-side-element" onclick="' + clickAction + '">' + elementObj.buttonText + '</div>');
 				
 				addStyles(elementObj, elementId);
 			}
@@ -251,20 +251,38 @@ function addStyles(elementObj, elementId) {
 	}
 }
 
-function getButtonIcon(buttonObj) {
-	var iconHtml = '';
-	if (buttonObj && buttonObj.icon) {
-		switch(buttonObj.icon){
-			case 'icon-arrow':
-				iconHtml = '<div class="blob-container"><div class="blob blue"><i class="fa fa-mouse-pointer"></i></div></div>';
-			break;
-			case 'icon-dot':
-				iconHtml = '<div class="blob blue"></div>';
+
+// TODO: will be reworked once we have css icon manangement
+function getElementGraphic(elementObj) {
+	var graphicHtml = '';
+
+	if (elementObj && elementObj.graphic) {
+		if (typeof elementObj.graphic === 'string' || elementObj.graphic instanceof String) {
+			switch(elementObj.graphic){
+				case 'graphic-arrow':
+					graphicHtml = '<div class="graphic-center-container"><div class="blob blue"><i class="fa fa-mouse-pointer"></i></div></div>';
 				break;
+				case 'graphic-dot':
+					graphicHtml = '<div class="graphic-center-container"><div class="blob blue"></div></div>';	
+				break;
+				default:
+					graphicHtml = '';
+				break;
+			}
+		} else {
+			if (elementObj.graphic.image && elementObj.graphic.image.path) {
+				var srcHtml = '"src="' + elementObj.graphic.image.path + '"';
+				if (elementObj.graphic && elementObj.graphic.hover) {
+					srcHtml = 'data-alt-src="' + elementObj.graphic.hover.path + '" src="' + elementObj.graphic.image.path + '"';
+				}
+
+				graphicHtml = '<div class="graphic-center-container"><img class="full-width" ' + srcHtml + '/></div>';
+
+			}
 		}
 	}
 
-	return iconHtml;
+	return graphicHtml;
 }
 
 function getButtonHtml(buttonObj) {

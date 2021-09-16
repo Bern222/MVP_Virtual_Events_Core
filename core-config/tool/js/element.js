@@ -10,10 +10,7 @@ function addElement(element) {
 
     $("#rotateSlider").slider('value', 0);
 
-    // Create Unique id
-    var uuid = uuidv4();
-
-    var elementId = currentRouteConfig.id + 'Element' + uuid;
+    var elementId = currentRouteConfig.id + 'Element' + uuidv4();;
     var elementTitle = 'Element ' + currentRouteConfig.elements.length;
 
     if (element) {
@@ -24,7 +21,7 @@ function addElement(element) {
     // console.log('ADD ELEMENT: ', elementId, element);
 
     $('#elementContainer').append('<div id="' + elementId +'" class="resize-element" style="background: ' + randomColor() + '"><div>');
-    $('#' + elementId).append('<div class="resize-element-text noselect">' + elementTitle + '</div>');
+    $('#' + elementId).append('<div class="resize-element-container noselect">' + elementTitle + '</div>');
     $('#' + elementId).append('<div class="resize-element-remove" onclick="removeElement(\'' + elementId + '\')">X</div>');
 
     if (element && (element.classes || element.overrideCss)) {
@@ -79,9 +76,9 @@ function selectElement(elementId) {
         $('.configurator-element-config').show();
         $('.resize-element-remove').hide();
         if(currentElement.icon) {
-            $('#inputElementIcon').val(currentElement.icon);
+            $('#inputElementGraphic').val(currentElement.icon);
         } else {
-            $('#inputElementIcon').val('none');
+            $('#inputElementGraphic').val('none');
         }
         $('#inputElementName').val(currentElement.title);
 

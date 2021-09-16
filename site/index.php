@@ -18,23 +18,20 @@
 
     <!-- THIRD PARTY IMPORTS ------------------------------------------------------------------ -->
    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-190916547-88"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-190916547-8888"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
 
-        gtag('config', 'UA-190916547-88');
+        gtag('config', 'UA-190916547-8888');
     </script>
-
-
 
     <!-- JQuery -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-   
     <!-- Fancy Box -->
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>  
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
@@ -72,7 +69,7 @@
     <link rel="stylesheet" href="../core/css/route.css?<?php echo rand();?>" />
 
     <!-- LOCAL METHOD IMPORTS ------------------------------------------------------------------ -->
-    <script src="js/methodsLocalRouting.js?<?php echo rand();?>"></script>
+    <script src="js/methodsCoreCallbacks.js?<?php echo rand();?>"></script>
     <script src="js/methodsLocal.js?<?php echo rand();?>"></script>
 
     <!-- LOCAL STYLE IMPORTS ------------------------------------------------------------------ -->

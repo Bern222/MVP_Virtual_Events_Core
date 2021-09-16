@@ -18,6 +18,14 @@
     cursor: pointer;
 }
 
+.resize-element-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .resize-element-remove {
     cursor: pointer;
     position: absolute;

@@ -1,25 +1,32 @@
 $(document).ready(function () {
 	console.log('CONFIGS: ', configRoutes, configModals, configMainMenu, configSiteSettings, dataContent);
+
+	// CORE METHODS - Setup -------------------------------------------------------
+	// Core site setting and build methods 
+
+	// TODO: fix, Enables portrait lockout screen and messaging
+	$('#portraitBlock').hide();
+
 	if (configSiteSettings.enableLandscapeLock) {
-    	setupDeviceOrientation();
+    	// setupDeviceOrientation();
 	}
 
-  	// UPDATE SESSION: Update session call based on user interaction
-	var doUpdateSession = false;
-	window.addEventListener('click', function(event) {
-		doUpdateSession = true;
-	}, true);
+	// Set Site Title
+	if (configSiteSettings.title && configSiteSettings.title != '') {
+		document.title = configSiteSettings.title;
+	} else {
+		document.title = '';
+	}
 
-	setInterval( function() {
-		if (doUpdateSession) {
-			doUpdateSession = false;
-			updateSession();
-		}
-	}, configSiteSettings.updateSessionInterval);
+	// Google Analytics
+	if (configSiteSettings.keyGoogleAnalytics && configSiteSettings.keyGoogleAnalytics != '') {
+		setupGoogleAnalytics();
+	}
 
+	// Update session call based on user interaction
+	setupUpdateSession();
 
-
-	// CLOSE WINDOW WARNING: add listener for closing window
+	// Add listener for before closing window
     if (configSiteSettings.enableCloseWindowWarning) {
 	    window.addEventListener('beforeunload', beforeUnloadHandler, true);
     }
@@ -36,7 +43,6 @@ $(document).ready(function () {
 	// Build Main Menu from local config
 	buildMainMenu();
 
-
 	// Build Routes from core-config
 	for (var i=0;i<configRoutes.length;i++) {
 		buildRoute(configRoutes[i]);
@@ -47,9 +53,27 @@ $(document).ready(function () {
 		buildModal(configModals[i]);
 	}
 
+	// Handles the hover states of route elements
+	var sourceSwap = function () {
+		var $this = $(this);
+		var newSource = $this.data('alt-src');
+		$this.data('alt-src', $this.attr('src'));
+		$this.attr('src', newSource);
+	}
+	
+	$(function() {
+		$('img[data-alt-src]').each(function() { 
+			new Image().src = $(this).data('alt-src'); 
+		}).hover(sourceSwap, sourceSwap); 
+	});
+
+
+	// TODO: revisit why this doesn't always work
 	// Add event listener to .event-tracked class
 	// initEventListeners();
 
+
+	// Setup current route from config and navigate to the first page
 	currentRoute = configSiteSettings.startingRoute;
 	currentRouteIndex = configSiteSettings.startingRouteIndex;
 	if (currentRoute) {
@@ -57,6 +81,13 @@ $(document).ready(function () {
 	} else {
 		console.log('Starting Route not defined.')
 	}
+
+
+	// Local Methods -------------------------------------------
+	// Local and Override methods
+
+
+
 });
 
 
@@ -101,4 +132,27 @@ function updateSession() {
 
 		}
 	});
+}
+
+// Setups
+function setupUpdateSession() {
+	var doUpdateSession = false;
+	window.addEventListener('click', function(event) {
+		doUpdateSession = true;
+	}, true);
+
+	setInterval( function() {
+		if (doUpdateSession) {
+			doUpdateSession = false;
+			updateSession();
+		}
+	}, configSiteSettings.updateSessionInterval);
+}
+
+function setupGoogleAnalytics() {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', configSiteSettings.keyGoogleAnalytics);
 }

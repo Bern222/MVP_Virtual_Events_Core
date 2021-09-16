@@ -4,13 +4,29 @@ var curSelectedContent;
 
 
 function openConfigureRoute(routeId) {
+    hideElementGraphicInputs();
     currentConfigurationRouteId = routeId;
-    changeRoute(enumsConfigurator.ROUTE_ROUTE_CONFIGURATOR);
+    changeConfiguratorRoute(enumsConfigurator.ROUTE_ROUTE_CONFIGURATOR);
+}
+
+function inputElementGraphicChange(value) {
+    hideElementGraphicInputs();
+    switch(value) {
+        case 'graphic-custom':
+            $('.input-element-graphic-custom').show();
+        break;
+        case 'graphic-arrow':
+            updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_GRAPHIC, value);
+        break;
+        case 'graphic-dot':
+            updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_GRAPHIC, value);
+        break;
+    }
 }
 
 function addRoute() {
     var routeTitle = $('#inputAddRouteName').val();
-    var routeId = formatIdFromTitle(routeTitle);
+    var routeId = uuidv4();
 
     console.log('CHECK:', formatEnumKey(routeTitle), enumRoutes[formatEnumKey(routeTitle)], enumRoutes)
     if (!enumRoutes[formatEnumKey(routeTitle)]) {
@@ -51,44 +67,8 @@ function loadRouteConfiguration() {
     $('#configruatorElementConfigContainer').hide();
     $('#backgroundImage').attr('src', configuratorPath + defaultBackgroundPath);
 
-    refreshRouteVariables();
-    refreshBackground();
+    refreshDisplayConfiguratorRoute('all');
     refreshElements();
-
-}
-
-function refreshRouteVariables() {
-    $('#inputRouteName').val(currentRouteConfig.title);
-
-    if (currentRouteConfig.backgroundLandscape) {
-        $('#configuratorBackgroundTitle').html('<b>Title:</b> ' + currentRouteConfig.backgroundLandscape.title);
-        $('#configuratorBackgroundPath').html('<b>File Name:</b> ' + getFilename(currentRouteConfig.backgroundLandscape.path));
-    } else {
-        $('#configuratorBackgroundTitle').html('<b>No Background Selected</b>');
-        $('#configuratorBackgroundPath').html('');
-    }
-}
-
-
-function refreshBackground() {
-    var background = configuratorPath + defaultBackgroundPath;
-
-    // TODO ADD SUPPORT FOR PORTRAIT
-    if (currentRouteConfig.backgroundLandscape && currentRouteConfig.backgroundLandscape.path) {
-        background = configuratorPath + currentRouteConfig.backgroundLandscape.path;
-        
-    }
-    
-    $('#backgroundImage').attr('src', background);
-}
-
-function refreshElements() {
-    $('#elementContainer').empty();
-    if (currentRouteConfig.elements && currentRouteConfig.elements.length > 0) {
-        for(var i=0;i<currentRouteConfig.elements.length;i++) {
-            addElement(currentRouteConfig.elements[i]);
-        }
-    }
 }
 
 function saveRoute() {
@@ -120,10 +100,18 @@ function updateCurrentRouteConfiguration(type, configData) {
     $('#buttonSaveRoute').addClass('green-button');
     $('#buttonDiscardRoute').show();
 
-    
-    console.log('UPDATE CONFIG:', type, configData);
+    console.log('UPDATE ROUTE CONFIGDATA:', type, configData)
+
     // if (currentRouteConfig && currentElement) {
         switch(type) {
+            case enumsConfigurator.ROUTE_BACKGROUND: {
+                if (configData) {
+                    console.log('UPDATE CONFIG - Route Background', currentRouteConfig, configRoutes[currentRouteIndex]);
+                    currentRouteConfig.backgroundLandscape = dataContent[configData];
+                    updateBackground();
+                    refreshDisplayConfiguratorRoute('route');
+                }
+            }
             case enumsConfigurator.ELEMENT_CREATE:
                 if (configData) {
                     console.log('UPDATE CONFIG - Element Create', currentRouteConfig, configRoutes[currentRouteIndex]);
@@ -162,22 +150,32 @@ function updateCurrentRouteConfiguration(type, configData) {
                     currentRouteConfig.elements[currentElementIndex] = currentElement;
                 }
             break;
-            case enumsConfigurator.ELEMENT_ICON:
-                currentElement.icon = $('#inputElementIcon').val();
-                console.log('UPDATE CONFIG - Element Icon', $('#inputElementIcon').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
-                currentRouteConfig.elements[currentElementIndex] = currentElement;
-            break;
             case enumsConfigurator.ELEMENT_NAME:
                 console.log('UPDATE CONFIG - Element Name', $('#inputElementName').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
                 currentElement.title = $('#inputElementName').val();
                 currentRouteConfig.elements[currentElementIndex] = currentElement;
             break;
-            case enumsConfigurator.ELEMENT_BACKGROUND:
+            case enumsConfigurator.ELEMENT_GRAPHIC:
+                console.log('UPDATE CONFIG - Graphic', $('#inputElementGraphic').val());
+                currentElement.graphic = $('#inputElementGraphic').val();
+                console.log('UPDATE CONFIG - Element Graphic', $('#inputElementGraphic').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
+                currentRouteConfig.elements[currentElementIndex] = currentElement;
+            break;
+            case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
+                console.log('UPDATE CONFIG - Graphic Image', configData, currentElement, currentRouteConfig, configRoutes[currentRouteIndex]);
                 if (configData) {
-                    console.log('UPDATE CONFIG - Background', currentRouteConfig, configRoutes[currentRouteIndex]);
-                    currentRouteConfig.backgroundLandscape = dataContent[configData];
-                    refreshBackground();
-                    refreshRouteVariables();
+                    currentElement.graphic = configData;
+                    console.log('CONFIG DATA:', configData);
+                    currentRouteConfig.elements[currentElementIndex] = currentElement;
+                    refreshDisplayConfiguratorRoute('graphic');
+                }
+            break;
+            case enumsConfigurator.ELEMENT_GRAPHIC_HOVER:
+                console.log('UPDATE CONFIG - Graphic Hover', configData, currentElement, currentRouteConfig, configRoutes[currentRouteIndex]);
+                if (configData && configData.image) {
+                    // currentElement.graphic = configData;
+                    currentRouteConfig.elements[currentElementIndex] = currentElement;
+                    refreshDisplayConfiguratorRoute('graphic');
                 }
             break;
             case enumsConfigurator.ELEMENT_ACTION:
@@ -198,6 +196,73 @@ function updateCurrentRouteConfiguration(type, configData) {
     // }    
 }
 
+function refreshDisplayConfiguratorRoute(type) {
+    console.log('Refresh Graphic Display Start', currentElement, type);
+    switch (type) {
+        case 'all':
+            refreshDisplayConfiguratorRoute('route');
+            refreshDisplayConfiguratorRoute('background');
+            break;
+        case 'route':
+            $('#inputRouteName').val(currentRouteConfig.title);
 
+            if (currentRouteConfig.backgroundLandscape) {
+                $('#configuratorBackgroundTitle').html('<b>Title:</b> ' + currentRouteConfig.backgroundLandscape.title);
+                $('#configuratorBackgroundPath').html('<b>File Name:</b> ' + getFilename(currentRouteConfig.backgroundLandscape.path));
+            } else {
+                $('#configuratorBackgroundTitle').html('<b>No Background Selected</b>');
+                $('#configuratorBackgroundPath').html('');
+            }
+        break;
+        case 'background':
+            var background = configuratorPath + defaultBackgroundPath;
 
+            // TODO ADD SUPPORT FOR PORTRAIT
+            if (currentRouteConfig.backgroundLandscape && currentRouteConfig.backgroundLandscape.path) {
+                background = configuratorPath + currentRouteConfig.backgroundLandscape.path;
+                
+            }
+            
+            $('#backgroundImage').attr('src', background);
+        break;
+        case 'elements':
+            
+        break;
+        case 'graphic': 
 
+            console.log('Refresh Graphic Display', currentElement.graphic);
+
+            if (currentElement.graphic && currentElement.graphic.image) {
+                $('#configuratorGraphicImageTitle').html('<b>Title:</b> ' + dataContent[currentElement.graphic.image].title);
+                $('#configuratorGraphicImagePath').html('<b>File Name:</b> ' + getFilename(dataContent[currentElement.graphic.image].path));
+                $('#' + currentElement.id + ' .resize-element-container').html('<img class="full-width" src="' + dataContent[currentElement.graphic.image].path + '"/>');
+            } else {
+                $('#configuratorGraphicImageTitle').html('No Content Selected');
+                $('#configuratorGraphicImagePath').html('');
+            }
+
+            if (currentElement.graphic && currentElement.graphic.hover) {
+                $('#configuratorGraphicHoverTitle').html('<b>Title:</b> ' + dataContent[currentElement.graphic.hover].title);
+                $('#configuratorGraphicHoverPath').html('<b>File Name:</b> ' + getFilename(dataContent[currentElement.graphic.hover].path));
+                $('#' + currentElement.id + ' .resize-element-container').html('<img class="full-width" src="' + dataContent[currentElement.graphic.hover].path + '"/>');
+            } else {
+                $('#configuratorGraphicHoverTitle').html('No Content Selected');
+                $('#configuratorGraphicHoverPath').html('');
+            }
+        break;
+    }
+}
+
+function refreshElements() {
+    $('#elementContainer').empty();
+    if (currentRouteConfig.elements && currentRouteConfig.elements.length > 0) {
+        for(var i=0;i<currentRouteConfig.elements.length;i++) {
+            addElement(currentRouteConfig.elements[i]);
+        }
+    }
+}
+
+function hideElementGraphicInputs() {
+    // May have more down the road
+    $('.input-element-graphic-custom').hide();
+}

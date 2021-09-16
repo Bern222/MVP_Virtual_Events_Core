@@ -217,7 +217,7 @@ color: white;
 }
 
 .main-menu-gradient {
-    background: #fad51c;
+    background: #999999;
     color: white;
 }
 
@@ -297,6 +297,33 @@ color: white;
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* TODO: Move to Graphics css */
+.graphic-center-container {
+    opacity: 1;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.full-width {
+    width: 100%;
+}
+
 .blob {
 	display: flex;
     justify-content: center;
@@ -338,15 +365,6 @@ color: white;
         transform: scale(0.75);
         box-shadow: 0 0 0 0 rgb(52 172 224 / 0%);
 	}
-}
-
-.blob-container {
-    opacity: 1;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .fa {

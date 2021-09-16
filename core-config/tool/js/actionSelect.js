@@ -34,6 +34,12 @@ function fillInputs() {
     // updateActionParamInput(enumButtonActions.OPEN_ROUTE, 'routes');
 }
 
+function determineUpdateConfiguration() {
+
+}
+
+
+// TODO: this is clunky and confusing.  Needs to be rethought
 function updateActionParamInput(actionData, newAction, type, update = true) {
     console.log('UPDATE ACTION PARAMS INPUT:', actionData, newAction);
     switch(newAction) {
@@ -45,6 +51,10 @@ function updateActionParamInput(actionData, newAction, type, update = true) {
             } else {
                 $(".select-route")[0].selectedIndex = 0;
             }
+
+            // if (update) {
+            //     determineUpdateConfiguration();
+            // }
 
             if (update && configRoutes && configRoutes.length > 0) {
                 if (type == 'routes') {
@@ -85,28 +95,6 @@ function updateActionParamInput(actionData, newAction, type, update = true) {
         case enumButtonActions.OPEN_MODAL_HTML:
             // TODO
         break;
-        // case enumButtonActions.OPEN_MODAL_VIDEO:
-        //     refreshContentSelectDisplay(actionData, newAction);
-
-        //     if (configRoutes && configRoutes.length > 0) {
-        //         if (type == 'routes') {
-        //             updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, actionData.actionParams);
-        //         } else {
-        //             updateCurrentMainMenuConfiguration(enumsConfigurator.MAIN_MENU_ACTION_DATA, actionData.actionParams);
-        //         }
-        //     }
-        // break;
-        // case enumButtonActions.OPEN_MODAL_IFRAME:
-        //     refreshContentSelectDisplay(actionData, newAction);
-
-        //     if (configRoutes && configRoutes.length > 0) {
-        //         if (type == 'routes') {
-        //             updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, actionData.actionParams);
-        //         } else {
-        //             updateCurrentMainMenuConfiguration(enumsConfigurator.MAIN_MENU_ACTION_DATA, actionData.actionParams);
-        //         }
-        //     }
-        // break;
     }
 
     if (type == 'routes') {
@@ -141,6 +129,7 @@ function refreshRouteSelect(type = 'actionParams') {
        
     }
 
+    $('.select-route').empty();
     for(var i=0;i<configRoutes.length;i++) {
        $('.select-route').append('<option value="' + configRoutes[i].id + '">' + configRoutes[i].title + '</option>');
     }

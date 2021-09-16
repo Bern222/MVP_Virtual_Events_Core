@@ -3,7 +3,7 @@ var configSiteSettings = {
     startingRoute: 'exterior',
     startingRouteIndex: 0,
     
-    gaKey: '',
+    keyGoogleAnalytics: '',
     landscapeLockMessage: 'Best Viewed Horizontally',
     closeWindowMessage: 'Are you sure you want to close the site?',
     

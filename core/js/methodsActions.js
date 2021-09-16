@@ -55,16 +55,17 @@ function openExternalLink(url, linkName = '_blank') {
 function openModalInline(modalId, customDelayTime = 0) {
 	logEvent(currentRoute, enumButtonActions.OPEN_MODAL_INLINE + ' - ' + modalId);
 
-	defaultModalOpts.afterClose = function () {
-        onModalClose(modalId);
-    };
+	// TODO FIGURE OUT WHAT HAPPENED HERE
+	// defaultModalOpts.afterClose = function () {
+    //     onModalClose(modalId);
+    // };
 
     setTimeout(function() {
 		$.fancybox.open({
 			src  : '#' + modalId,
 			type : 'inline',
-			animationDuration: modalFadeTime,
-			opts : defaultModalOpts
+			animationDuration: configSiteSettings.modalFadeTime,
+			opts : configSiteSettings.defaultModalOpts
 		});
 	}, customDelayTime);
 }
@@ -83,7 +84,7 @@ function openModalVideo(videoUrl, customDelayTime = 1) {
             src  : videoUrl,
             type : 'video',
             opts : {
-                animationDuration: modalFadeTime,
+                animationDuration: configSiteSettings.modalFadeTime,
                 afterShow : function( instance, current ) {
                     var video = $('.fancybox-video')[0];
 
@@ -113,7 +114,7 @@ function openModalIframe(iframeUrl) {
             $.fancybox.open({
                 src  : iframeUrl,
                 type : 'iframe',
-                animationDuration: modalFadeTime
+                animationDuration: configSiteSettings.modalFadeTime
             });
         }, 100);
     }
@@ -139,7 +140,7 @@ function openProfile() {
 		$.fancybox.open({
 			src  : '#profileModal',
 			type : 'inline',
-			animationDuration: modalFadeTime,
+			animationDuration: configSiteSettings.modalFadeTime,
 			opts : {
 				beforeClose : function( instance, current ) {
 					// toggleUpdatePassword();
@@ -157,7 +158,7 @@ function openShare() {
 		$.fancybox.open({
 			src  : '#shareModal',
 			type : 'inline',
-			animationDuration: modalFadeTime,
+			animationDuration: configSiteSettings.modalFadeTime,
 			opts : {
 				touch: false
 			}

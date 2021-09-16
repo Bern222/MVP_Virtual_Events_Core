@@ -56,5 +56,5 @@ $(document).ready(function() {
     fillInputs();
 
 
-    changeRoute(enumsConfigurator.ROUTE_LANDING);
+    changeConfiguratorRoute(enumsConfigurator.ROUTE_LANDING);
 });

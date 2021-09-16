@@ -15,8 +15,8 @@ function loadModalConfiguration() {
     // $('#configruatorElementConfigContainer').hide();
     // $('#backgroundImage').attr('src', '');
 
-    // refreshRouteVariables();
-    // refreshBackground();
+    // refreshDisplayConfiguratorRoute('route');
+    // refreshDisplayConfiguratorRoute('background');
     // refreshElements();
 
 }
@@ -31,7 +31,7 @@ function openConfigureModal(index) {
 
 function addModal() {
     var modalTitle = $('#inputAddModalName').val();
-    var modalId = formatIdFromTitle(modalTitle);
+    var modalId = uuidv4();
 
     console.log('CHECK:', formatEnumKey(modalTitle), enumModals[formatEnumKey(modalTitle)], enumModals)
     if (!enumModals[formatEnumKey(modalTitle)]) {

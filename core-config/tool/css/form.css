@@ -19,6 +19,16 @@ textarea {
   font-size: 17px;
 }
 
+
+/* Layout */
+.form-indent-box {
+  background: gray;
+  padding: 15px;
+}
+
+
+
+
 /* The switch - the box around the slider */
 .switch {
     position: relative;

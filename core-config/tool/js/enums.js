@@ -1,6 +1,7 @@
 var enumsConfigurator = {
     ROUTE_LANDING: 'routeLanding',
     ROUTE_SITE_SETTINGS: 'routeSiteSettings',
+    ROUTE_AUTHENTICATION: 'routeAuthentication',
     ROUTE_CONTENT_LIBRARY: 'routeContentLibrary',
     ROUTE_MAIN_MENU: 'routeMainMenu',
     ROUTE_ROUTES: 'routeRoutes',
@@ -24,12 +25,17 @@ var enumsConfigurator = {
     ADD_MODAL: 'addModalModal',
     EDIT_MODAL: 'editModalModal',
 
+    DELETE_CUSTOM_FIELD: 'addModalModal',
+
+    ROUTE_BACKGROUND: 'routeBackground',
     ELEMENT_DRAG: 'elementDrag',
     ELEMENT_RESIZE: 'elementResize',
     ELEMENT_DELETE: 'elementDelete', 
     ELEMENT_CREATE: 'elementCreate',
     ELEMENT_ROTATE: 'elementRotate',
-    ELEMENT_ICON: 'elementIcon',
+    ELEMENT_GRAPHIC: 'elementGraphic',
+    ELEMENT_GRAPHIC_IMAGE: 'elementGraphicImage',
+    ELEMENT_GRAPHIC_HOVER: 'elementGraphicHover',
     ELEMENT_NAME: 'elementName',
     ELEMENT_BACKGROUND: 'elementBackground',
     ELEMENT_ACTION: 'elementAction',

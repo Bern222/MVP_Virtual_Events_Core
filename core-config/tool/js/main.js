@@ -3,6 +3,7 @@ var currentConfigurationRouteId = '';
 var currentConfigurationModalId = '';
 var currentKey = '';
 var configuratorPath = '../';
+var elementGraphicType = 'elementGraphicImage';
 
 // Status to track what needs to be published
 var updateStatus = {
@@ -23,7 +24,7 @@ var defaultBackgroundPath = 'content/images/backgrounds/default.jpg';
 
 var filteredContentArray = [];
 
-function changeRoute(route) {
+function changeConfiguratorRoute(route) {
     resetCurrentVars();
 
     $('#' + currentRoute).fadeTo(1,0);
@@ -35,6 +36,10 @@ function changeRoute(route) {
         case enumsConfigurator.ROUTE_CONTENT_LIBRARY:
             filteredContentArray = dataContent;
             updateContentTable('library');
+            break;
+        case enumsConfigurator.ROUTE_AUTHENTICATION:
+            // TODO: temp until config is attached.
+            updateAuthentication(enumAuthenticationTypes.NONE);
             break;
         case enumsConfigurator.ROUTE_MAIN_MENU:
             loadMainMenuConfiguration();
@@ -205,7 +210,7 @@ function openModal(type, data = '') {
             break;
         case enumsConfigurator.SELECT_CONTENT:
             filteredContentArray = getFilteredContent(data);
-            refreshSelectContentModal(data);
+            updateContentTable(data);
             $.fancybox.open({
                 src  : '#selectContentModal',
                 type : 'inline',
@@ -219,8 +224,12 @@ function openModal(type, data = '') {
             });
             break;
         case enumsConfigurator.ADD_CONTENT:
+            $('#inputAddContentTitle').val('');
+            $('#inputAddContentPath').val('');
+            $("#inputAddContentType")[0].selectedIndex = 0;
             // TODO: Temp until upload is fixed
             updateContentInputContainer(enumContentTypes.EXTERNAL_LINK);
+
             $.fancybox.open({
                 src  : '#addContentModal',
                 type : 'inline',
@@ -352,6 +361,10 @@ function openModal(type, data = '') {
                 afterClose: function() {
                 }
             });
+            break;
+        case enumsConfigurator.DELETE_CUSTOM_FIELD:
+            
+        
             break;
     }
 }

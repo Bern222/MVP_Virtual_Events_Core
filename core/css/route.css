@@ -9,8 +9,7 @@
 }
 
 .full-background-landscape {
-    /*  TODO HERE width: 100%; */
-    height: 100vh;
+    width: 100%;
 }
 
 .full-background-portrait {
@@ -21,8 +20,8 @@
     position: relative;
 }
 
-/* ABSOLUTE BUTTONS */
-.absolute-button-container {
+/* ABSOLUTE ELEMENTS */
+.absolute-element-container {
     position:absolute;
     top: 0;
     left: 0;
@@ -30,19 +29,19 @@
     height: 100%;
 }
 
-.absolute-button{
+.absolute-element{
     position: absolute;
     cursor: pointer;
 }
 
 /* SIDE BUTTONS */
-.route-button-container {
+.route-element-container {
     position: absolute;
     left: 0px;
     top: 75px;
 }
 
-.route-side-button {
+.route-side-element {
     cursor: pointer;
     background:rgba(0, 0, 0, .6);
     color: #ffffff;
