@@ -10,6 +10,26 @@ body {
 }
 
 
+/* Basic Layout */
+.centered-full {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.centered-horizontal {
+    display: flex;
+    justify-content: center;
+}
+
+.centered-vertical {
+    display: flex;
+    align-items: center;
+}
+
+.full-width {
+    width: 100%;
+}
 
 
 

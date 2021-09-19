@@ -62,6 +62,7 @@ function addElement(element) {
 }
 
 function selectElement(elementId) {
+    console.log('SELECT ELEMENT:', elementId, currentElement, currentRouteConfig);
     if (elementId && currentElement.id != elementId && elementId.includes(currentRouteConfig.id + "Element")) {
         for(var i=0;i<currentRouteConfig.elements.length;i++) {
             if (currentRouteConfig.elements[i].id == elementId) {
@@ -70,6 +71,7 @@ function selectElement(elementId) {
             }
         }
 
+        console.log('SELECT ELEMENT IN:', currentElement, currentElementIndex);
         $('#configruatorNoElementText').hide();
         $('#configruatorElementConfigContainer').show();
 

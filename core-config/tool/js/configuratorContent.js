@@ -66,7 +66,7 @@ function getFilteredContent(type) {
             switch(type) {
                 // TODO: Review the discrepency here
                 case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
-                case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
+                case enumsConfigurator.ELEMENT_GRAPHIC_HOVER:
                 case enumContentTypes.IMAGE:
                     if (curContent.type == enumContentTypes.IMAGE ||
                         curContent.type == enumContentTypes.BACKGROUND ||
@@ -119,7 +119,7 @@ function selectContent(key) {
 
 function addSelectedContent(type, data) {
     $.fancybox.close();
-    console.log('SELECT CONTENT TYPE: ', data, type, currentRouteConfig);
+    console.log('SELECT CONTENT TYPE: ', type, data, currentRouteConfig);
 
     var updateMethod;
     var updateEnum;
@@ -150,17 +150,25 @@ function addSelectedContent(type, data) {
     }
 
 
-    // TODO: figure out where graphic image / hover belong in emums, messy code with image and hover
+    // TODO: figure out where graphic image / hover belong in emums, messy code with image and hover, should be seperated
     switch(type) {
         case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
-            console.log('current el', currentElement, dataContent[data]);
+            console.log('current el', currentElement, currentElement.icon, dataContent[data]);
             if (currentElement.graphic) {
+
+                console.log('element graphic', currentElement, dataContent[data]);
+
                 if (currentElement.graphic.image) {
                     currentElement.graphic.image = data;
                 } else {
-                    currentElement.graphic['image'] = data;
+                    if (typeof currentElement.graphic === 'string' || currentElement.graphic instanceof String) {
+                        currentElement.graphic = {image: data}
+                    } else {
+                        currentElement.graphic['image'] = data;
+                    }
                 }
             } else {
+                console.log('element graphic 2', currentElement, currentElement.graphic, dataContent[data]);
                 currentElement.graphic = {image: data};
             }
             console.log('current el 2', currentElement, dataContent[data]);
@@ -171,7 +179,12 @@ function addSelectedContent(type, data) {
                 if (currentElement.graphic.hover) {
                     currentElement.graphic.hover = data;
                 } else {
-                    currentElement.graphic['hover'] = data;
+                    if (typeof currentElement.graphic === 'string' || currentElement.graphic instanceof String) {
+                        currentElement.graphic = {hover: data}
+                    } else {
+                        currentElement.graphic['hover'] = data;
+                    }
+                    
                 }
             } else {
                 currentElement.graphic = {hover: data};

@@ -4,31 +4,31 @@ const configMainMenu = {
         'main-menu-gradient'
     ],
     logo: {
-        imagePath: '../core-config/content/images/logos/logo.png',
+        imagePath: '../core-config/content/images/logo.png',
         action: '',
         actionParams: ''      
     },
     menuItems: [
-        {
-            displayText: 'EXTERIOR',
-            action: enumButtonActions.OPEN_ROUTE,
-            actionParams: enumRoutes.EXTERIOR
-        },
-        {
-            displayText: 'LOBBY',
-            action: enumButtonActions.OPEN_ROUTE,
-            actionParams: enumRoutes.LOBBY
-        },
-        {
-            displayText: 'LOGIN',
-            action: enumButtonActions.OPEN_ROUTE,
-            actionParams: enumRoutes.LOGIN
-        },
-        {
-            displayText: 'INFORMATION DESK',
-            action: enumButtonActions.OPEN_ROUTE,
-            actionParams: enumRoutes.INFORMATION_DESK
-        }
+        // {
+        //     displayText: 'EXTERIOR',
+        //     action: enumButtonActions.OPEN_ROUTE,
+        //     actionParams: enumRoutes.EXTERIOR
+        // },
+        // {
+        //     displayText: 'LOBBY',
+        //     action: enumButtonActions.OPEN_ROUTE,
+        //     actionParams: enumRoutes.LOBBY
+        // },
+        // {
+        //     displayText: 'LOGIN',
+        //     action: enumButtonActions.OPEN_ROUTE,
+        //     actionParams: enumRoutes.LOGIN
+        // },
+        // {
+        //     displayText: 'INFORMATION DESK',
+        //     action: enumButtonActions.OPEN_ROUTE,
+        //     actionParams: enumRoutes.INFORMATION_DESK
+        // }
     ]
     // rightMenu: {
     //     divider: {
@@ -43,4 +43,4 @@ const configMainMenu = {
     //         }
     //     ],
     // }
-}
+};

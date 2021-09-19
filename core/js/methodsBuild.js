@@ -256,8 +256,11 @@ function addStyles(elementObj, elementId) {
 function getElementGraphic(elementObj) {
 	var graphicHtml = '';
 
+	console.log('GET GRAPHIC', elementObj);
+
 	if (elementObj && elementObj.graphic) {
 		if (typeof elementObj.graphic === 'string' || elementObj.graphic instanceof String) {
+			console.log('GET GRAPHIC STRING', elementObj);
 			switch(elementObj.graphic){
 				case 'graphic-arrow':
 					graphicHtml = '<div class="graphic-center-container"><div class="blob blue"><i class="fa fa-mouse-pointer"></i></div></div>';
@@ -270,10 +273,12 @@ function getElementGraphic(elementObj) {
 				break;
 			}
 		} else {
-			if (elementObj.graphic.image && elementObj.graphic.image.path) {
+			console.log('GET GRAPHIC NOT STRING', elementObj);
+			if (elementObj.graphic.image && dataContent[elementObj.graphic.image] && dataContent[elementObj.graphic.image].path) {
+				console.log('GET GRAPHIC TRUE', elementObj);
 				var srcHtml = '"src="' + elementObj.graphic.image.path + '"';
-				if (elementObj.graphic && elementObj.graphic.hover) {
-					srcHtml = 'data-alt-src="' + elementObj.graphic.hover.path + '" src="' + elementObj.graphic.image.path + '"';
+				if (elementObj.graphic.hover && dataContent[elementObj.graphic.hover] && dataContent[elementObj.graphic.hover].path) {
+					srcHtml = 'data-alt-src="' + dataContent[elementObj.graphic.hover].path + '" src="' + dataContent[elementObj.graphic.image].path + '"';
 				}
 
 				graphicHtml = '<div class="graphic-center-container"><img class="full-width" ' + srcHtml + '/></div>';

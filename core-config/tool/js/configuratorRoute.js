@@ -108,8 +108,8 @@ function updateCurrentRouteConfiguration(type, configData) {
                 if (configData) {
                     console.log('UPDATE CONFIG - Route Background', currentRouteConfig, configRoutes[currentRouteIndex]);
                     currentRouteConfig.backgroundLandscape = dataContent[configData];
-                    updateBackground();
-                    refreshDisplayConfiguratorRoute('route');
+                    // updateBackground();
+                    refreshDisplayConfiguratorRoute('background');
                 }
             }
             case enumsConfigurator.ELEMENT_CREATE:
@@ -163,20 +163,13 @@ function updateCurrentRouteConfiguration(type, configData) {
             break;
             case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
                 console.log('UPDATE CONFIG - Graphic Image', configData, currentElement, currentRouteConfig, configRoutes[currentRouteIndex]);
-                if (configData) {
-                    currentElement.graphic = configData;
-                    console.log('CONFIG DATA:', configData);
-                    currentRouteConfig.elements[currentElementIndex] = currentElement;
-                    refreshDisplayConfiguratorRoute('graphic');
-                }
+                currentRouteConfig.elements[currentElementIndex] = currentElement;
+                refreshDisplayConfiguratorRoute('graphic');
             break;
             case enumsConfigurator.ELEMENT_GRAPHIC_HOVER:
                 console.log('UPDATE CONFIG - Graphic Hover', configData, currentElement, currentRouteConfig, configRoutes[currentRouteIndex]);
-                if (configData && configData.image) {
-                    // currentElement.graphic = configData;
-                    currentRouteConfig.elements[currentElementIndex] = currentElement;
-                    refreshDisplayConfiguratorRoute('graphic');
-                }
+                currentRouteConfig.elements[currentElementIndex] = currentElement;
+                refreshDisplayConfiguratorRoute('graphic');
             break;
             case enumsConfigurator.ELEMENT_ACTION:
                 console.log('UPDATE CONFIG - Action', $('#selectElementAction').val(), currentRouteConfig, configRoutes[currentRouteIndex]);
@@ -197,7 +190,7 @@ function updateCurrentRouteConfiguration(type, configData) {
 }
 
 function refreshDisplayConfiguratorRoute(type) {
-    console.log('Refresh Graphic Display Start', currentElement, type);
+    console.log('Refresh Graphic Display Start', currentElement, type, currentRouteConfig);
     switch (type) {
         case 'all':
             refreshDisplayConfiguratorRoute('route');
@@ -205,14 +198,6 @@ function refreshDisplayConfiguratorRoute(type) {
             break;
         case 'route':
             $('#inputRouteName').val(currentRouteConfig.title);
-
-            if (currentRouteConfig.backgroundLandscape) {
-                $('#configuratorBackgroundTitle').html('<b>Title:</b> ' + currentRouteConfig.backgroundLandscape.title);
-                $('#configuratorBackgroundPath').html('<b>File Name:</b> ' + getFilename(currentRouteConfig.backgroundLandscape.path));
-            } else {
-                $('#configuratorBackgroundTitle').html('<b>No Background Selected</b>');
-                $('#configuratorBackgroundPath').html('');
-            }
         break;
         case 'background':
             var background = configuratorPath + defaultBackgroundPath;
@@ -222,6 +207,20 @@ function refreshDisplayConfiguratorRoute(type) {
                 background = configuratorPath + currentRouteConfig.backgroundLandscape.path;
                 
             }
+
+            if (currentRouteConfig.backgroundLandscape) {
+                console.log('BG LAND: ', currentRouteConfig.backgroundLandscape, currentRouteConfig);
+                $('#configuratorBackgroundTitle').html('<b>Title:</b> ' + currentRouteConfig.backgroundLandscape.title);
+                $('#configuratorBackgroundPath').html('<b>File Name:</b> ' + getFilename(currentRouteConfig.backgroundLandscape.path));
+            } else {
+                console.log('BG LAND 2: ');
+
+                $('#configuratorBackgroundTitle').html('<b>No Background Selected - Using Default</b>');
+                $('#configuratorBackgroundPath').html('');
+                $('#backgroundImage').attr('src', '');
+            }
+
+            console.log('BACKGROUND', background);
             
             $('#backgroundImage').attr('src', background);
         break;
@@ -235,7 +234,7 @@ function refreshDisplayConfiguratorRoute(type) {
             if (currentElement.graphic && currentElement.graphic.image) {
                 $('#configuratorGraphicImageTitle').html('<b>Title:</b> ' + dataContent[currentElement.graphic.image].title);
                 $('#configuratorGraphicImagePath').html('<b>File Name:</b> ' + getFilename(dataContent[currentElement.graphic.image].path));
-                $('#' + currentElement.id + ' .resize-element-container').html('<img class="full-width" src="' + dataContent[currentElement.graphic.image].path + '"/>');
+                $('#' + currentElement.id + ' .resize-element-container').html('<img class="full-width" src="' + configuratorPath + dataContent[currentElement.graphic.image].path + '"/>');
             } else {
                 $('#configuratorGraphicImageTitle').html('No Content Selected');
                 $('#configuratorGraphicImagePath').html('');
@@ -244,7 +243,13 @@ function refreshDisplayConfiguratorRoute(type) {
             if (currentElement.graphic && currentElement.graphic.hover) {
                 $('#configuratorGraphicHoverTitle').html('<b>Title:</b> ' + dataContent[currentElement.graphic.hover].title);
                 $('#configuratorGraphicHoverPath').html('<b>File Name:</b> ' + getFilename(dataContent[currentElement.graphic.hover].path));
-                $('#' + currentElement.id + ' .resize-element-container').html('<img class="full-width" src="' + dataContent[currentElement.graphic.hover].path + '"/>');
+                
+                // TODO: look at adding hover to preview
+                // $('#' + currentElement.id + ' .resize-element-container').mouseenter(function() {
+                //         $(this).css("background", "#F00").css("border-radius", "3px");
+                //     }).mouseleave(function() {
+                //         $(this).css("background", "00F").css("border-radius", "0px");
+                //     });.html('<img class="full-width" src="' + configuratorPath + dataContent[currentElement.graphic.hover].path + '"/>');
             } else {
                 $('#configuratorGraphicHoverTitle').html('No Content Selected');
                 $('#configuratorGraphicHoverPath').html('');

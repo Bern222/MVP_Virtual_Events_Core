@@ -1,6 +1,6 @@
 var configSiteSettings = {
     title: '',
-    startingRoute: 'exterior',
+    startingRoute: '',
     startingRouteIndex: 0,
     
     keyGoogleAnalytics: '',
