@@ -41,11 +41,9 @@ function determineUpdateConfiguration() {
 
 // TODO: this is clunky and confusing.  Needs to be rethought
 function updateActionParamInput(actionData, newAction, type, update = true) {
-    console.log('UPDATE ACTION PARAMS INPUT:', actionData, newAction);
     switch(newAction) {
         case enumButtonActions.OPEN_ROUTE:
             refreshRouteSelect();
-            console.log('CURRENT ELEMENT ACTION PARAMS:', actionData);
             if(actionData.actionParams) {
                 $('.select-route').val(actionData.actionParams);
             } else {
@@ -118,7 +116,6 @@ function refreshRouteSelect(type = 'actionParams') {
 
         // $('#selectRoute').on('change', updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, this.value));
         $('.select-route').on('change', function() {
-            console.log('ROUTE CONFIG CHECK:', currentRouteConfig);
             if (currentRouteConfig && currentRouteConfig.elements) {
                 updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, this.value);
             } else if (currentMainMenuConfig){
@@ -141,7 +138,6 @@ function refreshModalInlineSelect(type) {
 
     // $('#selectRoute').on('change', updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, this.value));
     $('.select-modal').on('change', function() {
-        console.log('MODAL CONFIG CHECK:', type);
         if (type == 'routes') {
             updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_ACTION_DATA, this.value);
         } else {
@@ -155,7 +151,6 @@ function refreshModalInlineSelect(type) {
 }
 
 function refreshContentSelectDisplay(actionData, action) {
-    console.log('Refresh Select Display:', actionData, action);
     $('.action-params-container').empty();
 
     var title = '<b>No Content Selected</b>';

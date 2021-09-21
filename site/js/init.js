@@ -68,19 +68,64 @@ $(document).ready(function () {
 	});
 
 
+
+	// Adding Custom Code
+	createCustomAgenda();
+
+	var day = new Date().getDate() 
+	
+	if (day == 8) {
+		toggleAgenda('8');
+	} else {
+		toggleAgenda('9');
+	}
+
 	// TODO: revisit why this doesn't always work
 	// Add event listener to .event-tracked class
 	// initEventListeners();
 
-
 	// Setup current route from config and navigate to the first page
-	currentRoute = configSiteSettings.startingRoute;
-	currentRouteIndex = configSiteSettings.startingRouteIndex;
-	if (currentRoute) {
-		changeRoute(currentRoute);
-	} else {
-		console.log('Starting Route not defined.')
+	console.log('HASH NAVIGATION', configSiteSettings.enableHashNavigation);
+    if (configSiteSettings.enableHashNavigation && window.location.hash && window.location.hash.length > 1) {
+		
+        var route = window.location.hash.substring(1);   
+        console.log('HASH NAV: ', window.location.hash), route;
+		
+        currentRoute = route;
+        currentRouteIndex = configRoutes.findIndex(x => x.id === route);
+		window.onhashchange = locationHashChanged;
+
+        changeRoute(route);
+    } else {
+		currentRoute = configSiteSettings.startingRoute;
+		currentRouteIndex = configSiteSettings.startingRouteIndex;
+
+		if (configSiteSettings.enableHashNavigation) {
+			window.location.hash = currentRoute;
+			window.onhashchange = locationHashChanged;
+		}
+
+		if (currentRoute) {
+			changeRoute(currentRoute);
+		} else {
+			console.log('Starting Route not defined.')
+		}
 	}
+
+
+	function locationHashChanged() {  
+		var route = window.location.hash.substring(1);
+		console.log('Location:', route);
+
+		if (route != currentRoute) {
+			changeRoute(route);
+		}
+		// if (location.hash === "#somecoolfeature") {  
+		//   somecoolfeature();  
+		// }  
+	  }  
+
+	
 
 
 	// Local Methods -------------------------------------------

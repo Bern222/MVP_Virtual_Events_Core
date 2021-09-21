@@ -1,3 +1,70 @@
+/* Agenda Modal */
+.modal-blue {
+    background: rgba(33,84,159,0.7);
+}
+
+.agenda-header {
+    width: 79%;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+.agenda-box {
+    background: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-bottom: 29px;
+    padding: 20px;
+    display: flex;
+    background: #e9eef4;
+}
+
+.agenda-sessions-container {
+
+}
+
+.agenda-row {
+
+}
+
+.agenda-time-logo {
+    width: 50%;
+}
+
+.agenda-time-logo img {
+    width: 100%;
+}
+
+.agenda-information {
+
+}
+
+.agenda-date-button {
+    cursor: pointer;
+    padding: 5px 10px;
+    background: gray;
+    color: white;
+    border-radius: 7px;
+    margin: 10px;
+}
+
+.agenda-date-button-active {
+    background: #d70000 !important;
+}
+
+.agenda-description {
+
+}
+
+.agenda-link {
+
+}
+
+
+
+
+
 .modal-simple-list-item {
     transition: all .2s ease-in-out;
 }
@@ -156,7 +223,11 @@ color: white;
   
   /* Hide scrollbar for IE, Edge and Firefox */
 .default-modal {
-    max-width: 675px;
+    height: 80vh;
+    max-height: 80vh;
+    border-radius: 20px;
+    background: rgba(33,84,159,0.7) !important;
+    max-width: 1024px;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
 }

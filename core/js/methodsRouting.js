@@ -1,42 +1,34 @@
-$(document).ready(function () {
-    if(configSiteSettings.enableHashNavigation && window.location.hash && window.location.hash.length > 1) {
-        // changeRoute(window.location.hash);
-    }
-});
-
-
 function changeRoute(route) {
     console.log('ROUTE:', route, currentRoute);
-    if (configSiteSettings.enableHashNavigation) {
-        window.location.hash = route;
-    }    
+      
     logEvent(route, enumButtonActions.OPEN_ROUTE);
     const routeIndex = configRoutes.findIndex(x => x.id === route);
 
-    // if (routeIndex != currentRouteIndex) {
-        currentRouteIndex = routeIndex;
+    currentRouteIndex = routeIndex;
 
-        prepareRoute(route);
-        localRouteMethods(route);
-        
+    prepareRoute(route);
+    localRouteMethods(route);
+    console.log('ROUTE 2:', route, currentRoute);
 
-        // May need to be in a callback depending on local route methods
-        // Created transition to support other methods than fade
-        $('#' + route).show();
-        if (configRoutes[currentRouteIndex]) {
-            switch(configRoutes[currentRouteIndex].transition) {
-                case 'none':
-                    $('#' + route).fadeTo(0, 1);
-                    break;
-                default:
-                    $('#' + route).fadeTo(configSiteSettings.routeFadeTime, 1);
-                    break;
-            }    
-        } else {
-            $('#' + route).fadeTo(configSiteSettings.routeFadeTime, 1);
-        }
-        
-    // }
+    if (configSiteSettings.enableHashNavigation) {
+        window.location.hash = route;
+    }
+
+    // May need to be in a callback depending on local route methods
+    // Created transition to support other methods than fade
+    $('#' + route).show();
+    if (configRoutes[currentRouteIndex]) {
+        switch(configRoutes[currentRouteIndex].transition) {
+            case 'none':
+                $('#' + route).fadeTo(0, 1);
+                break;
+            default:
+                $('#' + route).fadeTo(configSiteSettings.routeFadeTime, 1);
+                break;
+        }    
+    } else {
+        $('#' + route).fadeTo(configSiteSettings.routeFadeTime, 1);
+    }  
 }
 
 function nextRoute() {
@@ -104,9 +96,6 @@ function prepareRoute(route) {
             currentRoute = route;
         }
     }
-
-
-    
 
     // TODO: Determine if this is CORE
     $('.header li div').removeClass('header-active');

@@ -132,7 +132,6 @@ function deleteRow(type, id) {
                     configRoutes.splice(i, 1);
                 }
             }
-            console.log('CONFIG ROUTES:', configRoutes);
             updateListMenu(enumsConfigurator.ROUTE_ROUTES);
             updateStatus.enumRoutes = true;
             updateStatus.configRoutes = true;
@@ -161,7 +160,6 @@ function deleteRow(type, id) {
 }
 
 function openModal(type, data = '') {
-    console.log('MODAL:', type);
     switch(type) {
         case enumsConfigurator.ADD_MAIN_MENU_ITEM:
             currentMainMenuItemIndex = -1;

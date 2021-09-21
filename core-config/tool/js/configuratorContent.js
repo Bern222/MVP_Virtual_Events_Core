@@ -119,7 +119,7 @@ function selectContent(key) {
 
 function addSelectedContent(type, data) {
     $.fancybox.close();
-    console.log('SELECT CONTENT TYPE: ', type, data, currentRouteConfig);
+    console.log('Add selected content: ', type, data, currentRouteConfig, currentRouteConfig.elements);
 
     var updateMethod;
     var updateEnum;
@@ -153,11 +153,7 @@ function addSelectedContent(type, data) {
     // TODO: figure out where graphic image / hover belong in emums, messy code with image and hover, should be seperated
     switch(type) {
         case enumsConfigurator.ELEMENT_GRAPHIC_IMAGE:
-            console.log('current el', currentElement, currentElement.icon, dataContent[data]);
             if (currentElement.graphic) {
-
-                console.log('element graphic', currentElement, dataContent[data]);
-
                 if (currentElement.graphic.image) {
                     currentElement.graphic.image = data;
                 } else {
@@ -168,10 +164,8 @@ function addSelectedContent(type, data) {
                     }
                 }
             } else {
-                console.log('element graphic 2', currentElement, currentElement.graphic, dataContent[data]);
                 currentElement.graphic = {image: data};
             }
-            console.log('current el 2', currentElement, dataContent[data]);
             updateMethod(enumsConfigurator.ELEMENT_GRAPHIC_IMAGE, data);
             break;
         case enumsConfigurator.ELEMENT_GRAPHIC_HOVER:

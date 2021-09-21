@@ -1,0 +1,3 @@
+const enumModals = {
+    AGENDA: 'agendaModal'
+};

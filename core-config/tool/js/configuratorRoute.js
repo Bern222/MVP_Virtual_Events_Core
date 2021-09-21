@@ -9,49 +9,6 @@ function openConfigureRoute(routeId) {
     changeConfiguratorRoute(enumsConfigurator.ROUTE_ROUTE_CONFIGURATOR);
 }
 
-function inputElementGraphicChange(value) {
-    hideElementGraphicInputs();
-    switch(value) {
-        case 'graphic-custom':
-            $('.input-element-graphic-custom').show();
-        break;
-        case 'graphic-arrow':
-            updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_GRAPHIC, value);
-        break;
-        case 'graphic-dot':
-            updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_GRAPHIC, value);
-        break;
-    }
-}
-
-function addRoute() {
-    var routeTitle = $('#inputAddRouteName').val();
-    var routeId = uuidv4();
-
-    console.log('CHECK:', formatEnumKey(routeTitle), enumRoutes[formatEnumKey(routeTitle)], enumRoutes)
-    if (!enumRoutes[formatEnumKey(routeTitle)]) {
-        enumRoutes[formatEnumKey(routeTitle)] = routeId;
-
-        configRoutes.push({
-            id: routeId,
-            title: routeTitle,
-            elements: []
-        });
-
-        updateStatus.enumRoutes = true;
-        updateStatus.configRoutes = true;
-        $('#publishButton').removeClass('disabled-button');
-        $('#publishButton').addClass('green-button');
-
-        console.log('ADD ROUTE:', configRoutes, enumRoutes);
-
-        updateListMenu(enumsConfigurator.ROUTE_ROUTES);
-        showAlert(iconSuccess + '"' + routeTitle + '" Page Created');
-    } else {
-        showAlert(iconFail + '"' + routeTitle + '" Already Exists');
-    }
-}
-
 function loadRouteConfiguration() {
     for(var i=0;i<configRoutes.length;i++) {
         if (configRoutes[i].id == currentConfigurationRouteId) {
@@ -67,8 +24,8 @@ function loadRouteConfiguration() {
     $('#configruatorElementConfigContainer').hide();
     $('#backgroundImage').attr('src', configuratorPath + defaultBackgroundPath);
 
-    refreshDisplayConfiguratorRoute('all');
     refreshElements();
+    refreshDisplayConfiguratorRoute('all');
 }
 
 function saveRoute() {
@@ -90,9 +47,47 @@ function discardRouteChanges() {
     $('#publishButton').removeClass('disabled-button');
     $('#publishButton').addClass('green-button');
 
-    console.log('HERE;', currentRouteConfig);
-
     loadRouteConfiguration();
+}
+
+function inputElementGraphicChange(value) {
+    hideElementGraphicInputs();
+    switch(value) {
+        case 'graphic-custom':
+            $('.input-element-graphic-custom').show();
+        break;
+        case 'graphic-arrow':
+            updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_GRAPHIC, value);
+        break;
+        case 'graphic-dot':
+            updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_GRAPHIC, value);
+        break;
+    }
+}
+
+function addRoute() {
+    var routeTitle = $('#inputAddRouteName').val();
+    var routeId = uuidv4();
+
+    if (!enumRoutes[formatEnumKey(routeTitle)]) {
+        enumRoutes[formatEnumKey(routeTitle)] = routeId;
+
+        configRoutes.push({
+            id: routeId,
+            title: routeTitle,
+            elements: []
+        });
+
+        updateStatus.enumRoutes = true;
+        updateStatus.configRoutes = true;
+        $('#publishButton').removeClass('disabled-button');
+        $('#publishButton').addClass('green-button');
+
+        updateListMenu(enumsConfigurator.ROUTE_ROUTES);
+        showAlert(iconSuccess + '"' + routeTitle + '" Page Created');
+    } else {
+        showAlert(iconFail + '"' + routeTitle + '" Already Exists');
+    }
 }
 
 function updateCurrentRouteConfiguration(type, configData) {
@@ -104,14 +99,14 @@ function updateCurrentRouteConfiguration(type, configData) {
 
     // if (currentRouteConfig && currentElement) {
         switch(type) {
-            case enumsConfigurator.ROUTE_BACKGROUND: {
+            case enumsConfigurator.ROUTE_BACKGROUND:
                 if (configData) {
                     console.log('UPDATE CONFIG - Route Background', currentRouteConfig, configRoutes[currentRouteIndex]);
                     currentRouteConfig.backgroundLandscape = dataContent[configData];
                     // updateBackground();
                     refreshDisplayConfiguratorRoute('background');
                 }
-            }
+            break;
             case enumsConfigurator.ELEMENT_CREATE:
                 if (configData) {
                     console.log('UPDATE CONFIG - Element Create', currentRouteConfig, configRoutes[currentRouteIndex]);
@@ -190,7 +185,6 @@ function updateCurrentRouteConfiguration(type, configData) {
 }
 
 function refreshDisplayConfiguratorRoute(type) {
-    console.log('Refresh Graphic Display Start', currentElement, type, currentRouteConfig);
     switch (type) {
         case 'all':
             refreshDisplayConfiguratorRoute('route');
@@ -209,18 +203,13 @@ function refreshDisplayConfiguratorRoute(type) {
             }
 
             if (currentRouteConfig.backgroundLandscape) {
-                console.log('BG LAND: ', currentRouteConfig.backgroundLandscape, currentRouteConfig);
                 $('#configuratorBackgroundTitle').html('<b>Title:</b> ' + currentRouteConfig.backgroundLandscape.title);
                 $('#configuratorBackgroundPath').html('<b>File Name:</b> ' + getFilename(currentRouteConfig.backgroundLandscape.path));
             } else {
-                console.log('BG LAND 2: ');
-
                 $('#configuratorBackgroundTitle').html('<b>No Background Selected - Using Default</b>');
                 $('#configuratorBackgroundPath').html('');
                 $('#backgroundImage').attr('src', '');
             }
-
-            console.log('BACKGROUND', background);
             
             $('#backgroundImage').attr('src', background);
         break;

@@ -34,21 +34,21 @@
 
 
         <!-- CONFIG ENUM IMPORTS ------------------------------------------------------------------ -->
-        <script src="../enums/enumRoutes.js?<?php echo rand();?>"></script>  
-        <script src="../enums/enumModals.js?<?php echo rand();?>"></script>  
-        <script src="../enums/enumEvents.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/enums/enumRoutes.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/enums/enumModals.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/enums/enumEvents.js?<?php echo rand();?>"></script>  
 
         <!-- CORE DATA IMPORTS ------------------------------------------------------------------ -->
-        <script src="../data/dataContent.js?<?php echo rand();?>"></script>
+        <script src="../config-data/adr/data/dataContent.js?<?php echo rand();?>"></script>
 
         <!-- CORE CONFIG IMPORTS ------------------------------------------------------------------ -->
-        <script src="../config/configSiteSettings.js?<?php echo rand();?>"></script>  
-        <script src="../config/configAuthentication.js?<?php echo rand();?>"></script>  
-        <script src="../config/configMainMenu.js?<?php echo rand();?>"></script>  
-        <script src="../config/configRoutes.js?<?php echo rand();?>"></script> 
-        <script src="../config/configModals.js?<?php echo rand();?>"></script>
-        <script src="../config/configNotifications.js?<?php echo rand();?>"></script>  
-        <script src="../config/configForms.js?<?php echo rand();?>"></script>
+        <script src="../config-data/adr/config/configSiteSettings.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/config/configAuthentication.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/config/configMainMenu.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/config/configRoutes.js?<?php echo rand();?>"></script> 
+        <script src="../config-data/adr/config/configModals.js?<?php echo rand();?>"></script>
+        <script src="../config-data/adr/config/configNotifications.js?<?php echo rand();?>"></script>  
+        <script src="../config-data/adr/config/configForms.js?<?php echo rand();?>"></script>
 
 
         <!-- CONFIGURATOR STYLE/SCRIPT -->
@@ -451,7 +451,7 @@
                                     <div class="plus-button" onclick="openModal(enumsConfigurator.SELECT_CONTENT, enumsConfigurator.ELEMENT_GRAPHIC_IMAGE)"></div>
                                 </div>
                                 <div id="configuratorGraphicImageTitle" class="indent"></div>
-                                <div id="configuratorGraphicImagePathPath" class="indent"></div>
+                                <div id="configuratorGraphicImagePath" class="indent"></div>
 
                                 <!-- Content Select - Custom Graphic Hover -->
                                 <div class="align-center">

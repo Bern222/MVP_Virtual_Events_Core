@@ -11,7 +11,6 @@ function getClickAction(elementObj) {
 			break;
 			case enumButtonActions.OPEN_EXTERNAL_LINK:
 				var linkName = '_blank';
-				console.log('HERE:', elementObj);
 				if (elementObj.actionParams) {
 					if (elementObj.actionParams.name) {
 						linkName = elementObj.actionParams.name;

@@ -1,6 +1,7 @@
 var currentSiteSettings;
 
 function loadSiteSettings() {
+    console.log('Starting Page', configSiteSettings.startingRoute);
     $('#inputSiteSettingsTitle').val(configSiteSettings.title);
     $('#inputSiteSettingsStartingPage').val(configSiteSettings.startingRoute);
     $('#inputSiteSettingsRouteFadeTime').val(configSiteSettings.routeFadeTime);
@@ -10,10 +11,12 @@ function loadSiteSettings() {
     $('#inputSiteSettingsEventLogging').prop('checked', configSiteSettings.enableEventLogging);
     $('#inputSiteSettingsForceRefresh').prop('checked', configSiteSettings.enableForceRefresh);
     $('#inputSiteSettingsForceRefreshInterval').val(configSiteSettings.forceRefreshInterval);
-    $('#inputSiteSettingsCloseWindowWarning').prop(configSiteSettings.enableCloseWindowWarning);
+    $('#inputSiteSettingsCloseWindowWarning').prop('checked', configSiteSettings.enableCloseWindowWarning);
     $('#inputSiteSettingsCloseWindowMessage').val(configSiteSettings.closeWindowMessage);
-    $('#inputSiteSettingsHashNavigation').prop(configSiteSettings.enableHashNavigation);
+    $('#inputSiteSettingsHashNavigation').prop('checked', configSiteSettings.enableHashNavigation);
     $('#inputSiteSettingsGA').val(configSiteSettings.gaKey);
+
+    console.log('SITE SETTINGS:', configSiteSettings);
 }
 
 function saveSiteSettings() {
@@ -22,13 +25,13 @@ function saveSiteSettings() {
         startingRoute: $('#inputSiteSettingsStartingPage').val(),
         routeFadeTime: $('#inputSiteSettingsRouteFadeTime').val(),
         modalFadeTime: $('#inputSiteSettingsModalFadeTime').val(),
-        enableLandscapeLock: $('#inputSiteSettingsLandscapeLock').val(),
+        enableLandscapeLock: $('#inputSiteSettingsLandscapeLock').prop('checked'),
         landscapeLockMessage: $('#inputSiteSettingsLandscapeMessage').val(),
-        enableEventLogging: $('#inputSiteSettingsEventLogging').val(),
-        enableForceRefresh: $('#inputSiteSettingsForceRefresh').val(),
-        enableCloseWindowWarning: $('#inputSiteSettingsCloseWindowWarning').val(),
+        enableEventLogging: $('#inputSiteSettingsEventLogging').prop('checked'),
+        enableForceRefresh: $('#inputSiteSettingsForceRefresh').prop('checked'),
+        enableCloseWindowWarning: $('#inputSiteSettingsCloseWindowWarning').prop('checked'),
         closeWindowMessage: $('#inputSiteSettingsCloseWindowMessage').val(),
-        enableHashNavigation: $('#inputSiteSettingsHashNavigation').val(),
+        enableHashNavigation: $('#inputSiteSettingsHashNavigation').prop('checked'),
         gaKey: $('#inputSiteSettingsGA').val(),
         forceRefreshInterval: $('#inputSiteSettingsForceRefreshInterval').val(),
     

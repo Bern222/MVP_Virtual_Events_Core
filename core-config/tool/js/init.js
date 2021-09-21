@@ -1,6 +1,7 @@
 $(document).ready(function() {
-    loadSiteSettings();
     refreshRouteSelect('initalLoad');
+
+    loadSiteSettings();
 
     $('#buttonDiscardRoute').hide();
 
@@ -35,9 +36,11 @@ $(document).ready(function() {
         slide: updateRotation
     });
 
-    $(window).mousedown(function(event){
-        selectElement(event.target.id);
-    });
+
+    // $(window).mousedown(function(event){
+    //     console.log('EVENT:', event);
+    //     selectElement(event.target.id);
+    // });
     $(window).mouseup(function(event){
         // updateRotation();
         // getCss();

@@ -7,7 +7,7 @@ $(document).ready(function() {
 });
 
 function addElement(element) {
-
+    console.log('ADD ELEMENT');
     $("#rotateSlider").slider('value', 0);
 
     var elementId = currentRouteConfig.id + 'Element' + uuidv4();;
@@ -20,14 +20,22 @@ function addElement(element) {
 
     // console.log('ADD ELEMENT: ', elementId, element);
 
-    $('#elementContainer').append('<div id="' + elementId +'" class="resize-element" style="background: ' + randomColor() + '"><div>');
+    $('#elementContainer').append('<div id="' + elementId +'" class="resize-element" style="background: ' + randomColor() + '" onclick="selectElement(\'' + elementId + '\')"><div>');
     $('#' + elementId).append('<div class="resize-element-container noselect">' + elementTitle + '</div>');
     $('#' + elementId).append('<div class="resize-element-remove" onclick="removeElement(\'' + elementId + '\')">X</div>');
+    
+    if (element) {
+        console.log('ELEMENT: ', element);
 
-    if (element && (element.classes || element.overrideCss)) {
-        addStyles(element, elementId);
+        if (element.graphic && element.graphic.image) {
+            $('#' + elementId + ' .resize-element-container').html('<img class="full-width" src="' + configuratorPath + dataContent[element.graphic.image].path + '"/>');
+        }
+
+        if (element.classes || element.overrideCss) {
+            addStyles(element, elementId);
+        }
     }
-
+    
     $("#" + elementId).draggable({
         containment: "#backgroundImage",
         start: function( event, ui ) {
@@ -50,19 +58,18 @@ function addElement(element) {
     });
 
     
-    if(!element) {
+    if (!element) {
         // var elementLength = currentRouteConfig.elements.length - 1;
         // currentElement = currentRouteConfig.elements[elementLength];
         // currentElementIndex = elementLength;
         updateCurrentRouteConfiguration(enumsConfigurator.ELEMENT_CREATE, elementId);
         selectElement(elementId);
-            
     }
 
 }
 
 function selectElement(elementId) {
-    console.log('SELECT ELEMENT:', elementId, currentElement, currentRouteConfig);
+    console.log('SELECT ELEMENT LISTENER -  ID:', elementId)
     if (elementId && currentElement.id != elementId && elementId.includes(currentRouteConfig.id + "Element")) {
         for(var i=0;i<currentRouteConfig.elements.length;i++) {
             if (currentRouteConfig.elements[i].id == elementId) {
@@ -71,16 +78,24 @@ function selectElement(elementId) {
             }
         }
 
-        console.log('SELECT ELEMENT IN:', currentElement, currentElementIndex);
         $('#configruatorNoElementText').hide();
         $('#configruatorElementConfigContainer').show();
 
         $('.configurator-element-config').show();
         $('.resize-element-remove').hide();
-        if(currentElement.icon) {
-            $('#inputElementGraphic').val(currentElement.icon);
+
+        
+        if (currentElement.graphic && currentElement.graphic.image && currentElement.graphic.image != '') {
+            $('#inputElementGraphic').val('graphic-custom');
+            $('.input-element-graphic-custom').show();
+            refreshDisplayConfiguratorRoute('graphic');
         } else {
-            $('#inputElementGraphic').val('none');
+            if (typeof currentElement.graphic === 'string' || currentElement.graphic instanceof String) {
+                $('#inputElementGraphic').val(currentElement.graphic);
+            } else {
+                $('#inputElementGraphic').val('none');
+
+            }
         }
         $('#inputElementName').val(currentElement.title);
 
@@ -99,7 +114,6 @@ function selectElement(elementId) {
 
 
         // ACTION
-        console.log('ACTION:', currentElement);
         if(currentElement.action && currentElement.action != '') {
             $('.select-element-action').val(currentElement.action);
             if (currentElement.actionParams && currentElement.actionParams != '') {

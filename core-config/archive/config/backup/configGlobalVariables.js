@@ -29,7 +29,7 @@ var currentAutoPlayVideoTimeout;
 var currentUser =  {id: -1, email: ''};
 
 // TODO: Revisit these
-var currentRoute = enumRoutes.LOGIN;  // ALSO DEFAULT ROUTE ON LOAD UNLESS SENT IN GET VAR (TODO NEED TO ADD THIS BACK)
+var currentRoute;  // ALSO DEFAULT ROUTE ON LOAD UNLESS SENT IN GET VAR (TODO NEED TO ADD THIS BACK)
 var currentRouteIndex = 0;
 
 var isMobile = false;

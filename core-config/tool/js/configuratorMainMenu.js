@@ -9,12 +9,10 @@ function loadMainMenuConfiguration() {
 function openConfigureMainMenu(index) {
     currentMainMenuItemIndex = index;
     currentMainMenuItem = configMainMenu.menuItems[index];
-    console.log('OPEN MAIN MENU:', currentMainMenuItem );
     openModal(enumsConfigurator.EDIT_MAIN_MENU_ITEM, index);
 }
 
 function saveMainMenuItem() {
-    console.log('SAVE: ', currentMainMenuItem);
     if(currentMainMenuItem != {}) {
         if ($("#inputMainMenuDisplayText").val() != '') {
             currentMainMenuItem.displayText = $("#inputMainMenuDisplayText").val();
@@ -24,7 +22,6 @@ function saveMainMenuItem() {
                 configMainMenu.menuItems.push(currentMainMenuItem);
             }
             updateStatus.configMainMenu = true;
-            console.log('CURRENT MAIN MENU ITEM SAVE:', currentMainMenuItem, currentMainMenuItemIndex, configMainMenu);
             $('#publishButton').removeClass('disabled-button');
             $('#publishButton').addClass('green-button');
             showAlert('Main Menu Item Saved!');

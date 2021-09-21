@@ -1,7 +1,5 @@
 function buildMainMenu() {
 	try {
-		// console.log('MM Config', configMainMenu);
-
 		if (configMainMenu) {
 			
 			addStyles(configMainMenu, 'mainMenuContainer');
@@ -50,11 +48,9 @@ function buildMainMenu() {
 
 			$('#mainMenuContainer').append('<ul id="headerMenu" class="header-menu"></ul>');
 
-			console.log('MAIN MENU LENGTH:', configMainMenu.menuItems);
 			for (var i=0; i<configMainMenu.menuItems.length; i++) {
 				currentItem = configMainMenu.menuItems[i];
 				clickAction = getClickAction(currentItem);
-				console.log('CURRENTITEM:', currentItem, clickAction);
 				eventAttribute = getEventDataAttribute(enumRoutes.MAIN_MENU, currentItem);
 
 				var menuItemId = '';
@@ -95,8 +91,6 @@ function buildMainMenu() {
 
 function buildRoute(routeObj) {
 	try {	
-		// console.log('RouteOBJ:', routeObj);
-
 		$('#routeContainer').append('<div id="' + routeObj.id + '" class="route-fullscreen">');
 		$('#' + routeObj.id).append('<div id="" class="route-relative-container">');
 
@@ -182,7 +176,6 @@ function buildRoute(routeObj) {
 
 function buildModal(modalObj) {
 	try {
-		console.log('MODAL OBJ:', modalObj);
 		$('#modalContainer').append('<div id="' + modalObj.id + '" class="default-modal">');
 		
 		if (modalObj.type != enumModalTypes.HTML) {
@@ -256,11 +249,8 @@ function addStyles(elementObj, elementId) {
 function getElementGraphic(elementObj) {
 	var graphicHtml = '';
 
-	console.log('GET GRAPHIC', elementObj);
-
 	if (elementObj && elementObj.graphic) {
 		if (typeof elementObj.graphic === 'string' || elementObj.graphic instanceof String) {
-			console.log('GET GRAPHIC STRING', elementObj);
 			switch(elementObj.graphic){
 				case 'graphic-arrow':
 					graphicHtml = '<div class="graphic-center-container"><div class="blob blue"><i class="fa fa-mouse-pointer"></i></div></div>';
@@ -273,9 +263,7 @@ function getElementGraphic(elementObj) {
 				break;
 			}
 		} else {
-			console.log('GET GRAPHIC NOT STRING', elementObj);
 			if (elementObj.graphic.image && dataContent[elementObj.graphic.image] && dataContent[elementObj.graphic.image].path) {
-				console.log('GET GRAPHIC TRUE', elementObj);
 				var srcHtml = '"src="' + elementObj.graphic.image.path + '"';
 				if (elementObj.graphic.hover && dataContent[elementObj.graphic.hover] && dataContent[elementObj.graphic.hover].path) {
 					srcHtml = 'data-alt-src="' + dataContent[elementObj.graphic.hover].path + '" src="' + dataContent[elementObj.graphic.image].path + '"';

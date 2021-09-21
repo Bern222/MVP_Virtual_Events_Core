@@ -1,5 +1,5 @@
 var configSiteSettings = {
-    title: '',
+    title: 'Test Title',
     startingRoute: '',
     startingRouteIndex: 0,
     
@@ -11,7 +11,7 @@ var configSiteSettings = {
     enableEventLogging: true,
     enableForceRefresh: false,
     enableCloseWindowWarning: false,
-    enableHashNavigation: false,
+    enableHashNavigation: true,
 
 
     forceRefreshInterval: 60000,
